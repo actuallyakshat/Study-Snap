@@ -6,7 +6,6 @@ import { loadingAtom } from "./Utils/Store";
 import { useAtomValue } from "jotai";
 function App() {
   const isLoading = useAtomValue(loadingAtom);
-  console.log("main loading: ", isLoading);
   return (
     <div className="font-Poppins flex flex-col items-center min-h-screen h-full w-full bg-spaceBlack text-white">
       <Toaster />

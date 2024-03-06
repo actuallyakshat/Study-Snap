@@ -1,5 +1,5 @@
-import { Reorder } from "framer-motion";
-import { useEffect, useState } from "react";
+import { Reorder, AnimatePresence } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 import { Todo } from "./Todo";
 import { Inputbar } from "./Inputbar";
 import { useAtomValue } from "jotai";
@@ -11,9 +11,18 @@ export const TodoLayout = () => {
   const user = useAtomValue(userAtom);
   const [items, setItems] = useState(user && user.todos);
   const [updating, setUpdating] = useState(false);
+  const inputRef = useRef(null);
+  console.log(items);
+
   useEffect(() => {
     if (user) setItems(user.todos);
   }, [user]);
+
+  const handleUpdateClick = (title) => {
+    setUpdating(true);
+    inputRef.current.value = title;
+    inputRef.current.focus();
+  };
 
   return (
     <div className="relative h-full bg-TodoBg bg-cover flex justify-center">
@@ -24,6 +33,7 @@ export const TodoLayout = () => {
           </h1>
           <InspirationalQuote />
           <Inputbar
+            inputRef={inputRef}
             user={user}
             items={items}
             updating={updating}
@@ -31,21 +41,28 @@ export const TodoLayout = () => {
             setUpdating={setUpdating}
           />
           {items && (
-            <Reorder.Group as="ul" axis="y" values={items} onReorder={setItems}>
-              <div className="space-y-3">
-                {items.map((item) => (
-                  <Reorder.Item key={item._id} value={item}>
+            <AnimatePresence>
+              <Reorder.Group
+                as="ul"
+                axis="y"
+                values={items}
+                onReorder={setItems}
+              >
+                <div className="space-y-3">
+                  {items.map((item) => (
                     <Todo
+                      key={item._id}
                       item={item}
                       setItems={setItems}
                       user={user}
                       updating={updating}
                       setUpdating={setUpdating}
+                      handleUpdateClick={handleUpdateClick}
                     />
-                  </Reorder.Item>
-                ))}
-              </div>
-            </Reorder.Group>
+                  ))}
+                </div>
+              </Reorder.Group>
+            </AnimatePresence>
           )}
         </div>
       </div>

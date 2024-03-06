@@ -1,7 +1,7 @@
 import axios from "axios";
 const baseUrl = "http://localhost:8000/api/v1/todo";
 
-const createTodo = async (task, user) => {
+const createTodo = async (task, user, order) => {
   try {
     if (!user) {
       console.error("Null User Error");
@@ -14,6 +14,7 @@ const createTodo = async (task, user) => {
       {
         task,
         auth0Id,
+        order,
       },
       {
         headers: {
