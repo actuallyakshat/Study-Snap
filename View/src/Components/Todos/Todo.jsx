@@ -30,9 +30,9 @@ export const Todo = ({ item, setItems, user, handleUpdateClick }) => {
       dragControls={controls}
     >
       <div className="select-none transition-colors text-md h-10 text-black px-3 rounded-lg bg-gray-200 hover:bg-gray-300 active:bg-slate-200">
-        {/* <div className="flex items-center bg-black justify-between gap-2"> */}
         <div className="gap-2 h-full flex-1 flex items-center">
           <div
+            style={{ touchAction: "none" }}
             onPointerDown={(e) => controls.start(e)}
             className="cursor-grab active:cursor-grabbing"
           >
@@ -73,7 +73,6 @@ export const Todo = ({ item, setItems, user, handleUpdateClick }) => {
             </div>
           </div>
         </div>
-        {/* </div> */}
       </div>
     </Reorder.Item>
   );

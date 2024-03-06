@@ -94,7 +94,7 @@ const deleteTodo = async (req, res) => {
 const reorderTodo = async (req, res) => {
   try {
     const newOrder = req.body.newOrder;
-
+    console.log(newOrder);
     await Promise.all(
       newOrder.map(async (todoId, index) => {
         await Todo.updateOne({ _id: todoId }, { $set: { order: index } });
@@ -113,4 +113,5 @@ module.exports = {
   createTodo,
   updateTodo,
   deleteTodo,
+  reorderTodo,
 };

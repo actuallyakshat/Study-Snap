@@ -51,4 +51,24 @@ const deleteTodo = async (todoId, user) => {
   }
 };
 
-export { createTodo, deleteTodo };
+const reorderTodos = async (user, newOrder) => {
+  try {
+    const token = user.token;
+    const response = await axios.put(
+      `${baseUrl}/update-order`,
+      { newOrder }, // Send newOrder directly as the request body
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    console.log(response);
+    return response;
+  } catch (error) {
+    console.error("Error reordering todos:", error);
+    throw error;
+  }
+};
+
+export { createTodo, deleteTodo, reorderTodos };

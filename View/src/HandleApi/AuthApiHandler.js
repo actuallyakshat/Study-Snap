@@ -7,7 +7,6 @@ const getUserDetails = async (user) => {
       console.error("Null User Error");
       return;
     }
-    console.log(user);
     const { nickname, token, email, sub: auth0Id } = user;
     const response = await axios.post(
       `${baseUrl}/getDetails`,

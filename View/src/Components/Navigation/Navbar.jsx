@@ -17,8 +17,6 @@ export const Navbar = () => {
     isLoading,
   } = useAuth0();
 
-  console.log(isAuthenticated);
-
   useEffect(() => {
     const fetchToken = async () => {
       try {
@@ -37,7 +35,7 @@ export const Navbar = () => {
           const response = await getUserDetails(user);
           const userDb = response.data.user;
           const updatedUser = { ...user, ...userDb };
-          console.log(updatedUser);
+          console.log("updatedUser: ", updatedUser);
           setUser(updatedUser);
         } catch (error) {
           console.error("Error updating user:", error);

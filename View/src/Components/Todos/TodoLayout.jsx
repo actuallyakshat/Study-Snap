@@ -1,18 +1,58 @@
-import { Reorder, AnimatePresence } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
+import { Reorder, AnimatePresence } from "framer-motion";
+import { debounce } from "lodash";
 import { Todo } from "./Todo";
 import { Inputbar } from "./Inputbar";
 import { useAtomValue } from "jotai";
 import { userAtom } from "../../Utils/Store";
 import { InspirationalQuote } from "./InspirationalQuote";
 import { Note } from "./Note";
+import { reorderTodos } from "../../HandleApi/TodoApiHandler";
 
 export const TodoLayout = () => {
   const user = useAtomValue(userAtom);
-  const [items, setItems] = useState(user && user.todos);
+  const [items, setItems] = useState(user ? user.todos : []);
   const [updating, setUpdating] = useState(false);
   const inputRef = useRef(null);
-  console.log(items);
+
+  const debounceTime = 1500;
+  const reorderHandler = async (items) => {
+    await reorderTodos(user, items);
+  };
+  // Function to update todo order with debouncing
+  const updateOrderWithDebounce = debounce(() => {
+    // Check if the current items array is different from the saved items
+    if (JSON.stringify(items) !== JSON.stringify(user.todos)) {
+      // Call backend API to update order
+      console.log("API CALL", items);
+      reorderHandler(items);
+    }
+  }, debounceTime);
+
+  // Effect to handle debounced order update
+  useEffect(() => {
+    let timeoutId;
+    // Set a timeout to call the API if items haven't changed for debounceTime
+    const timeoutFunction = () => {
+      timeoutId = setTimeout(() => {
+        updateOrderWithDebounce();
+      }, debounceTime);
+    };
+
+    // Call the timeout function when the component mounts
+    timeoutFunction();
+
+    return () => {
+      // Clear the timeout when the component unmounts or items change
+      clearTimeout(timeoutId);
+    };
+  }, [items, updateOrderWithDebounce]);
+
+  // Callback function for reorder event
+  const handleReorder = (newOrder) => {
+    // Update local state immediately
+    setItems(newOrder);
+  };
 
   useEffect(() => {
     if (user) setItems(user.todos);
@@ -46,7 +86,7 @@ export const TodoLayout = () => {
                 as="ul"
                 axis="y"
                 values={items}
-                onReorder={setItems}
+                onReorder={handleReorder}
               >
                 <div className="space-y-3">
                   {items.map((item) => (

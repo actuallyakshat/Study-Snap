@@ -15,6 +15,7 @@
     "framer-motion": "^11.0.8",
     "inspirational-quotes": "^2.0.1",
     "jotai": "^2.7.0",
+    "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.51.0",

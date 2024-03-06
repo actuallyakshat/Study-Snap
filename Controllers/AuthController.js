@@ -6,7 +6,7 @@ const getDetails = async (req, res) => {
     console.log(req.body);
     let user = await User.findOne({ auth0Id }).populate({
       path: "todos",
-      options: { sort: { order: 1 } }, // Sort todos by the 'order' field in ascending order
+      options: { sort: { order: 1 } },
     });
     console.log(user);
     if (!user) {
@@ -16,9 +16,9 @@ const getDetails = async (req, res) => {
         name,
       });
       await user.save();
-    }
 
-    user = await User.findOne({ auth0Id }).populate("todos");
+      user = await User.findOne({ auth0Id });
+    }
     res.status(200).json({ user });
   } catch (error) {
     console.error(error);
