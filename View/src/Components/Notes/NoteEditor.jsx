@@ -5,16 +5,14 @@ import ListItem from "@tiptap/extension-list-item";
 import OrderedList from "@tiptap/extension-ordered-list";
 import BulletList from "@tiptap/extension-bullet-list";
 import Heading from "@tiptap/extension-heading";
-
+<script src="https://cdn.tailwindcss.com?plugins=typography"></script>;
 const extensions = [
   StarterKit,
   Underline,
   ListItem,
   OrderedList,
   BulletList,
-  Heading.configure({
-    levels: [1, 2],
-  }),
+  Heading,
 ];
 
 import { FaBold } from "react-icons/fa";
@@ -24,15 +22,27 @@ import { FaSave } from "react-icons/fa";
 import { FaTrash } from "react-icons/fa";
 import { FaUnderline } from "react-icons/fa";
 import { useEffect, useState } from "react";
+import { IoListOutline } from "react-icons/io5";
+import { LuHeading1 } from "react-icons/lu";
+import { LuHeading2 } from "react-icons/lu";
+import { LuHeading3 } from "react-icons/lu";
+import { LuHeading4 } from "react-icons/lu";
+import { FaListOl } from "react-icons/fa6";
 
 export const NoteEditor = ({ content }) => {
   const [editorContent, setEditorContent] = useState(content);
+
   const editor = useEditor({
     extensions,
     content: editorContent,
+    // editorProps: {
+    //   attributes: {
+    //     class: "rounded-md focus:outline-none my-4",
+    //   },
+    // },
     editorProps: {
       attributes: {
-        class: "rounded-md focus:outline-none my-4",
+        class: "prose focus:outline-none mt-6",
       },
     },
   });
@@ -51,7 +61,7 @@ export const NoteEditor = ({ content }) => {
   return (
     <div>
       <div className="w-full flex items-center justify-between">
-        <div className="bg-white/20 rounded-md justify-center flex gap-1 items-center">
+        <div className="bg-white/20 px-3 rounded-md justify-center flex gap-2 items-center">
           <button
             onClick={() => editor.chain().focus().toggleBold().run()}
             disabled={!editor.can().chain().focus().toggleBold().run()}
@@ -97,53 +107,84 @@ export const NoteEditor = ({ content }) => {
           </button>
           <button
             onClick={() => editor.chain().focus().toggleOrderedList().run()}
-            className={editor.isActive("orderedList") ? "is-active" : ""}
+            className={`${
+              editor.isActive("orderedList")
+                ? "bg-gray-300/30"
+                : "hover:bg-gray-200/10"
+            } p-2 rounded-md transition-colors`}
           >
-            toggleOrderedList
+            <FaListOl />
           </button>
           <button
             onClick={() => editor.chain().focus().toggleBulletList().run()}
-            className={editor.isActive("bulletList") ? "is-active" : ""}
+            className={`${
+              editor.isActive("bulletList")
+                ? "bg-gray-300/30"
+                : "hover:bg-gray-200/10"
+            } p-2 rounded-md transition-colors`}
           >
-            toggleBulletList
+            <IoListOutline className="size-5" />
           </button>
           <button
             onClick={() =>
               editor.chain().focus().toggleHeading({ level: 1 }).run()
             }
-            className={
-              editor.isActive("heading", { level: 1 }) ? "is-active" : ""
-            }
+            className={`${
+              editor.isActive("heading", { level: 1 })
+                ? "bg-gray-300/30"
+                : "hover:bg-gray-200/10"
+            } p-2 rounded-md transition-colors`}
           >
-            H1
+            <LuHeading1 className="size-5" />
           </button>
           <button
             onClick={() =>
               editor.chain().focus().toggleHeading({ level: 2 }).run()
             }
-            className={
-              editor.isActive("heading", { level: 2 }) ? "is-active" : ""
-            }
+            className={`${
+              editor.isActive("heading", { level: 2 })
+                ? "bg-gray-300/30"
+                : "hover:bg-gray-200/10"
+            } p-2 rounded-md transition-colors`}
           >
-            H2
+            <LuHeading2 className="size-5" />
           </button>
           <button
             onClick={() =>
               editor.chain().focus().toggleHeading({ level: 3 }).run()
             }
-            className={
-              editor.isActive("heading", { level: 3 }) ? "is-active" : ""
-            }
+            className={`${
+              editor.isActive("heading", { level: 3 })
+                ? "bg-gray-300/30"
+                : "hover:bg-gray-200/10"
+            } p-2 rounded-md transition-colors`}
           >
-            H3
+            <LuHeading3 className="size-5" />
+          </button>
+          <button
+            onClick={() =>
+              editor.chain().focus().toggleHeading({ level: 4 }).run()
+            }
+            className={`${
+              editor.isActive("heading", { level: 4 })
+                ? "bg-gray-300/30"
+                : "hover:bg-gray-200/10"
+            } p-2 rounded-md transition-colors`}
+          >
+            <LuHeading4 className="size-5" />
           </button>
         </div>
-        <div className="space-x-4">
-          <button onClick={handleEditorContent}>
+        <div className="space-x-4 flex items-start">
+          <button
+            className="flex items-center bg-white/20 hover:bg-green-500/20 transition-colors rounded-md py-2 text-sm gap-3 px-4"
+            onClick={handleEditorContent}
+          >
+            <p>Save</p>
             <FaSave className="size-5 hover:text-gray-300 transition-colors" />
           </button>
-          <button>
-            <FaTrash className="size-5 hover:text-gray-300 transition-colors" />
+          <button className="flex items-center bg-white/20 hover:bg-red-500/40 transition-colors rounded-md py-2 text-sm gap-3 px-4">
+            <p>Delete</p>
+            <FaTrash className="size-5 hover:text-gray-300  transition-colors" />
           </button>
         </div>
       </div>

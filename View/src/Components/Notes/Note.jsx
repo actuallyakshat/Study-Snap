@@ -24,7 +24,7 @@ export const Note = ({ note }) => {
           placeholder="Heading"
           value={title}
           onChange={handleTitleChange}
-          className="bg-transparent focus:outline-none text-5xl font-bold"
+          className="bg-transparent w-full max-w-[15ch] focus:outline-none text-5xl font-bold sm:max-w-full sm:break-all"
         />
         <div className="mt-6">
           <NoteEditor content={content} />

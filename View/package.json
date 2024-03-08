@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@auth0/auth0-react": "^2.2.4",
+    "@tailwindcss/typography": "^0.5.10",
     "@tiptap/extension-bullet-list": "^2.2.4",
     "@tiptap/extension-heading": "^2.2.4",
     "@tiptap/extension-list-item": "^2.2.4",

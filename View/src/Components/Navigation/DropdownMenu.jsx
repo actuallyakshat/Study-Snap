@@ -74,7 +74,7 @@ function DropdownMenu({ user, logout }) {
               Notes
             </Link>
             <Link
-              to="/dashboard/todos"
+              to="/dashboard/timer"
               className="text-gray-700 hover:bg-gray-200 rounded-md border-t font-medium block px-4 py-2 text-sm"
               role="menuitem"
               id="menu-item-0"

@@ -4,6 +4,7 @@ import { Navbar } from "./Components/Navigation/Navbar";
 import Loading from "./Components/Loading/Loading";
 import { loadingAtom } from "./Utils/Store";
 import { useAtomValue } from "jotai";
+
 function App() {
   const isLoading = useAtomValue(loadingAtom);
   return (
