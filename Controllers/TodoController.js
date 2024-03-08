@@ -62,6 +62,38 @@ const updateTodo = async (req, res) => {
   }
 };
 
+const updateTodoStatus = async (req, res) => {
+  try {
+    const { todoId } = req.body;
+
+    if (!todoId) {
+      return res
+        .status(400)
+        .json({ success: false, message: "TodoId is required" });
+    }
+
+    const todo = await Todo.findById(todoId);
+
+    if (!todo) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Todo not found" });
+    }
+
+    todo.isCompleted = !todo.isCompleted;
+    const updatedTodo = await todo.save();
+
+    res.json({
+      success: true,
+      message: "Todo status updated successfully",
+      updatedTodo,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: "Internal server error" });
+  }
+};
+
 const deleteTodo = async (req, res) => {
   try {
     const { todoId, auth0Id } = req.body;
@@ -114,4 +146,5 @@ module.exports = {
   updateTodo,
   deleteTodo,
   reorderTodo,
+  updateTodoStatus,
 };

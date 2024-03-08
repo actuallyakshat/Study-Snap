@@ -29,6 +29,30 @@ const createTodo = async (task, user, order) => {
   }
 };
 
+const updateTodo = async (todoId, task) => {
+  try {
+    const response = await axios.put(`${baseUrl}/update`, {
+      todoId,
+      task,
+    });
+    console.log("Todo updated successfully:", response.data);
+    return response.data.updatedTodo;
+  } catch (error) {
+    console.error("Error updating todo:", error);
+  }
+};
+const updateTodoStatus = async (todoId) => {
+  try {
+    const response = await axios.put(`${baseUrl}/update-status`, {
+      todoId,
+    });
+    console.log("Todo status updated successfully:", response.data);
+    return response.data.updatedTodo;
+  } catch (error) {
+    console.error("Error updating todo status:", error);
+  }
+};
+
 const deleteTodo = async (todoId, user) => {
   try {
     console.log("todoId: ", todoId, "user: ", user);
@@ -71,4 +95,4 @@ const reorderTodos = async (user, newOrder) => {
   }
 };
 
-export { createTodo, deleteTodo, reorderTodos };
+export { createTodo, deleteTodo, reorderTodos, updateTodo, updateTodoStatus };

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { createTodo } from "../../HandleApi/TodoApiHandler";
+import { createTodo, updateTodo } from "../../HandleApi/TodoApiHandler";
 import DateTimeDisplay from "./DateTimeDisplay";
 
 export const Inputbar = ({
@@ -9,13 +9,30 @@ export const Inputbar = ({
   setItems,
   updating,
   setUpdating,
+  todoId,
 }) => {
   const [task, setTask] = useState("");
+
+  async function updateTodoItemLocally(todoId, updatedTask) {
+    setItems((prevItems) => {
+      return prevItems.map((item) => {
+        if (item._id === todoId) {
+          return { ...item, task: updatedTask };
+        }
+        return item;
+      });
+    });
+  }
+
   const submitHandler = async () => {
     if (!task) return;
-    //TODO: Create a Todo if in create mode or update if in update mode.
     if (updating) {
-      console.log("updating now!!");
+      console.log(`updating ${todoId} now!!`);
+      const response = await updateTodo(todoId, inputRef.current.value);
+      updateTodoItemLocally(todoId, response.task);
+      inputRef.current.value = "";
+      setUpdating(false);
+      console.log("response aaya", response);
     } else {
       inputRef.current.value = "";
       const response = await createTodo(task, user, items.length);
@@ -53,7 +70,10 @@ export const Inputbar = ({
         </button>
         {updating && (
           <button
-            onClick={() => setUpdating(false)}
+            onClick={() => {
+              setUpdating(false);
+              inputRef.current.value = "";
+            }}
             type="button"
             className="px-4  py-2 font-semibold text-md rounded-md bg-red-700 hover:bg-red-800 transition-colors text-white"
           >

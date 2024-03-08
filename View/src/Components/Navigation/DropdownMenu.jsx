@@ -15,7 +15,7 @@ function DropdownMenu({ user, logout }) {
         <button
           type="button"
           onClick={toggleMenu}
-          className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+          className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold transition-colors text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-100"
           id="menu-button"
           aria-expanded={isOpen ? "true" : "false"}
           aria-haspopup="true"
@@ -63,6 +63,24 @@ function DropdownMenu({ user, logout }) {
               onClick={toggleMenu}
             >
               To-Do List
+            </Link>
+            <Link
+              to="/dashboard/notes"
+              className="text-gray-700 hover:bg-gray-200 rounded-md border-t font-medium block px-4 py-2 text-sm"
+              role="menuitem"
+              id="menu-item-0"
+              onClick={toggleMenu}
+            >
+              Notes
+            </Link>
+            <Link
+              to="/dashboard/todos"
+              className="text-gray-700 hover:bg-gray-200 rounded-md border-t font-medium block px-4 py-2 text-sm"
+              role="menuitem"
+              id="menu-item-0"
+              onClick={toggleMenu}
+            >
+              Pomodoro Timer
             </Link>
 
             <button

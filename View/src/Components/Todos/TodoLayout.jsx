@@ -6,51 +6,44 @@ import { Inputbar } from "./Inputbar";
 import { useAtomValue } from "jotai";
 import { userAtom } from "../../Utils/Store";
 import { InspirationalQuote } from "./InspirationalQuote";
-import { Note } from "./Note";
+
 import { reorderTodos } from "../../HandleApi/TodoApiHandler";
 
 export const TodoLayout = () => {
   const user = useAtomValue(userAtom);
   const [items, setItems] = useState(user ? user.todos : []);
   const [updating, setUpdating] = useState(false);
+  const [todoId, setTodoId] = useState(null);
   const inputRef = useRef(null);
 
-  const debounceTime = 1500;
+  const debounceTime = 2000;
   const reorderHandler = async (items) => {
     await reorderTodos(user, items);
   };
-  // Function to update todo order with debouncing
+  var reorderFlag;
   const updateOrderWithDebounce = debounce(() => {
-    // Check if the current items array is different from the saved items
-    if (JSON.stringify(items) !== JSON.stringify(user.todos)) {
-      // Call backend API to update order
-      console.log("API CALL", items);
+    if (JSON.stringify(items) !== JSON.stringify(user.todos) && reorderFlag) {
       reorderHandler(items);
+      reorderFlag = false;
     }
   }, debounceTime);
 
-  // Effect to handle debounced order update
   useEffect(() => {
     let timeoutId;
-    // Set a timeout to call the API if items haven't changed for debounceTime
     const timeoutFunction = () => {
       timeoutId = setTimeout(() => {
         updateOrderWithDebounce();
       }, debounceTime);
     };
-
-    // Call the timeout function when the component mounts
     timeoutFunction();
 
     return () => {
-      // Clear the timeout when the component unmounts or items change
       clearTimeout(timeoutId);
     };
   }, [items, updateOrderWithDebounce]);
 
-  // Callback function for reorder event
   const handleReorder = (newOrder) => {
-    // Update local state immediately
+    reorderFlag = true;
     setItems(newOrder);
   };
 
@@ -58,18 +51,20 @@ export const TodoLayout = () => {
     if (user) setItems(user.todos);
   }, [user]);
 
-  const handleUpdateClick = (title) => {
+  const handleUpdateClick = (title, _id) => {
     setUpdating(true);
+    setTodoId(_id);
     inputRef.current.value = title;
     inputRef.current.focus();
+    console.log("BRUH: ", todoId);
   };
 
   return (
     <div className="relative h-full bg-TodoBg bg-cover flex justify-center">
       <div className="min-w-[90%] mx-4 h-[90%] flex flex-col my-6 md:my-16 items-center">
         <div className="flex flex-col md:w-[40%]">
-          <h1 className="text-center text-4xl font-bold">
-            {user ? user.name.split(" ")[0] : ""}&apos;s To-Do List
+          <h1 className="text-center text-5xl font-Inter font-black">
+            To-Do List
           </h1>
           <InspirationalQuote />
           <Inputbar
@@ -79,6 +74,7 @@ export const TodoLayout = () => {
             updating={updating}
             setItems={setItems}
             setUpdating={setUpdating}
+            todoId={todoId}
           />
           {items && (
             <AnimatePresence>
@@ -106,7 +102,6 @@ export const TodoLayout = () => {
           )}
         </div>
       </div>
-      <Note />
     </div>
   );
 };
