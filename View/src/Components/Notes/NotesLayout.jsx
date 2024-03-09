@@ -71,8 +71,8 @@ export const NotesLayout = () => {
 
   const selectedNote = notes.find((note) => note.id === selectedNoteId);
   return (
-    <div className="h-full  w-full flex font-Inter">
-      <div className="border-r border-gray-400/50 py-6 h-full w-full max-w-[25rem] px-4 space-y-2">
+    <div className="h-full flex-1 w-full flex font-Inter">
+      <div className="border-r border-gray-400/50 py-6 flex-1 w-full max-w-[25rem] px-4 space-y-2">
         <div className="w-full gap-4 flex items-center justify-between mb-6">
           <input
             type="text"

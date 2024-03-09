@@ -5,6 +5,7 @@ import { useSetAtom } from "jotai";
 import { loadingAtom, userAtom } from "../../Utils/Store";
 import DropdownMenu from "./DropdownMenu";
 import { getUserDetails } from "../../HandleApi/AuthApiHandler";
+import { Link } from "react-router-dom";
 export const Navbar = () => {
   const setUser = useSetAtom(userAtom);
   const setLoading = useSetAtom(loadingAtom);
@@ -53,7 +54,9 @@ export const Navbar = () => {
   return (
     <div className="h-[64px] w-full px-4 border-b border-white/25">
       <div className="flex h-full items-center mx-auto justify-between md:w-[75%]">
-        <h1 className="font-semibold text-xl">StudySnap</h1>
+        <Link to="/" className="font-semibold text-xl">
+          StudySnap
+        </Link>
 
         {isAuthenticated ? (
           <div className="space-x-3">

@@ -13,8 +13,8 @@ function App() {
       {isLoading && <Loading />}
       <div
         className={`${
-          isLoading ? "hidden" : "visible"
-        } w-full min-h-screen flex flex-col h-full`}
+          isLoading ? "hidden" : "flex flex-col items-stretch"
+        } w-full flex-1 h-full`}
       >
         <Navbar />
         <Routes />

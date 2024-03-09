@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+  min-width: 0;
+}
 .tiptap p {
   margin: 0em;
 }
@@ -28,6 +31,13 @@
   margin-bottom: 0.5em;
 }
 
-* {
-  min-width: 0;
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
 }

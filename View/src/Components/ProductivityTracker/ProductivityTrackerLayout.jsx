@@ -1,3 +1,7 @@
 export const ProductivityTracker = () => {
-  return <div>ProductivityTracker</div>;
+  return (
+    <div className="w-full h-full flex items-center justify-center">
+      ProductivityTracker
+    </div>
+  );
 };

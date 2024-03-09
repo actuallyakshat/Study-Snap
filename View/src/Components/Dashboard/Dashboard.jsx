@@ -20,7 +20,7 @@ export const Dashboard = () => {
   }, [isLoading, navigate, user]);
 
   return (
-    <div className="flex-1 w-full">
+    <div className="w-full">
       <Routes>
         <Route path="/" index element={<ProductivityTracker />} />
         <Route path="/todos" element={<TodoLayout />} />
