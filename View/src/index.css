@@ -31,10 +31,6 @@
   margin-bottom: 0.5em;
 }
 
-input{
-  color:black
-}
-
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -45,6 +41,7 @@ input::-webkit-inner-spin-button {
 
 input.studyhours {
   text-align: center;
+  color: white;
 }
 
 input.studyhours::-webkit-input-placeholder {

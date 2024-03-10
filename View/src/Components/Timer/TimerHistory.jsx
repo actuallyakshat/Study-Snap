@@ -14,8 +14,8 @@ export const TimerHistory = () => {
   }, [user]);
 
   return (
-    <div className="flex-[3] h-full w-full">
-      <div className="mx-auto w-full h-full">
+    <div className="flex-[3] h-full px-4 xl:px-2 w-full">
+      <div className="mx-auto w-full h-full py-8">
         <h1 className="font-bold text-center text-3xl pt-10">
           Completed Sessions Log
         </h1>

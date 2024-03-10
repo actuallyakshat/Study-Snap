@@ -35,11 +35,6 @@ export const NoteEditor = ({ content }) => {
   const editor = useEditor({
     extensions,
     content: editorContent,
-    // editorProps: {
-    //   attributes: {
-    //     class: "rounded-md focus:outline-none my-4",
-    //   },
-    // },
     editorProps: {
       attributes: {
         class: "prose focus:outline-none mt-6",
@@ -60,8 +55,8 @@ export const NoteEditor = ({ content }) => {
 
   return (
     <div>
-      <div className="w-full flex items-center justify-between">
-        <div className="bg-white/20 px-3 rounded-md justify-center flex gap-2 items-center">
+      <div className="w-full flex flex-col xl:flex-row gap-3 justify-between">
+        <div className="bg-white/20 px-3 w-fit flex-wrap rounded-md flex gap-2 items-center">
           <button
             onClick={() => editor.chain().focus().toggleBold().run()}
             disabled={!editor.can().chain().focus().toggleBold().run()}
@@ -174,9 +169,9 @@ export const NoteEditor = ({ content }) => {
             <LuHeading4 className="size-5" />
           </button>
         </div>
-        <div className="space-x-4 flex items-start">
+        <div className="flex gap-3 items-start">
           <button
-            className="flex items-center bg-white/20 hover:bg-green-500/20 transition-colors rounded-md py-2 text-sm gap-3 px-4"
+            className="flex items-center bg-white/20 px-4 hover:bg-green-500/20 transition-colors rounded-md py-2 text-sm gap-3 px-4"
             onClick={handleEditorContent}
           >
             <p>Save</p>

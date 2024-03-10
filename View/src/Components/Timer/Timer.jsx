@@ -53,9 +53,9 @@ const Timer = () => {
   };
 
   return (
-    <div className="font-Inter py-6 flex-[4] h-full justify-center flex flex-col items-center">
+    <div className="font-Inter w-full px-6 py-6 flex-[4] h-full justify-center flex flex-col items-center">
       <div
-        className={`w-[50%]  flex justify-start items-center ${
+        className={`xl:w-[50%] flex justify-start items-center ${
           settingsOpen ? "justify-center" : "justify-end"
         } mb-6 gap-3`}
       >

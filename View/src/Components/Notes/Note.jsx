@@ -14,11 +14,9 @@ export const Note = ({ note }) => {
     setTitle(event.target.value);
   };
 
-  console.log(note.content);
-
   return (
     <div>
-      <div className="mx-auto mt-20 max-w-[60%]">
+      <div className="mx-auto pt-20 pb-10 px-6 md:max-w-[60%]">
         <input
           type="text"
           placeholder="Heading"
