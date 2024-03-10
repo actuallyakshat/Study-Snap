@@ -7,6 +7,7 @@ import { useAtomValue } from "jotai";
 
 function App() {
   const isLoading = useAtomValue(loadingAtom);
+
   return (
     <div className="font-Poppins flex flex-col items-center min-h-screen h-full w-full bg-spaceBlack text-white">
       <Toaster />

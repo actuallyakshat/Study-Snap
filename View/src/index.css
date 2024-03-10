@@ -38,6 +38,23 @@ input::-webkit-inner-spin-button {
 }
 
 /* Firefox */
-input[type="number"] {
-  -moz-appearance: textfield;
+
+input.studyhours {
+  text-align: center;
+}
+
+input.studyhours::-webkit-input-placeholder {
+  text-align: center;
+}
+
+input.studyhours:-moz-placeholder {
+  text-align: center;
+}
+
+input.studyhours:-ms-input-placeholder {
+  text-align: center;
+}
+
+input.studyhours::placeholder {
+  text-align: center;
 }

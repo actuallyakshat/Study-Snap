@@ -23,17 +23,16 @@ const Timer = () => {
 
   const handleSetTimer = () => {
     if (timerInputRef.current.value) {
-      if (timerInputRef.current.value < 1) {
-        console.log("Time ki value: ", timerInputRef.current.value / 60);
-        toast.error("Set a time of atleast 1 minute!", {
+      let inputValue = Math.round(timerInputRef.current.value);
+      if (inputValue < 1) {
+        toast.error("Set a time of at least 1 minute!", {
           style: {
             fontWeight: "bold",
           },
         });
         return;
-      } else if (timerInputRef.current.value > 120) {
-        console.log("Time ki value: ", timerInputRef.current.value / 60);
-        toast.error("Set a time of lesser than 120 minutes!", {
+      } else if (inputValue > 120) {
+        toast.error("Set a time of less than 120 minutes!", {
           style: {
             fontWeight: "bold",
           },
@@ -41,7 +40,7 @@ const Timer = () => {
         return;
       }
       setPlaying(false);
-      setTotalTime(timerInputRef.current.value * 60);
+      setTotalTime(inputValue * 60);
       setSettingsOpen(false);
     }
   };
@@ -127,7 +126,7 @@ const Timer = () => {
         {!playing ? (
           <button
             onClick={handleStartStop}
-            className="flex items-center gap-2 px-3 py-2 bg-white/20 rounded-md"
+            className="flex items-center gap-2 px-3 py-2 bg-green-600/30 hover:bg-green-700/20 transition-colors rounded-md"
           >
             Play
             <FaPlay />
@@ -136,7 +135,7 @@ const Timer = () => {
           <div className="flex gap-2">
             <button
               onClick={handleStartStop}
-              className="flex items-center gap-2 px-3 py-2 bg-white/20 rounded-md"
+              className="flex items-center gap-2 px-3 py-2 bg-yellow-600/30 hover:bg-yellow-700/20 rounded-md"
             >
               Pause
               <FaPause />
@@ -148,7 +147,7 @@ const Timer = () => {
             setTimer(totalTime);
             setPlaying(false);
           }}
-          className="flex items-center gap-2 px-3 py-2 bg-white/20 rounded-md"
+          className="flex items-center gap-2 px-3 py-2 bg-red-600/30 hover:bg-red-700/20 rounded-md"
         >
           Reset
           <FaStop />

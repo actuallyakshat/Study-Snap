@@ -9,6 +9,14 @@ const TimerProvider = ({ children }) => {
   const [isPlaying, setIsPlaying] = useAtom(isPlayingAtom);
   const totalTimer = useAtomValue(totalTimeAtom);
 
+  const formatTime = () => {
+    const minutes = Math.floor(timer / 60);
+    const seconds = timer % 60;
+    const paddedMinutes = String(minutes).padStart(2, "0");
+    const paddedSeconds = String(seconds).padStart(2, "0");
+    return `${paddedMinutes}:${paddedSeconds}`;
+  };
+
   useEffect(() => {
     console.log("setting timer");
     setTimer(totalTimer);
@@ -18,6 +26,7 @@ const TimerProvider = ({ children }) => {
     let interval;
     console.log(timer);
     if (isPlaying) {
+      document.title = `Study Snap | ${formatTime()}`;
       interval = setInterval(() => {
         setTimer((prevTime) => (prevTime > 0 ? prevTime - 1 : 0)); // Countdown logic
       }, 1000);
@@ -26,10 +35,13 @@ const TimerProvider = ({ children }) => {
         setTimer(totalTimer);
       }
     } else {
-      clearInterval(interval); // Clear interval when not playing
+      document.title = "Study Snap";
+      clearInterval(interval);
     }
 
     return () => clearInterval(interval);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isPlaying, timer, setTimer]);
 
   return <>{children}</>;

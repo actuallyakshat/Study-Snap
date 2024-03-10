@@ -14,7 +14,7 @@ export const MiniTimer = () => {
   return (
     <div className="text-center my-4">
       {isPlaying && (
-        <p className="font-bold text-xl">{`Your Timer: ${formatTime()}`}</p>
+        <p className="tracking-wider font-medium text-xl">{`Your Timer: ${formatTime()}`}</p>
       )}
     </div>
   );

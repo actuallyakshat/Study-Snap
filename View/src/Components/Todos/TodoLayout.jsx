@@ -15,17 +15,18 @@ export const TodoLayout = () => {
   const [items, setItems] = useState(user ? user.todos : []);
   const [updating, setUpdating] = useState(false);
   const [todoId, setTodoId] = useState(null);
+  const [reorderFlag, setReorderFlag] = useState(false);
   const inputRef = useRef(null);
 
   const debounceTime = 2000;
   const reorderHandler = async (items) => {
     await reorderTodos(user, items);
   };
-  var reorderFlag;
   const updateOrderWithDebounce = debounce(() => {
+    console.log("reorderFlag", reorderFlag);
     if (JSON.stringify(items) !== JSON.stringify(user.todos) && reorderFlag) {
       reorderHandler(items);
-      reorderFlag = false;
+      setReorderFlag(false);
     }
   }, debounceTime);
 
@@ -44,7 +45,7 @@ export const TodoLayout = () => {
   }, [items, updateOrderWithDebounce]);
 
   const handleReorder = (newOrder) => {
-    reorderFlag = true;
+    setReorderFlag(true);
     setItems(newOrder);
   };
 
@@ -64,7 +65,7 @@ export const TodoLayout = () => {
     <div className="relative h-full flex-1 bg-TodoBg bg-cover flex justify-center">
       <div className="min-w-[90%] mx-4 h-[90%] flex flex-col my-6 md:my-16 items-center">
         <div className="flex flex-col md:w-[40%]">
-          <h1 className="text-center text-5xl font-Inter font-black">
+          <h1 className="text-center text-6xl font-Inter font-black">
             To-Do List
           </h1>
           <InspirationalQuote />
