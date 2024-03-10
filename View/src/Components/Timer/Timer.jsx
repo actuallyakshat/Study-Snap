@@ -117,7 +117,7 @@ const Timer = () => {
           textSize: "15px",
           pathTransitionDuration: 0.5,
           textColor: "#FFF",
-          pathColor: "#7f007f",
+          pathColor: "#03ac13",
           trailColor: "#FFF",
         })}
         className="max-w-[30rem]"
@@ -126,7 +126,7 @@ const Timer = () => {
         {!playing ? (
           <button
             onClick={handleStartStop}
-            className="flex items-center gap-2 px-3 py-2 bg-green-600/30 hover:bg-green-700/20 transition-colors rounded-md"
+            className="flex items-center gap-2 px-3 py-2 bg-green-500/50 hover:bg-green-500/40 transition-colors rounded-md"
           >
             Play
             <FaPlay />
@@ -135,7 +135,7 @@ const Timer = () => {
           <div className="flex gap-2">
             <button
               onClick={handleStartStop}
-              className="flex items-center gap-2 px-3 py-2 bg-yellow-600/30 hover:bg-yellow-700/20 rounded-md"
+              className="flex items-center gap-2 px-3 py-2 bg-yellow-400/60 hover:bg-yellow-400/50 transition-colors rounded-md"
             >
               Pause
               <FaPause />
@@ -147,7 +147,7 @@ const Timer = () => {
             setTimer(totalTime);
             setPlaying(false);
           }}
-          className="flex items-center gap-2 px-3 py-2 bg-red-600/30 hover:bg-red-700/20 rounded-md"
+          className="flex items-center gap-2 px-3 py-2 bg-red-500/50 hover:bg-red-500/40 transition-colors rounded-md"
         >
           Reset
           <FaStop />

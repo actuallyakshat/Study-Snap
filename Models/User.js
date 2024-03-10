@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const CompletedTimer = require("./CompletedTimers");
 
 const userSchema = new mongoose.Schema({
   auth0Id: {
@@ -20,6 +21,28 @@ const userSchema = new mongoose.Schema({
       ref: "Todo",
     },
   ],
+  completedTimers: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "CompletedTimer",
+    },
+  ],
+});
+
+userSchema.pre("save", async function (next) {
+  const user = this;
+  if (user.completedTimers.length > 10) {
+    user.completedTimers = user.completedTimers.slice(
+      user.completedTimers.length - 10
+    );
+  }
+
+  if (user.completedTimers.length > 10) {
+    const oldestTimer = user.completedTimers.shift();
+    await CompletedTimer.findByIdAndDelete(oldestTimer._id);
+  }
+
+  next();
 });
 
 const User = mongoose.model("User", userSchema);
