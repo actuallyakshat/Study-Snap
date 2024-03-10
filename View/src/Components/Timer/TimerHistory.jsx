@@ -1,98 +1,39 @@
+import { useState, useEffect } from "react";
+import { userAtom } from "../../Utils/Store";
 import { HistoryCard } from "./HistoryCard";
-const history = [
-  {
-    id: 1,
-    duration: "50",
-    date: "09/03/2024",
-    time: "2:03pm",
-  },
-  {
-    id: 2,
-    duration: "25",
-    date: "07/03/2024",
-    time: "7:10pm",
-  },
-  {
-    id: 3,
-    duration: "40",
-    date: "08/03/2024",
-    time: "9:25am",
-  },
-  {
-    id: 4,
-    duration: "55",
-    date: "10/03/2024",
-    time: "4:45pm",
-  },
-  {
-    id: 5,
-    duration: "30",
-    date: "11/03/2024",
-    time: "1:20pm",
-  },
-  {
-    id: 6,
-    duration: "45",
-    date: "12/03/2024",
-    time: "10:15am",
-  },
-  {
-    id: 7,
-    duration: "20",
-    date: "13/03/2024",
-    time: "6:30pm",
-  },
-  {
-    id: 8,
-    duration: "35",
-    date: "14/03/2024",
-    time: "8:00am",
-  },
-  {
-    id: 9,
-    duration: "60",
-    date: "15/03/2024",
-    time: "3:55pm",
-  },
-  {
-    id: 10,
-    duration: "15",
-    date: "16/03/2024",
-    time: "11:10am",
-  },
-];
-
-const totalRecordedTime = {
-  time: "340",
-};
-const getTotalRecordedTime = (totalMinutes) => {
-  const hours = Math.floor(totalMinutes / 60);
-  const minutes = totalMinutes % 60;
-  const totalTimeCompleted = `${hours} hours and ${minutes} minutes`;
-  return totalTimeCompleted;
-};
+import { useAtomValue } from "jotai";
 
 export const TimerHistory = () => {
+  const user = useAtomValue(userAtom);
+  const [completedTimers, setCompletedTimers] = useState([]);
+
+  useEffect(() => {
+    if (user && user.completedTimers) {
+      setCompletedTimers(user.completedTimers);
+    }
+  }, [user]);
+
   return (
-    <div className="flex-[3] w-full">
+    <div className="flex-[3] h-full w-full">
       <div className="mx-auto w-full h-full">
-        <h1 className="font-bold text-center text-3xl mt-5">
+        <h1 className="font-bold text-center text-3xl pt-10">
           Completed Sessions Log
         </h1>
         <p className="text-center mx-auto text-white/80 my-2 max-w-[60ch]">
-          Work along with the timer for atleast twnety minutes and we will keep
-          a record of your it for better productivity tracking!
+          Work along with the timer for{" "}
+          <span className="text-white font-bold">at least twenty minutes</span>{" "}
+          and we will keep a record of it for better productivity tracking!
         </p>
         <div className="space-y-2 my-10">
-          {history.map((item) => {
-            return <HistoryCard key={item.id} item={item} />;
-          })}
-        </div>
-        <div className="text-center font-semibold text-gray-200">
-          <p>
-            You have worked for {getTotalRecordedTime(totalRecordedTime.time)}{" "}
-            at StudySnap
-          </p>
+          {completedTimers &&
+            completedTimers.map((item) => (
+              <HistoryCard key={item._id} item={item} />
+            ))}
+          {completedTimers.length == 0 && (
+            <p className="font-semibold text-lg text-center">
+              You have no completed timers...
+            </p>
+          )}
         </div>
       </div>
     </div>

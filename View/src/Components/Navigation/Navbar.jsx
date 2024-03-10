@@ -1,6 +1,5 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import { useEffect, useState } from "react";
-import { LogoutModal } from "../Auth/LogoutModal";
+import { useEffect } from "react";
 import { useSetAtom } from "jotai";
 import { loadingAtom, userAtom } from "../../Utils/Store";
 import DropdownMenu from "./DropdownMenu";
@@ -18,6 +17,7 @@ export const Navbar = () => {
     isLoading,
   } = useAuth0();
 
+  console.log(isAuthenticated);
   useEffect(() => {
     const fetchToken = async () => {
       try {
@@ -43,7 +43,7 @@ export const Navbar = () => {
         } finally {
           setLoading(false);
         }
-      } else if (!isLoading && !isAuthenticated) {
+      } else if (!isLoading && !isAuthenticated) {  
         setLoading(false);
       }
     };

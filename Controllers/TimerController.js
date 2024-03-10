@@ -1,20 +1,24 @@
-const CompletedTimer = require("../models/completedTimer");
+const CompletedTimer = require("../Models/CompletedTimers");
+const User = require("../Models/User");
 
+// Controller function to save a completed timer entry
 const saveCompletedTimer = async (req, res) => {
   try {
-    const { duration, date, time } = req.body;
+    const { duration, date, time, auth0Id } = req.body;
 
-    if (!duration || !date || !time) {
+    // Check if required fields are provided
+    if (!duration || !date || !time || !auth0Id) {
       return res.status(400).json({
         success: false,
-        error: "Duration, date, and time are required.",
+        error: "Duration, date, time, and auth0Id are required.",
       });
     }
 
-    if (duration <= 20) {
-      return res
-        .status(400)
-        .json({ success: false, error: "Duration must be greater than 20." });
+    if (duration < 20) {
+      return res.status(400).json({
+        success: false,
+        error: "Duration must be greater than 20 minutes.",
+      });
     }
 
     const completedTimer = new CompletedTimer({
@@ -23,7 +27,16 @@ const saveCompletedTimer = async (req, res) => {
       time,
     });
 
+    // Save the completed timer to the database
     await completedTimer.save();
+
+    // Update user's completedTimer array
+    const user = await User.findOne({ auth0Id: auth0Id });
+    if (!user) {
+      return res.status(404).json({ success: false, error: "User not found." });
+    }
+    user.completedTimers.push(completedTimer._id);
+    await user.save();
 
     res.status(201).json({
       success: true,
