@@ -31,7 +31,7 @@ export const TimerHistory = () => {
             ))}
           {completedTimers.length == 0 && (
             <p className="font-semibold text-lg text-center">
-              You have no completed timers...
+              You have no completed sessions...
             </p>
           )}
         </div>

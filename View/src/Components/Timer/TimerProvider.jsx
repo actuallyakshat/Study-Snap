@@ -46,7 +46,6 @@ const TimerProvider = ({ children }) => {
   }
 
   useEffect(() => {
-    console.log("setting timer");
     setTimer(totalTimer);
   }, [totalTimer, setTimer]);
 
@@ -62,7 +61,6 @@ const TimerProvider = ({ children }) => {
 
   useEffect(() => {
     let interval;
-    console.log(timer);
     if (isPlaying) {
       document.title = `Study Snap | ${formatTime()}`;
       interval = setInterval(() => {

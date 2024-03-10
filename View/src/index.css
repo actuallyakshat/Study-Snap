@@ -31,6 +31,10 @@
   margin-bottom: 0.5em;
 }
 
+input{
+  color:black
+}
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;

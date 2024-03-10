@@ -45,5 +45,17 @@ userSchema.pre("save", async function (next) {
   next();
 });
 
+userSchema.pre("remove", async function (next) {
+  const user = this;
+
+  try {
+    await Todo.deleteMany({ _id: { $in: user.todos } });
+    await CompletedTimer.deleteMany({ _id: { $in: user.completedTimers } });
+    next();
+  } catch (error) {
+    next(error);
+  }
+});
+
 const User = mongoose.model("User", userSchema);
 module.exports = User;

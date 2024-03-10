@@ -17,7 +17,6 @@ export const Navbar = () => {
     isLoading,
   } = useAuth0();
 
-  console.log(isAuthenticated);
   useEffect(() => {
     const fetchToken = async () => {
       try {
@@ -43,7 +42,7 @@ export const Navbar = () => {
         } finally {
           setLoading(false);
         }
-      } else if (!isLoading && !isAuthenticated) {  
+      } else if (!isLoading && !isAuthenticated) {
         setLoading(false);
       }
     };
@@ -60,7 +59,7 @@ export const Navbar = () => {
 
         {isAuthenticated ? (
           <div className="space-x-3">
-            <DropdownMenu user={user} logout={logout} />
+            <DropdownMenu logout={logout} />
           </div>
         ) : (
           <div className="space-x-4">

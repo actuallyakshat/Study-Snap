@@ -62,7 +62,7 @@ export const TodoLayout = () => {
   };
 
   return (
-    <div className="relative h-full flex-1 bg-TodoBg bg-cover flex justify-center">
+    <div className="relative h-full flex-1 flex justify-center">
       <div className="min-w-[90%] mx-4 h-[90%] flex flex-col my-6 md:my-16 items-center">
         <div className="flex flex-col md:w-[40%]">
           <h1 className="text-center text-6xl font-Inter font-black">

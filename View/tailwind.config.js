@@ -15,6 +15,7 @@ export default {
       },
       backgroundImage: {
         TodoBg: "url(/backgrounds/todobg.svg)",
+        HeroBg: "url(/backgrounds/herobg.svg)",
       },
     },
   },

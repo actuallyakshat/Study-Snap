@@ -28,4 +28,37 @@ const getUserDetails = async (user) => {
   }
 };
 
-export { getUserDetails };
+const updateUser = async (user, newName) => {
+  try {
+    if (!user) {
+      console.error("Null User Error");
+      return;
+    }
+    const auth0Id = user.auth0Id;
+    const response = await axios.put(`${baseUrl}/edit-profile`, {
+      auth0Id,
+      newName,
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error updating user:", error);
+    throw error;
+  }
+};
+
+const deleteUserAccount = async (user) => {
+  try {
+    if (!user) {
+      console.error("Null User Error");
+    }
+    const auth0Id = user.auth0Id;
+    const response = await axios.delete(`${baseUrl}/delete-account`, {
+      data: { auth0Id },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error deleting user account:", error.message);
+  }
+};
+
+export { getUserDetails, updateUser, deleteUserAccount };
