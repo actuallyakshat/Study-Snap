@@ -46,7 +46,7 @@ export const Inputbar = ({
   };
 
   return (
-    <div className="flex flex-col items-center gap-2 mx-auto w-full text-black mb-8">
+    <div className="flex flex-col items-center gap-2 mx-auto w-full text-black max-w-[95%] md:w-full mb-8">
       <DateTimeDisplay />
       <div className="w-full flex gap-3">
         <input
@@ -64,7 +64,7 @@ export const Inputbar = ({
         <button
           onClick={submitHandler}
           type="button"
-          className="px-6 py-2 font-semibold text-md rounded-md bg-[#651b80] hover:bg-[#651b90]/70 transition-colors text-white"
+          className="px-6 py-2 font-semibold text-sm md:text-md rounded-md bg-[#651b80] hover:bg-[#651b90]/70 transition-colors text-white"
         >
           {updating ? "Update" : "Add"}
         </button>
@@ -75,7 +75,7 @@ export const Inputbar = ({
               inputRef.current.value = "";
             }}
             type="button"
-            className="px-4  py-2 font-semibold text-md rounded-md bg-red-700 hover:bg-red-800 transition-colors text-white"
+            className="px-4 py-2 font-semibold text-sm md:text-md rounded-md bg-red-700 hover:bg-red-800 transition-colors text-white"
           >
             Cancel
           </button>

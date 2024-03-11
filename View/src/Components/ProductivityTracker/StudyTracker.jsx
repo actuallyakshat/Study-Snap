@@ -40,7 +40,7 @@ import {
 import { CustomTooltip } from "./CustomTooltip";
 export const StudyTracker = () => {
   return (
-    <div>
+    <div className="mb-4">
       <div className="w-full px-4 my-4 flex justify-between items-center">
         <div className="space-x-2">
           <button className="px-3 py-2 border rounded-2xl border-gray-400/50 text-gray-200 text-sm">
@@ -55,7 +55,7 @@ export const StudyTracker = () => {
         </div>
         <div></div>
       </div>
-      <div className="w-full h-fit rounded-2xl px-4 py-5 max-h-[35rem] border bg-gray-800/30 border-gray-500/20">
+      <div className="w-full h-fit rounded-2xl px-2 md:px-4 py-5 max-h-[35rem] border bg-gray-800/30 border-gray-500/20">
         <h1 className="font-semibold text-gray-100 text-2xl py-3 text-center">
           Weekly Study Progress
         </h1>

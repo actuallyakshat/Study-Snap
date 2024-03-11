@@ -9,7 +9,7 @@ import { HomeLayout } from "./Components/Home/HomeLayout";
 
 export const Routes = () => {
   return (
-    <div className="flex flex-1 w-full">
+    <div className="flex flex-1 h-full w-full">
       <AppRoutes>
         <Route path="/" element={<HomeLayout />} />
         <Route path="/dashboard/*" element={<Dashboard />} />

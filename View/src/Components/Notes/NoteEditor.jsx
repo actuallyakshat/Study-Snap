@@ -37,14 +37,16 @@ export const NoteEditor = ({ content }) => {
     content: editorContent,
     editorProps: {
       attributes: {
-        class: "prose focus:outline-none mt-6",
+        class: "prose focus:outline-none min-w-full mt-6",
       },
     },
   });
 
   useEffect(() => {
-    setEditorContent(content);
-  }, [content]);
+    if (editor) {
+      editor.commands.setContent(content);
+    }
+  }, [content, editor]);
 
   if (!editor) return null;
 
@@ -54,7 +56,7 @@ export const NoteEditor = ({ content }) => {
   };
 
   return (
-    <div>
+    <div className="w-full">
       <div className="w-full flex flex-col xl:flex-row gap-3 justify-between">
         <div className="bg-white/20 px-3 w-fit flex-wrap rounded-md flex gap-2 items-center">
           <button
@@ -171,7 +173,7 @@ export const NoteEditor = ({ content }) => {
         </div>
         <div className="flex gap-3 items-start">
           <button
-            className="flex items-center bg-white/20 px-4 hover:bg-green-500/20 transition-colors rounded-md py-2 text-sm gap-3 px-4"
+            className="flex items-center bg-white/20 px-4 hover:bg-green-500/20 transition-colors rounded-md py-2 text-sm gap-3"
             onClick={handleEditorContent}
           >
             <p>Save</p>
@@ -183,7 +185,9 @@ export const NoteEditor = ({ content }) => {
           </button>
         </div>
       </div>
-      <EditorContent editor={editor} />
+      <div className="w-full">
+        <EditorContent editor={editor} />
+      </div>
     </div>
   );
 };

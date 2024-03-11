@@ -22,7 +22,7 @@ export const Dashboard = () => {
   }, [isLoading, navigate, user]);
 
   return (
-    <div className="w-full flex">
+    <div className="w-full flex-1 flex">
       <Routes>
         <Route path="/" index element={<ProductivityTrackerLayout />} />
         <Route path="/todos" element={<TodoLayout />} />

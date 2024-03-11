@@ -25,7 +25,7 @@ const createTodo = async (req, res) => {
       { auth0Id: auth0Id },
       { $push: { todos: todo._id } }
     );
-    console.log(todo);
+    
     res.status(201).json({ success: true, todo });
   } catch (error) {
     console.error(error);
@@ -126,7 +126,6 @@ const deleteTodo = async (req, res) => {
 const reorderTodo = async (req, res) => {
   try {
     const newOrder = req.body.newOrder;
-    console.log(newOrder);
     await Promise.all(
       newOrder.map(async (todoId, index) => {
         await Todo.updateOne({ _id: todoId }, { $set: { order: index } });

@@ -38,7 +38,7 @@ export const Todo = ({ item, setItems, user, handleUpdateClick }) => {
       dragControls={controls}
     >
       <div className="select-none flex items-center transition-colors text-md min-h-10 text-black px-3 rounded-lg bg-gray-200 hover:bg-gray-300 active:bg-slate-200">
-        <div className="gap-2 h-full flex-1 flex items-center">
+        <div className="gap-1 h-full flex-1 flex items-center">
           <div
             style={{ touchAction: "none" }}
             onPointerDown={(e) => controls.start(e)}
@@ -51,12 +51,12 @@ export const Todo = ({ item, setItems, user, handleUpdateClick }) => {
           <div className="flex justify-between h-full cursor-pointer w-full items-center">
             <div
               onClick={handleCheckboxChange}
-              className="space-x-2 flex flex-1 h-full items-center"
+              className="space-x-2 pr-1 ml-0 flex flex-1 h-full items-center"
             >
               <input
                 type="checkbox"
                 checked={completed}
-                className="w-[15px] h-[15px] rounded-lg bg-primaryPurple accent-primaryPurple bg-grey-700"
+                className="max-w-[25px] size-4 w-full rounded-lg bg-primaryPurple accent-primaryPurple bg-grey-700"
               />
               <span className={`${completed ? "line-through" : ""} py-3`}>
                 {item.task}

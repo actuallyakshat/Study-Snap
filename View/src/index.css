@@ -5,6 +5,13 @@
 * {
   min-width: 0;
 }
+
+.sidebar {
+  scrollbar-width: thin;
+  scrollbar-color: gray #0d1117;
+  scrollbar-arrow-color: gray;
+}
+
 .tiptap p {
   margin: 0em;
 }
@@ -29,6 +36,7 @@
 .tiptap * {
   color: white;
   margin-bottom: 0.5em;
+  width: 100%;
 }
 
 input::-webkit-outer-spin-button,

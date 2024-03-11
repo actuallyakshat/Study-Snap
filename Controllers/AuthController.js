@@ -3,7 +3,6 @@ const User = require("../Models/User");
 const getDetails = async (req, res) => {
   try {
     const { auth0Id, email, name } = req.body;
-    console.log(req.body);
     let user = await User.findOne({ auth0Id })
       .populate({
         path: "todos",
@@ -13,8 +12,6 @@ const getDetails = async (req, res) => {
         path: "completedTimers",
         options: { sort: { _id: -1 } },
       });
-
-    console.log(user);
     if (!user) {
       user = new User({
         auth0Id,
@@ -62,10 +59,11 @@ const deleteAccount = async (req, res) => {
   try {
     const auth0Id = req.body.auth0Id;
     const user = await User.findOne({ auth0Id: auth0Id });
-    if (!user) {
+    if (user) {
+      await user.deleteOne();
+    } else if (!user) {
       return res.status(404).json({ success: false, error: "User not found" });
     }
-    await User.findOneAndDelete({ auth0Id: auth0Id });
     res
       .status(200)
       .json({ success: true, message: "User account deleted successfully" });

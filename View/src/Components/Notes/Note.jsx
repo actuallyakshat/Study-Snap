@@ -16,7 +16,7 @@ export const Note = ({ note }) => {
 
   return (
     <div>
-      <div className="mx-auto pt-20 pb-10 px-6 md:max-w-[60%]">
+      <div className="mx-auto pt-20 pb-10 px-6 md:max-w-[75%]">
         <input
           type="text"
           placeholder="Heading"
@@ -24,7 +24,7 @@ export const Note = ({ note }) => {
           onChange={handleTitleChange}
           className="bg-transparent w-full max-w-[15ch] focus:outline-none text-5xl font-bold sm:max-w-full sm:break-all"
         />
-        <div className="mt-6">
+        <div className="mt-6 w-full">
           <NoteEditor content={content} />
         </div>
       </div>

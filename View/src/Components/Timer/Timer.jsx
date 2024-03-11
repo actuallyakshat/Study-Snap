@@ -53,9 +53,9 @@ const Timer = () => {
   };
 
   return (
-    <div className="font-Inter w-full px-6 py-6 flex-[4] h-full justify-center flex flex-col items-center">
+    <div className="font-Inter w-full px-4 md:px-6 py-6 flex-[4] h-full justify-center flex flex-col items-center">
       <div
-        className={`xl:w-[50%] flex justify-start items-center ${
+        className={`xl:w-[50%] w-full flex justify-start items-center ${
           settingsOpen ? "justify-center" : "justify-end"
         } mb-6 gap-3`}
       >
@@ -65,7 +65,7 @@ const Timer = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1, animationDelay: 1 }}
               exit={{ opacity: 0 }}
-              className="py-3 flex justify-center items-center gap-4"
+              className="py-3 flex justify-center items-center gap-2 md:gap-4"
             >
               <input
                 className="focus:outline text-black outline-gray-100 rounded-md py-2 px-3"
