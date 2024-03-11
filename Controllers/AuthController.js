@@ -11,7 +11,8 @@ const getDetails = async (req, res) => {
       .populate({
         path: "completedTimers",
         options: { sort: { _id: -1 } },
-      });
+      })
+      .populate("folders");
     if (!user) {
       user = new User({
         auth0Id,

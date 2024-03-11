@@ -1,4 +1,3 @@
-import "./ModalAnimation.css";
 export const LogoutModal = ({ logout, showModal, setShowModal }) => {
   return (
     <div>

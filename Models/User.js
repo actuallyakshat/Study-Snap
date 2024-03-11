@@ -38,6 +38,18 @@ const userSchema = new mongoose.Schema({
 });
 
 userSchema.pre("save", async function (next) {
+  try {
+    if (this.isNew) {
+      const defaultFolder = await Folder.create({ name: "unorganized" });
+      this.folders.push(defaultFolder._id);
+    }
+    next();
+  } catch (error) {
+    next(error);
+  }
+});
+
+userSchema.pre("save", async function (next) {
   if (this.completedTimers.length > 10) {
     this.completedTimers = this.completedTimers.slice(
       this.completedTimers.length - 10

@@ -7,6 +7,8 @@ import { IoMdClose } from "react-icons/io";
 import { FolderCard } from "./FolderCard";
 import { NoteCard } from "./NoteCard";
 import { CloseSidebarOverlay } from "./CloseSidebarOverlay";
+import { NoteCreationModal } from "./NoteCreationModal";
+import { FolderCreationModal } from "./FolderCreationModal";
 
 // Dummy data representing folders and notes
 const initialFolders = [
@@ -88,6 +90,8 @@ export const NotesLayout = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [folders, setFolders] = useState(initialFolders);
   const [selectedNoteId, setSelectedNoteId] = useState(null); // Updated state
+  const [addNoteModel, setAddNoteModel] = useState(false);
+  const [addFolderModal, setAddFolderModal] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useAtom(sidebarOpenAtom);
 
   const handleNoteSelect = (noteId) => {
@@ -108,12 +112,19 @@ export const NotesLayout = () => {
     setSearchQuery(event.target.value);
   };
 
-  // Filter out the "Notes" folder from the folders array
   const filteredFolders = folders.filter((folder) => folder.id !== 0);
 
   return (
     <div className="h-full flex-1">
       <CloseSidebarOverlay />
+      <NoteCreationModal
+        setAddNoteModel={setAddNoteModel}
+        addNoteModel={addNoteModel}
+      />
+      <FolderCreationModal
+        addFolderModal={addFolderModal}
+        setAddFolderModal={setAddFolderModal}
+      />
       <div
         className={`${
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
@@ -132,10 +143,16 @@ export const NotesLayout = () => {
             className="p-2 flex-1 rounded-lg focus:ring-blue-600/80 focus:ring-2 focus:outline-none bg-gray-50 text-gray-900"
           />
           <div className="flex gap-1 items-center justify-center cursor-pointer">
-            <i className="hover:bg-white/20 transition-colors rounded-lg py-1 px-1 hover:text-gray-300">
+            <i
+              onClick={() => setAddFolderModal(true)}
+              className="hover:bg-white/20 transition-colors rounded-lg py-1 px-1 hover:text-gray-300"
+            >
               <AiOutlineFolderAdd className="size-7" />
             </i>
-            <i className="hover:bg-white/20 transition-colors rounded-lg py-1 px-1 cursor-pointer hover:text-gray-300">
+            <i
+              onClick={() => setAddNoteModel(true)}
+              className="hover:bg-white/20 transition-colors rounded-lg py-1 px-1 cursor-pointer hover:text-gray-300"
+            >
               <AiOutlineFileAdd className="size-7" />
             </i>
           </div>
@@ -146,10 +163,10 @@ export const NotesLayout = () => {
             <div key={folder.id}>
               <FolderCard
                 folder={folder}
-                isSelected={false} // Folder selection no longer relevant
-                onSelect={() => {}} // Folder selection no longer relevant
-                onNoteSelect={handleNoteSelect} // Pass handleNoteSelect
-                selectedNoteId={selectedNoteId} // Pass selectedNoteId
+                isSelected={false}
+                onSelect={() => {}}
+                onNoteSelect={handleNoteSelect}
+                selectedNoteId={selectedNoteId}
               />
             </div>
           ))}
@@ -168,7 +185,6 @@ export const NotesLayout = () => {
           )}
         </div>
       </div>
-
       <div className="h-full">
         {!selectedNoteId && (
           <div className="w-full h-full font-bold text-4xl flex items-center justify-center">
