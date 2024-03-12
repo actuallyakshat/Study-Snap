@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { AiOutlineFileAdd, AiOutlineFolderAdd } from "react-icons/ai";
 import { Note } from "./Note";
-import { sidebarOpenAtom } from "../../Utils/Store";
+import { sidebarOpenAtom, userAtom } from "../../Utils/Store";
 import { useAtom } from "jotai";
 import { IoMdClose } from "react-icons/io";
 import { FolderCard } from "./FolderCard";
@@ -9,114 +9,67 @@ import { NoteCard } from "./NoteCard";
 import { CloseSidebarOverlay } from "./CloseSidebarOverlay";
 import { NoteCreationModal } from "./NoteCreationModal";
 import { FolderCreationModal } from "./FolderCreationModal";
-
-// Dummy data representing folders and notes
-const initialFolders = [
-  {
-    id: 0, // Assigning 0 for notes outside of folders
-    name: "Notes", // Name for the folder (optional)
-    notes: [
-      {
-        id: 1,
-        title: "Note 1",
-        dateCreated: "10/01/2024",
-        content: "This is note 1.",
-      },
-      {
-        id: 2,
-        title: "Note 2",
-        dateCreated: "12/01/2024",
-        content: "This is note 2.",
-      },
-      {
-        id: 9,
-        title: "Note 3",
-        dateCreated: "12/01/2024",
-        content: "This is note 3.",
-      },
-    ],
-  },
-  {
-    id: 1,
-    name: "Personal",
-    notes: [
-      {
-        id: 3,
-        title: "Personal Note 1",
-        dateCreated: "10/01/2024",
-        content: "This is a personal note 1.",
-      },
-      {
-        id: 4,
-        title: "Personal Note 2",
-        dateCreated: "12/01/2024",
-        content: "This is a personal note 2.",
-      },
-    ],
-  },
-  {
-    id: 2,
-    name: "Work",
-    notes: [
-      {
-        id: 5,
-        title: "Work Note 1",
-        dateCreated: "11/01/2024",
-        content: "This is a work note 1.",
-      },
-    ],
-  },
-  {
-    id: 3,
-    name: "Ideas",
-    notes: [
-      {
-        id: 6,
-        title: "Idea 1",
-        dateCreated: "09/01/2024",
-        content: "This is an idea 1.",
-      },
-      {
-        id: 7,
-        title: "Idea 2",
-        dateCreated: "08/01/2024",
-        content: "This is an idea 2.",
-      },
-    ],
-  },
-];
+import { FolderDeletionModal } from "./FolderDeletionModal";
 
 export const NotesLayout = () => {
+  const [user, setUser] = useAtom(userAtom);
   const [searchQuery, setSearchQuery] = useState("");
-  const [folders, setFolders] = useState(initialFolders);
-  const [selectedNoteId, setSelectedNoteId] = useState(null); // Updated state
+  const [folders, setFolders] = useState(null);
+  const [selectedNoteId, setSelectedNoteId] = useState(null);
+  const [selectedFolderId, setSelectedFolerId] = useState(null);
   const [addNoteModel, setAddNoteModel] = useState(false);
   const [addFolderModal, setAddFolderModal] = useState(false);
+  const [deleteFolderModal, setDeleteFolderModal] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useAtom(sidebarOpenAtom);
 
   const handleNoteSelect = (noteId) => {
-    setSelectedNoteId(noteId); // Updated function to directly set selected note ID
+    setSelectedNoteId(noteId);
   };
 
   useEffect(() => {
-    const filteredFolders = initialFolders.map((folder) => ({
-      ...folder,
-      notes: folder.notes.filter((note) =>
-        note.title.toLowerCase().includes(searchQuery.toLowerCase())
-      ),
-    }));
-    setFolders(filteredFolders);
+    if (user) {
+      // Exclude the unorganised folder from folders list
+      const filteredFolders = user.folders.filter(
+        (folder) => folder.name !== "unorganized"
+      );
+      setFolders(filteredFolders);
+    }
+  }, [user]);
+
+  useEffect(() => {
+    // Ensure folders is not null before filtering
+    if (folders) {
+      const filteredFolders = folders.map((folder) => ({
+        ...folder,
+        notes: folder.notes.filter((note) =>
+          note.title.toLowerCase().includes(searchQuery.toLowerCase())
+        ),
+      }));
+      setFolders(filteredFolders);
+    }
   }, [searchQuery]);
 
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
   };
+  const handleAddNote = () => {
+    setAddNoteModel(true);
+  };
 
-  const filteredFolders = folders.filter((folder) => folder.id !== 0);
+  const handleAddFolder = () => {
+    setAddFolderModal(true);
+  };
 
   return (
     <div className="h-full flex-1">
       <CloseSidebarOverlay />
+      <FolderDeletionModal
+        deleteFolderModal={deleteFolderModal}
+        setDeleteFolderModal={setDeleteFolderModal}
+        setSelectedNoteId={setSelectedNoteId}
+        setSelectedFolderId={setSelectedFolerId}
+        selectedFolderId={selectedFolderId}
+      />
       <NoteCreationModal
         setAddNoteModel={setAddNoteModel}
         addNoteModel={addNoteModel}
@@ -144,13 +97,13 @@ export const NotesLayout = () => {
           />
           <div className="flex gap-1 items-center justify-center cursor-pointer">
             <i
-              onClick={() => setAddFolderModal(true)}
+              onClick={handleAddFolder}
               className="hover:bg-white/20 transition-colors rounded-lg py-1 px-1 hover:text-gray-300"
             >
               <AiOutlineFolderAdd className="size-7" />
             </i>
             <i
-              onClick={() => setAddNoteModel(true)}
+              onClick={handleAddNote}
               className="hover:bg-white/20 transition-colors rounded-lg py-1 px-1 cursor-pointer hover:text-gray-300"
             >
               <AiOutlineFileAdd className="size-7" />
@@ -158,31 +111,32 @@ export const NotesLayout = () => {
           </div>
         </div>
         <div className="space-y-2 pt-3">
-          {/* Render notes from folders */}
-          {filteredFolders.map((folder) => (
-            <div key={folder.id}>
+          {folders?.map((folder) => (
+            <div key={folder._id}>
               <FolderCard
+                key={folder._id}
                 folder={folder}
                 isSelected={false}
                 onSelect={() => {}}
                 onNoteSelect={handleNoteSelect}
                 selectedNoteId={selectedNoteId}
+                setDeleteFolderModal={setDeleteFolderModal}
+                setSelectedFolerId={setSelectedFolerId}
               />
             </div>
           ))}
           {/* Render uncategorized notes */}
-          {folders[0].notes.length > 0 && (
-            <div className="space-y-2">
-              {folders[0].notes.map((note) => (
+          {user?.folders &&
+            user.folders
+              .find((folder) => folder.name === "unorganized")
+              ?.notes?.map((note) => (
                 <NoteCard
-                  key={note.id}
+                  key={note._id}
                   note={note}
-                  isSelected={selectedNoteId === note.id}
-                  onSelect={() => handleNoteSelect(note.id)}
+                  isSelected={selectedNoteId === note._id}
+                  onSelect={() => handleNoteSelect(note._id)}
                 />
               ))}
-            </div>
-          )}
         </div>
       </div>
       <div className="h-full">
@@ -195,9 +149,10 @@ export const NotesLayout = () => {
         )}
         {selectedNoteId && (
           <Note
-            note={folders
-              .flatMap((folder) => folder.notes)
-              .find((note) => note.id === selectedNoteId)}
+            note={user?.folders
+              ?.flatMap((folder) => folder.notes)
+              ?.find((note) => note._id === selectedNoteId)}
+            setSelectedNoteId={setSelectedNoteId}
           />
         )}
       </div>

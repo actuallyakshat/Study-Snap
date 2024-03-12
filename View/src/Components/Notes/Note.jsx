@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { NoteEditor } from "./NoteEditor";
 
-export const Note = ({ note }) => {
+export const Note = ({ note, setSelectedNoteId }) => {
   const [title, setTitle] = useState(note.title);
   const [content, setContent] = useState(note.content);
 
@@ -25,7 +25,11 @@ export const Note = ({ note }) => {
           className="bg-transparent w-full max-w-[15ch] focus:outline-none text-5xl font-bold sm:max-w-full sm:break-all"
         />
         <div className="mt-6 w-full">
-          <NoteEditor content={content} />
+          <NoteEditor
+            setSelectedNoteId={setSelectedNoteId}
+            content={content}
+            noteId={note._id}
+          />
         </div>
       </div>
     </div>

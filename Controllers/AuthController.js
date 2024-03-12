@@ -12,7 +12,10 @@ const getDetails = async (req, res) => {
         path: "completedTimers",
         options: { sort: { _id: -1 } },
       })
-      .populate("folders");
+      .populate({
+        path: "folders",
+        populate: { path: "notes" },
+      });
     if (!user) {
       user = new User({
         auth0Id,

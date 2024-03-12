@@ -1,14 +1,35 @@
 import { useForm } from "react-hook-form";
-const folders = [
-  { id: 1, name: "Personal" },
-  { id: 2, name: "Work" },
-  { id: 3, name: "Ideas" },
-];
+import { useAtom } from "jotai";
+import { userAtom } from "../../Utils/Store";
+import { addNote } from "../../HandleApi/NotesApiHandler";
 export const NoteCreationModal = ({ setAddNoteModel, addNoteModel }) => {
+  const [user, setUser] = useAtom(userAtom);
   const { register, handleSubmit, reset } = useForm();
-  const onSubmit = (data) => {
+  const defaultContent = "Content goes here...";
+  const onSubmit = async (data) => {
     setAddNoteModel(false);
     console.log(data);
+    const response = await addNote(
+      data.title,
+      defaultContent,
+      data.folder,
+      user.auth0Id
+    );
+    console.log(response);
+    if (response.success) {
+      const updatedUserFolders = user.folders.map((folder) => {
+        if (folder._id === data.folder) {
+          return {
+            ...folder,
+            notes: [...folder.notes, response.note],
+          };
+        } else {
+          return folder;
+        }
+      });
+      setUser({ ...user, folders: updatedUserFolders });
+    }
+
     reset();
   };
   return (
@@ -49,29 +70,30 @@ export const NoteCreationModal = ({ setAddNoteModel, addNoteModel }) => {
                   id="folder"
                   className="text-black w-full font-medium rounded-lg px-1 py-1 focus:ring-2 focus:outline-none focus:ring-blue-600"
                 >
-                  <option className="font-medium" value="">
-                    None
-                  </option>
-                  {folders.map((folder) => (
+                  {user?.folders.map((folder) => (
                     <option
                       key={folder._id}
                       value={folder._id}
                       className="text-black font-medium"
                     >
-                      {folder.name}
+                      {folder.name === "unorganized" ? "None" : folder.name}
                     </option>
                   ))}
                 </select>
               </div>
-              <div className="gap-2 mt-6 flex justify-end">
-                <button className="bg-primaryPurple px-3 py-2 rounded-md text-sm">
-                  Add Note
-                </button>
+              <div className="gap-2 pt-2 flex justify-end">
                 <button
+                  type="button"
                   onClick={() => setAddNoteModel(false)}
-                  className="bg-red-600 px-3 py-2 rounded-md text-sm"
+                  className="bg-red-600 hover:bg-red-700 transition-colors px-3 py-2 rounded-md text-sm"
                 >
                   Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="bg-primaryPurple hover:bg-primaryPurple/80 transition-colors px-3 py-2 rounded-md text-sm"
+                >
+                  Add Note
                 </button>
               </div>
             </form>

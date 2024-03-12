@@ -1,9 +1,20 @@
 import { useForm } from "react-hook-form";
+import { useAtom } from "jotai";
+import { userAtom } from "../../Utils/Store";
+import { addFolder } from "../../HandleApi/NotesApiHandler";
 export const FolderCreationModal = ({ addFolderModal, setAddFolderModal }) => {
+  const [user, setUser] = useAtom(userAtom);
   const { register, handleSubmit, reset } = useForm();
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     setAddFolderModal(false);
-    console.log(data);
+    const response = await addFolder(data.title, user.auth0Id);
+    if (response.success) {
+      const updatedUser = {
+        ...user,
+        folders: [...user.folders, response.folder],
+      };
+      setUser(updatedUser);
+    }
     reset();
   };
   return (
@@ -35,18 +46,22 @@ export const FolderCreationModal = ({ addFolderModal, setAddFolderModal }) => {
                   className="w-full rounded-lg py-1 text-black px-2 font-medium focus:ring-2 focus:outline-none focus:ring-blue-600"
                 />
               </div>
+              <div className="max-w-[80%] w-fit ml-auto gap-2 mt-6 flex items-center">
+                <button
+                  type="button"
+                  onClick={() => setAddFolderModal(false)}
+                  className="bg-red-600 hover:bg-red-700 transition-colors px-3 py-2 rounded-md text-sm"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="bg-primaryPurple hover:bg-primaryPurple/80 transition-colors px-3 py-2 rounded-md text-sm"
+                >
+                  Add Folder
+                </button>
+              </div>
             </form>
-            <div className="max-w-[80%] mx-auto gap-2 mt-6 flex justify-end">
-              <button className="bg-primaryPurple px-3 py-2 rounded-md text-sm">
-                Add Folder
-              </button>
-              <button
-                onClick={() => setAddFolderModal(false)}
-                className="bg-red-600 px-3 py-2 rounded-md text-sm"
-              >
-                Cancel
-              </button>
-            </div>
           </div>
         </div>
       )}

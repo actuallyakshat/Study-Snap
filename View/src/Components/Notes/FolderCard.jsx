@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { NoteCard } from "./NoteCard";
+import { FaTrash } from "react-icons/fa";
 
 export const FolderCard = ({
   folder,
@@ -7,6 +8,8 @@ export const FolderCard = ({
   onSelect,
   onNoteSelect,
   selectedNoteId,
+  setSelectedFolerId,
+  setDeleteFolderModal,
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -42,15 +45,27 @@ export const FolderCard = ({
             d={isExpanded ? "M13 5l7 7-7 7" : "M9 5l7 7-7 7"}
           />
         </svg>
-        <p className="text-white">{folder.name}</p>
+        <div className="flex justify-between items-center w-full">
+          <p className="text-white font-semibold">{folder.name}</p>
+          <div
+            onClick={(e) => {
+              e.stopPropagation();
+              setDeleteFolderModal(true);
+              setSelectedFolerId(folder._id);
+            }}
+            className="p-2 hover:bg-white/20 rounded-lg transition-colors hover:text-red-600"
+          >
+            <FaTrash className="size-4" />
+          </div>
+        </div>
       </div>
-      <div className={`pl-8 mt-3 space-y-2 ${isExpanded ? "block" : "hidden"}`}>
+      <div className={`pl-8 mt-1 space-y-2 ${isExpanded ? "block" : "hidden"}`}>
         {folder.notes.map((note) => (
           <NoteCard
-            key={note.id}
+            key={note._id}
             note={note}
-            isSelected={selectedNoteId === note.id}
-            onSelect={() => onNoteSelect(note.id)}
+            isSelected={selectedNoteId === note._id}
+            onSelect={() => onNoteSelect(note._id)} // Pass note's _id
           />
         ))}
       </div>

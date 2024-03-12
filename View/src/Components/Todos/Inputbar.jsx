@@ -46,7 +46,7 @@ export const Inputbar = ({
   };
 
   return (
-    <div className="flex flex-col items-center gap-2 mx-auto w-full text-black max-w-[95%] md:w-full mb-8">
+    <div className="flex flex-col items-center gap-2 mx-auto w-full text-black md:w-full mb-8">
       <DateTimeDisplay />
       <div className="w-full flex gap-3">
         <input

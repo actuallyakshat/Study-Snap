@@ -24,5 +24,4 @@ folderSchema.pre("remove", async function (next) {
 });
 
 const Folder = mongoose.model("Folder", folderSchema);
-
 module.exports = Folder;
