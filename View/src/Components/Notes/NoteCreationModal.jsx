@@ -2,10 +2,23 @@ import { useForm } from "react-hook-form";
 import { useAtom } from "jotai";
 import { userAtom } from "../../Utils/Store";
 import { addNote } from "../../HandleApi/NotesApiHandler";
+import { useEffect } from "react";
+
 export const NoteCreationModal = ({ setAddNoteModel, addNoteModel }) => {
   const [user, setUser] = useAtom(userAtom);
   const { register, handleSubmit, reset } = useForm();
+
   const defaultContent = "Content goes here...";
+  useEffect(() => {
+    if (addNoteModel) {
+      const titleInput = document.getElementById("title");
+
+      console.log(titleInput);
+      if (titleInput) {
+        titleInput.focus();
+      }
+    }
+  }, [addNoteModel]);
   const onSubmit = async (data) => {
     setAddNoteModel(false);
     console.log(data);
@@ -32,11 +45,17 @@ export const NoteCreationModal = ({ setAddNoteModel, addNoteModel }) => {
 
     reset();
   };
+  const handleKeyDown = (event) => {
+    if (event.key === "Escape") {
+      setAddNoteModel(false);
+    }
+  };
   return (
     <>
       {addNoteModel && (
         <div
           onClick={() => setAddNoteModel(false)}
+          onKeyDown={handleKeyDown}
           className="popup-overlay w-full h-full z-[11] top-0 backdrop-blur-sm absolute"
         >
           <div

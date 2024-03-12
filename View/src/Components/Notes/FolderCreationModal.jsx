@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import { useAtom } from "jotai";
 import { userAtom } from "../../Utils/Store";
 import { addFolder } from "../../HandleApi/NotesApiHandler";
+import { useEffect } from "react";
 export const FolderCreationModal = ({ addFolderModal, setAddFolderModal }) => {
   const [user, setUser] = useAtom(userAtom);
   const { register, handleSubmit, reset } = useForm();
@@ -17,16 +18,33 @@ export const FolderCreationModal = ({ addFolderModal, setAddFolderModal }) => {
     }
     reset();
   };
+  useEffect(() => {
+    if (addFolderModal) {
+      const titleInput = document.getElementById("title");
+
+      console.log(titleInput);
+      if (titleInput) {
+        titleInput.focus();
+      }
+    }
+  }, [addFolderModal]);
+  const handleKeyDown = (event) => {
+    if (event.key === "Escape") {
+      setAddFolderModal(false);
+    }
+  };
+
   return (
     <>
       {addFolderModal && (
         <div
           onClick={() => setAddFolderModal(false)}
+          onKeyDown={handleKeyDown}
           className="popup-overlay w-full h-full z-[11] top-0 backdrop-blur-sm absolute"
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className="popup-content max-w-[30em] w-full px-4 py-10 rounded-lg border border-gray-500/40 absolute bg-[#0d1117] shadow-lg shadow-gray-800/20 z-[11] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+            className="popup-content  max-w-[30em] w-full px-4 py-10 rounded-lg border border-gray-500/40 absolute bg-[#0d1117] shadow-lg shadow-gray-800/20 z-[11] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
           >
             <h1 className="text-3xl mb-4 font-bold text-center">
               Add New Folder

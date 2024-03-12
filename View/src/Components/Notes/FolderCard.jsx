@@ -21,7 +21,7 @@ export const FolderCard = ({
     <div>
       <div
         className={`flex rounded-lg items-center px-4 py-2 cursor-pointer ${
-          isSelected ? "bg-gray-700" : ""
+          isExpanded ? "underline" : ""
         }`}
         onClick={() => {
           onSelect();

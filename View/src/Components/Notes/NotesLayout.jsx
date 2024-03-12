@@ -17,6 +17,7 @@ export const NotesLayout = () => {
   const [folders, setFolders] = useState(null);
   const [selectedNoteId, setSelectedNoteId] = useState(null);
   const [selectedFolderId, setSelectedFolerId] = useState(null);
+  const [filteredNotes, setFilteredNotes] = useState(null);
   const [addNoteModel, setAddNoteModel] = useState(false);
   const [addFolderModal, setAddFolderModal] = useState(false);
   const [deleteFolderModal, setDeleteFolderModal] = useState(false);
@@ -37,17 +38,17 @@ export const NotesLayout = () => {
   }, [user]);
 
   useEffect(() => {
-    // Ensure folders is not null before filtering
-    if (folders) {
-      const filteredFolders = folders.map((folder) => ({
-        ...folder,
-        notes: folder.notes.filter((note) =>
+    if (searchQuery) {
+      const filteredNotesArray = user?.folders?.reduce((acc, folder) => {
+        const filteredFolderNotes = folder.notes.filter((note) =>
           note.title.toLowerCase().includes(searchQuery.toLowerCase())
-        ),
-      }));
-      setFolders(filteredFolders);
+        );
+        return acc.concat(filteredFolderNotes);
+      }, []);
+      console.log(filteredNotesArray);
+      setFilteredNotes(filteredNotesArray);
     }
-  }, [searchQuery]);
+  }, [folders, searchQuery, user]);
 
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
@@ -88,13 +89,22 @@ export const NotesLayout = () => {
           className="size-7 cursor-pointer absolute right-4 top-4"
         />
         <div className="w-full gap-4 flex items-center justify-between mb-6">
-          <input
-            type="text"
-            placeholder="Search Notes"
-            value={searchQuery}
-            onChange={handleSearchChange}
-            className="p-2 flex-1 rounded-lg focus:ring-blue-600/80 focus:ring-2 focus:outline-none bg-gray-50 text-gray-900"
-          />
+          <div className="flex-1 relative">
+            {searchQuery && (
+              <IoMdClose
+                onClick={() => setSearchQuery("")}
+                className="absolute cursor-pointer text-black right-3 top-1/2 -translate-y-1/2"
+              />
+            )}
+            <input
+              type="text"
+              placeholder="Search Notes"
+              value={searchQuery}
+              onChange={handleSearchChange}
+              className="p-2 w-full flex-1 rounded-lg focus:ring-blue-600/80 focus:ring-2 focus:outline-none bg-gray-50 text-gray-900"
+            />
+          </div>
+
           <div className="flex gap-1 items-center justify-center cursor-pointer">
             <i
               onClick={handleAddFolder}
@@ -110,34 +120,56 @@ export const NotesLayout = () => {
             </i>
           </div>
         </div>
-        <div className="space-y-2 pt-3">
-          {folders?.map((folder) => (
-            <div key={folder._id}>
-              <FolderCard
-                key={folder._id}
-                folder={folder}
-                isSelected={false}
-                onSelect={() => {}}
-                onNoteSelect={handleNoteSelect}
-                selectedNoteId={selectedNoteId}
-                setDeleteFolderModal={setDeleteFolderModal}
-                setSelectedFolerId={setSelectedFolerId}
-              />
-            </div>
-          ))}
-          {/* Render uncategorized notes */}
-          {user?.folders &&
-            user.folders
-              .find((folder) => folder.name === "unorganized")
-              ?.notes?.map((note) => (
+        {searchQuery && !filteredNotes?.length && (
+          <div className="text-center pt-6 font-medium">
+            No search results...
+          </div>
+        )}
+        {searchQuery && filteredNotes && (
+          <div className="space-y-2 pt-4">
+            {filteredNotes.map((note) => {
+              return (
                 <NoteCard
                   key={note._id}
                   note={note}
                   isSelected={selectedNoteId === note._id}
                   onSelect={() => handleNoteSelect(note._id)}
                 />
-              ))}
-        </div>
+              );
+            })}
+          </div>
+        )}
+
+        {!searchQuery && (
+          <div className="space-y-2 pt-3">
+            {folders?.map((folder) => (
+              <div key={folder._id}>
+                <FolderCard
+                  key={folder._id}
+                  folder={folder}
+                  isSelected={false}
+                  onSelect={() => {}}
+                  onNoteSelect={handleNoteSelect}
+                  selectedNoteId={selectedNoteId}
+                  setDeleteFolderModal={setDeleteFolderModal}
+                  setSelectedFolerId={setSelectedFolerId}
+                />
+              </div>
+            ))}
+            {/* Render uncategorized notes */}
+            {user?.folders &&
+              user.folders
+                .find((folder) => folder.name === "unorganized")
+                ?.notes?.map((note) => (
+                  <NoteCard
+                    key={note._id}
+                    note={note}
+                    isSelected={selectedNoteId === note._id}
+                    onSelect={() => handleNoteSelect(note._id)}
+                  />
+                ))}
+          </div>
+        )}
       </div>
       <div className="h-full">
         {!selectedNoteId && (
