@@ -8,7 +8,6 @@ export const EditProfileLayout = () => {
   const [user, setUser] = useAtom(userAtom);
   const [newName, setNewName] = useState("");
   const [showModal, setShowModal] = useState(false);
-
   const submitHandler = async () => {
     const response = await updateUser(user, newName);
     if (response.success) {
@@ -25,21 +24,11 @@ export const EditProfileLayout = () => {
 
   const deleteAccountHandler = async () => {
     setShowModal(true);
-    const response = await deleteUserAccount(user);
-    if (response.success) {
-      logout();
-      toast.success("Account deleted successfully!", {
-        style: {
-          fontWeight: "bold",
-        },
-      });
-      setUser(null);
-    }
   };
 
   return (
-    <div className="w-full bg-EditProfileBg bg-contain bg-no-repeat h-full flex items-center justify-center ">
-      <div className="flex bg-gray-800/30 border border-gray-400/20 py-10 rounded-lg top-0  flex-col items-center justify-center w-full max-w-[30rem] px-7">
+    <div className="w-full bg-EditProfileBg bg-cover bg-center h-full flex items-center justify-center ">
+      <div className="flex bg-gray-900/70 shadow-lg shadow-gray-800/50 border border-gray-400/20 py-12 rounded-lg top-0  flex-col items-center justify-center w-full max-w-[30rem] px-7">
         <div className="w-full">
           <h1 className="font-bold text-4xl text-center">Edit Profile</h1>
           <form
