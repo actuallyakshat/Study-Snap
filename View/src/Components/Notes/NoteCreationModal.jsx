@@ -47,6 +47,7 @@ export const NoteCreationModal = ({ setAddNoteModel, addNoteModel }) => {
   };
   const handleKeyDown = (event) => {
     if (event.key === "Escape") {
+      reset();
       setAddNoteModel(false);
     }
   };
@@ -103,7 +104,10 @@ export const NoteCreationModal = ({ setAddNoteModel, addNoteModel }) => {
               <div className="gap-2 pt-2 flex justify-end">
                 <button
                   type="button"
-                  onClick={() => setAddNoteModel(false)}
+                  onClick={() => {
+                    setAddNoteModel(false);
+                    reset();
+                  }}
                   className="bg-red-600 hover:bg-red-700 transition-colors px-3 py-2 rounded-md text-sm"
                 >
                   Cancel

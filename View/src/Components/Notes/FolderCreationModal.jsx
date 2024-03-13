@@ -5,7 +5,7 @@ import { addFolder } from "../../HandleApi/NotesApiHandler";
 import { useEffect } from "react";
 export const FolderCreationModal = ({ addFolderModal, setAddFolderModal }) => {
   const [user, setUser] = useAtom(userAtom);
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit, reset, resetField } = useForm();
   const onSubmit = async (data) => {
     setAddFolderModal(false);
     const response = await addFolder(data.title, user.auth0Id);
@@ -30,6 +30,7 @@ export const FolderCreationModal = ({ addFolderModal, setAddFolderModal }) => {
   }, [addFolderModal]);
   const handleKeyDown = (event) => {
     if (event.key === "Escape") {
+      reset();
       setAddFolderModal(false);
     }
   };
@@ -67,7 +68,10 @@ export const FolderCreationModal = ({ addFolderModal, setAddFolderModal }) => {
               <div className="max-w-[80%] w-fit ml-auto gap-2 mt-6 flex items-center">
                 <button
                   type="button"
-                  onClick={() => setAddFolderModal(false)}
+                  onClick={() => {
+                    setAddFolderModal(false);
+                    reset();
+                  }}
                   className="bg-red-600 hover:bg-red-700 transition-colors px-3 py-2 rounded-md text-sm"
                 >
                   Cancel

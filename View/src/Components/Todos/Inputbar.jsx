@@ -59,12 +59,12 @@ export const Inputbar = ({
             }
           }}
           onChange={(e) => setTask(e.target.value)}
-          className="px-2 py-2 h-10 flex-1 rounded-lg bg-gray-200 focus:outline-none"
+          className="px-2 py-2 h-10 flex-1 bg-white/5 rounded-lg text-white focus:outline-none"
         />
         <button
           onClick={submitHandler}
           type="button"
-          className="px-6 py-2 font-semibold text-sm md:text-md rounded-md bg-[#651b80] hover:bg-[#651b90]/70 transition-colors text-white"
+          className="px-6 py-2 font-semibold text-sm md:text-md rounded-md bg-primaryPurple hover:bg-primaryPurple/80 transition-colors text-white"
         >
           {updating ? "Update" : "Add"}
         </button>
