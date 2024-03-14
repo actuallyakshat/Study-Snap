@@ -3,9 +3,9 @@ import { useAuth0 } from "@auth0/auth0-react";
 export const Hero = () => {
   const { loginWithRedirect } = useAuth0();
   return (
-    <div className="h-[calc(100vh-64px)] w-full">
-      <div className="h-full mx-auto pt-28 px-8 w-full lg:max-w-[75%]">
-        <div className="w-full flex flex-col items-center">
+    <div className="h-full min-h-[calc(100vh-64px)] flex items-center herobg w-full">
+      <div className="h-full mx-auto flex items-center justify-center px-8 w-full lg:max-w-[75%]">
+        <div className="w-full flex flex-col justify-center items-center">
           <h1 className="font-bold text-4xl mx-auto lg:text-6xl max-w-[25ch] text-center">
             A No Bullsh*t Productivity Tracking Website for Students
           </h1>
@@ -30,7 +30,7 @@ export const Hero = () => {
             <a
               href="https://github.com/actuallyakshat/Study-Snap"
               target="_blank"
-              className="px-6 flex py-3 items-center  gap-3 border text-sm hover:bg-gray-800 transition-colors font-medium border-gray-600 rounded-lg cursor-pointer"
+              className="px-6 flex py-3 items-center hover:text-black gap-3 border text-sm hover:bg-white transition-colors duration-300 font-medium border-gray-600 rounded-lg cursor-pointer"
             >
               <p>Github</p>
               <FaGithub className="text-xl" />

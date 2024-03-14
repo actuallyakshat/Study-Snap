@@ -24,7 +24,7 @@ export const HoursCompleted = ({ cardStyle }) => {
       </div>
       <div className="w-[40%] absolute top-1/2 -translate-y-1/4">
         <CircularProgressbar
-          value={17}
+          value={completedHours}
           maxValue={user?.studyTarget * 7}
           text={`${Math.round(
             (completedHours / (user?.studyTarget * 7 || 1)) * 100
@@ -37,7 +37,6 @@ export const HoursCompleted = ({ cardStyle }) => {
             pathColor: "#7f007f",
             trailColor: "#FFF",
           })}
-          // className="max-w-[10rem]"
         />
       </div>
     </div>

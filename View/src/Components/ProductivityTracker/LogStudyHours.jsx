@@ -44,7 +44,7 @@ export const LogStudyHours = ({ cardStyle }) => {
 
   const setStudiedHoursHandler = async () => {
     if (hoursStudied == 0) {
-      toast.error("Go study a little champ!");
+      toast.error("Go study a little, champ!");
       return;
     }
     const response = await addProductivityData(user.auth0Id, hoursStudied);
