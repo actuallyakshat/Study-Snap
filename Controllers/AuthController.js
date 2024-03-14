@@ -36,6 +36,24 @@ const getDetails = async (req, res) => {
     // Fetch productivity data for the user
     const productivityData = await ProductivityData.find({ auth0Id });
 
+    //Streak Logic
+    const previousDate = new Date();
+    previousDate.setDate(previousDate.getDate() - 1); // Get the previous date
+
+    const previousDay = ("0" + previousDate.getDate()).slice(-2); // Add leading zero if needed
+    const previousMonth = ("0" + (previousDate.getMonth() + 1)).slice(-2); // Add leading zero if needed
+    const previousYear = previousDate.getFullYear();
+
+    const previousDateString = `${previousDay}/${previousMonth}/${previousYear}`;
+
+    const previousProductivityData = productivityData.find(
+      (entry) => entry.date === previousDateString
+    );
+    if (!previousProductivityData) {
+      user.streak = 0;
+      await user.save();
+    }
+
     // Initialize arrays for weekly, monthly, and yearly summaries
     const weeklySummary = [
       { day: "Monday", hours: 0 },

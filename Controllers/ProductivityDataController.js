@@ -1,6 +1,5 @@
 const ProductivityData = require("../Models/ProductivityData");
 const User = require("../Models/User");
-const moment = require("moment");
 
 const addProductivityData = async (req, res) => {
   try {
@@ -26,7 +25,10 @@ const addProductivityData = async (req, res) => {
 
       await User.updateOne(
         { auth0Id },
-        { $push: { productivityData: existingProductivityData._id } }
+        {
+          $push: { productivityData: existingProductivityData._id },
+          $inc: { streak: 1 },
+        }
       );
     }
 

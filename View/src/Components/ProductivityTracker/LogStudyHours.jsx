@@ -72,6 +72,7 @@ export const LogStudyHours = ({ cardStyle }) => {
         weekly: updatedWeeklyData,
         monthly: updatedMonthlyData,
         yearly: updatedYearlyData,
+        streak: prevUser.streak + 1,
       }));
     }
   };
