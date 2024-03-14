@@ -23,7 +23,6 @@ export const TodoLayout = () => {
     await reorderTodos(user, items);
   };
   const updateOrderWithDebounce = debounce(() => {
-    console.log("reorderFlag", reorderFlag);
     if (JSON.stringify(items) !== JSON.stringify(user?.todos) && reorderFlag) {
       reorderHandler(items);
       setReorderFlag(false);

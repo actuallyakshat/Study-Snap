@@ -48,11 +48,10 @@ const getDetails = async (req, res) => {
     ];
 
     // Determine the number of days in the current month
-    const daysInMonth = new Date(
-      new Date().getFullYear(),
-      new Date().getMonth() + 1,
-      0
-    ).getDate();
+    const today = new Date();
+    const currentYear = today.getFullYear();
+    const currentMonth = today.getMonth() + 1; // Month is 0-indexed
+    const daysInMonth = new Date(currentYear, currentMonth, 0).getDate();
 
     const monthlySummary = new Array(daysInMonth).fill(0).map((_, index) => ({
       day: index + 1,
@@ -61,7 +60,7 @@ const getDetails = async (req, res) => {
 
     // Initialize yearly summary as an array of objects
     const yearlySummary = Array.from({ length: 12 }, (_, i) => ({
-      month: new Date(0, i + 1).toLocaleString("default", { month: "long" }),
+      month: new Date(0, i).toLocaleString("default", { month: "long" }),
       hours: 0,
     }));
 
@@ -73,16 +72,27 @@ const getDetails = async (req, res) => {
       // Create a date object
       const convertedDate = new Date(`${year}-${month}-${day}`);
 
-      // Adjust day of the week for Monday starting week
-      let dayOfWeek = convertedDate.getDay(); // 0 for Sunday, 1 for Monday, etc.
-      if (dayOfWeek === 0) dayOfWeek = 7; // Convert Sunday to 7
+      // Check if the entry falls within the current month
+      if (
+        convertedDate.getMonth() + 1 === currentMonth &&
+        convertedDate.getFullYear() === currentYear
+      ) {
+        // Adjust day of the week for Monday starting week
+        let dayOfWeek = convertedDate.getDay(); // 0 for Sunday, 1 for Monday, etc.
+        if (dayOfWeek === 0) dayOfWeek = 7; // Convert Sunday to 7
 
-      // Update weekly summary
-      weeklySummary[dayOfWeek - 1].hours += hoursStudied; // Adjust index to start from 0
+        // Update weekly summary
+        weeklySummary[dayOfWeek - 1].hours += hoursStudied; // Adjust index to start from 0
+      }
 
-      // Update monthly summary
-      const dayOfMonth = convertedDate.getDate(); // Get the day of the month
-      monthlySummary[dayOfMonth - 1].hours += hoursStudied;
+      // Update monthly summary if the entry belongs to the current month
+      if (
+        convertedDate.getMonth() + 1 === currentMonth &&
+        convertedDate.getFullYear() === currentYear
+      ) {
+        const dayOfMonth = convertedDate.getDate(); // Get the day of the month
+        monthlySummary[dayOfMonth - 1].hours += hoursStudied;
+      }
 
       // Update yearly summary
       const monthName = new Date(convertedDate).toLocaleString("default", {

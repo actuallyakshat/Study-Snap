@@ -22,7 +22,7 @@ const createTodo = async (task, user, order) => {
         },
       }
     );
-    console.log("Response from creating a todo: ", response);
+
     return response;
   } catch (error) {
     console.error("Error while getting creating a todo:", error);
@@ -35,7 +35,7 @@ const updateTodo = async (todoId, task) => {
       todoId,
       task,
     });
-    console.log("Todo updated successfully:", response.data);
+
     return response.data.updatedTodo;
   } catch (error) {
     console.error("Error updating todo:", error);
@@ -46,7 +46,7 @@ const updateTodoStatus = async (todoId) => {
     const response = await axios.put(`${baseUrl}/update-status`, {
       todoId,
     });
-    console.log("Todo status updated successfully:", response.data);
+
     return response.data.updatedTodo;
   } catch (error) {
     console.error("Error updating todo status:", error);
@@ -60,7 +60,7 @@ const deleteTodo = async (todoId, user) => {
       console.error("Null User Error");
       return;
     }
-    console.log(user);
+
     const { sub: auth0Id, token } = user;
     const response = await axios.delete(`${baseUrl}/delete`, {
       data: { todoId, auth0Id },
@@ -68,7 +68,7 @@ const deleteTodo = async (todoId, user) => {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log("Response from deleting a todo: ", response);
+
     return response;
   } catch (error) {
     console.error("Error while deleting a todo:", error);
@@ -87,7 +87,7 @@ const reorderTodos = async (user, newOrder) => {
         },
       }
     );
-    console.log(response);
+
     return response;
   } catch (error) {
     console.error("Error reordering todos:", error);

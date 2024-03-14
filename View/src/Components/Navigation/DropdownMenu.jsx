@@ -12,8 +12,7 @@ function DropdownMenu({ logout }) {
     setIsOpen(!isOpen);
   };
 
-  useEffect(() => {
-    console.log(user);
+useEffect(() => {
     setUsername(user?.name?.split(" ")[0]);
   }, [user]);
 

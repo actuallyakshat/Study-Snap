@@ -21,7 +21,6 @@ const getUserDetails = async (user) => {
         },
       }
     );
-    console.log("Response from get all user controller: ", response);
     return response;
   } catch (error) {
     console.error("Error while getting user details:", error);

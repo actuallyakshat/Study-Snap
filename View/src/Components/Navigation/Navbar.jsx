@@ -37,11 +37,9 @@ export const Navbar = () => {
       if (!isLoading && isAuthenticated) {
         try {
           user.token = await fetchToken();
-          console.log(user);
           const response = await getUserDetails(user);
           const userDb = response.data.user;
           const updatedUser = { ...user, ...userDb };
-          console.log("updatedUser: ", updatedUser);
           setUser(updatedUser);
         } catch (error) {
           console.error("Error updating user:", error);

@@ -5,7 +5,6 @@ const moment = require("moment");
 const addProductivityData = async (req, res) => {
   try {
     const { auth0Id, date, month, week, day, hoursStudied } = req.body;
-
     let existingProductivityData = await ProductivityData.findOne({
       auth0Id,
       date: date,
