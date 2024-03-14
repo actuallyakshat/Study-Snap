@@ -55,6 +55,7 @@ export const Todo = ({ item, setItems, user, handleUpdateClick }) => {
             >
               <input
                 type="checkbox"
+                readOnly
                 checked={completed}
                 className="max-w-[25px] size-4 w-full bg-transparent rounded-lg bg-primaryPurple accent-primaryPurple"
               />

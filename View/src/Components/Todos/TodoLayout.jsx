@@ -24,7 +24,7 @@ export const TodoLayout = () => {
   };
   const updateOrderWithDebounce = debounce(() => {
     console.log("reorderFlag", reorderFlag);
-    if (JSON.stringify(items) !== JSON.stringify(user.todos) && reorderFlag) {
+    if (JSON.stringify(items) !== JSON.stringify(user?.todos) && reorderFlag) {
       reorderHandler(items);
       setReorderFlag(false);
     }
@@ -64,7 +64,7 @@ export const TodoLayout = () => {
   return (
     <div className="h-full flex-1 flex justify-center">
       <div className="min-w-[90%] mx-4 h-[90%] flex flex-col my-6 md:my-16 items-center">
-        <div className="flex flex-col w-full md:w-[70%] xl:w-[40%]">
+        <div className="flex flex-col w-full md:max-w-[70%] xl:max-w-[50%]">
           <h1 className="text-center mt-3 text-5xl md:text-6xl font-Inter font-black">
             To-Do List
           </h1>

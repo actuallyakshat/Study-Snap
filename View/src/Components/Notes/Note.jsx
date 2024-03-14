@@ -26,6 +26,7 @@ export const Note = ({ note, setSelectedNoteId }) => {
         />
         <div className="mt-6 w-full">
           <NoteEditor
+            title={title}
             setSelectedNoteId={setSelectedNoteId}
             content={content}
             noteId={note._id}

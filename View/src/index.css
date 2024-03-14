@@ -39,6 +39,10 @@
   width: 100%;
 }
 
+.recharts-surface {
+  margin-left: -1rem;
+}
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;

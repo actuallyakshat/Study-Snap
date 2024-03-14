@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const CompletedTimer = require("./CompletedTimers");
 const Todo = require("./Todo");
 const Folder = require("./Folder");
+const ProductivityData = require("./ProductivityData");
 
 const userSchema = new mongoose.Schema({
   auth0Id: {
@@ -16,6 +17,14 @@ const userSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
+  },
+  studyTarget: {
+    type: Number,
+    default: 0,
+  },
+  streak: {
+    type: Number,
+    default: 0,
   },
   todos: [
     {
@@ -34,6 +43,9 @@ const userSchema = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: "Folder",
     },
+  ],
+  productivityData: [
+    { type: mongoose.Schema.Types.ObjectId, ref: "ProductivityData" },
   ],
 });
 

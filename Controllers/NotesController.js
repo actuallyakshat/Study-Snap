@@ -35,12 +35,13 @@ const addNote = async (req, res) => {
 
 const saveNoteContent = async (req, res) => {
   try {
-    const { noteId, content } = req.body;
+    const { noteId, title, content } = req.body;
     const note = await Note.findById(noteId);
     if (!note) {
       return res.status(404).json({ success: false, error: "Note not found" });
     }
     note.content = content;
+    note.title = title;
     await note.save();
     res
       .status(200)

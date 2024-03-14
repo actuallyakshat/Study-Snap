@@ -16,10 +16,11 @@ const addNote = async (title, content, folderId, auth0Id) => {
     throw error;
   }
 };
-const saveNote = async (noteId, content, auth0Id) => {
+const saveNote = async (noteId, title, content, auth0Id) => {
   try {
     const response = await axios.put(`${baseUrl}/save-note`, {
       noteId,
+      title,
       content,
       auth0Id,
     });

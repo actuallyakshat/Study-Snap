@@ -33,7 +33,7 @@ import { userAtom } from "../../Utils/Store";
 import { useAtom } from "jotai";
 import { saveNote } from "../../HandleApi/NotesApiHandler";
 import { toast } from "react-hot-toast";
-export const NoteEditor = ({ content, noteId, setSelectedNoteId }) => {
+export const NoteEditor = ({ content, noteId, setSelectedNoteId, title }) => {
   const [editorContent, setEditorContent] = useState(content);
   const [deleteNoteModal, setDeleteNoteModal] = useState(false);
   const [user, setUser] = useAtom(userAtom);
@@ -58,7 +58,7 @@ export const NoteEditor = ({ content, noteId, setSelectedNoteId }) => {
 
   const handleSaveNote = async () => {
     const currentContent = editor.getHTML();
-    const response = await saveNote(noteId, currentContent, user.auth0Id);
+    const response = await saveNote(noteId, title, currentContent, user.auth0Id);
     console.log(response);
     if (response.success) {
       toast.success("File saved successfully", {
@@ -71,6 +71,7 @@ export const NoteEditor = ({ content, noteId, setSelectedNoteId }) => {
     updatedUser.folders.forEach((folder) => {
       folder.notes.forEach((note) => {
         if (note._id === noteId) {
+          note.title = title;
           note.content = currentContent;
         }
       });
@@ -201,7 +202,7 @@ export const NoteEditor = ({ content, noteId, setSelectedNoteId }) => {
             <LuHeading4 className="size-5" />
           </button>
         </div>
-        <div className="flex gap-3 items-start">
+        <div className="flex items-stretch gap-3 ">
           <button
             className="flex items-center bg-white/20 px-4 hover:bg-green-500/20 transition-colors rounded-md py-2 text-sm gap-3"
             onClick={handleSaveNote}

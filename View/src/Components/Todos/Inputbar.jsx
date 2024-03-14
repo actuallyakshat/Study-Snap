@@ -40,6 +40,7 @@ export const Inputbar = ({
         ...items,
         { _id: response.data.todo._id, task: task, isCompleted: false },
       ];
+      console.log(updatedItems);
       setItems(updatedItems);
     }
     setTask("");

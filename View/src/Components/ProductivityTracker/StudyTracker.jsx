@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // Dummy study hour data for weekly intervals
 const weeklyStudyHourData = [
   { date: "Mon", hours: 4 },
@@ -38,30 +38,50 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { CustomTooltip } from "./CustomTooltip";
+import { userAtom } from "../../Utils/Store";
+import { useAtom } from "jotai";
 export const StudyTracker = () => {
+  const [user, setUser] = useAtom(userAtom);
+  const [selectedTab, setSelectedTab] = useState("Weekly");
+
+  console.log(user?.productivityData?.Weekly);
   return (
     <div className="mb-4">
       <div className="w-full px-4 my-4 flex justify-between items-center">
         <div className="space-x-2">
-          <button className="px-3 py-2 border rounded-2xl border-gray-400/50 text-gray-200 text-sm">
+          <button
+            className={`px-3 py-2 border rounded-2xl border-gray-400/50 transition-colors text-gray-200 text-sm ${
+              selectedTab === "Weekly" ? "bg-gray-700/80" : ""
+            }`}
+            onClick={() => setSelectedTab("Weekly")}
+          >
             Weekly
           </button>
-          <button className="px-3 py-2 border rounded-2xl border-gray-400/50 text-gray-200 text-sm">
+          <button
+            className={`px-3 py-2 border rounded-2xl border-gray-400/50 transition-colors text-gray-200 text-sm ${
+              selectedTab === "Monthly" ? "bg-gray-700/80" : ""
+            }`}
+            onClick={() => setSelectedTab("Monthly")}
+          >
             Monthly
           </button>
-          <button className="px-3 py-2 border rounded-2xl border-gray-400/50 text-gray-200 text-sm">
+          <button
+            className={`px-3 py-2 border rounded-2xl border-gray-400/50 transition-colors text-gray-200 text-sm ${
+              selectedTab === "Yearly" ? "bg-gray-700/80" : ""
+            }`}
+            onClick={() => setSelectedTab("Yearly")}
+          >
             Yearly
           </button>
         </div>
-        <div></div>
       </div>
       <div className="w-full h-fit rounded-2xl px-2 md:px-4 py-5 max-h-[35rem] border bg-gray-800/30 border-gray-500/20">
         <h1 className="font-semibold text-gray-100 text-2xl py-3 text-center">
-          Weekly Study Progress
+          {selectedTab} Study Progress
         </h1>
         <ResponsiveContainer width="100%" height={400}>
           <AreaChart
-            data={weeklyStudyHourData}
+            data={user?.productivityData?.[selectedTab]}
             margin={{ top: 5, right: 20, bottom: 5, left: 0 }}
           >
             <Tooltip
@@ -77,7 +97,7 @@ export const StudyTracker = () => {
             />
             <CartesianGrid strokeDasharray="5 5" />
 
-            <XAxis dataKey="date" />
+            <XAxis dataKey={`${selectedTab === "Yearly" ? "month" : "day"}`} />
             <YAxis />
           </AreaChart>
         </ResponsiveContainer>
