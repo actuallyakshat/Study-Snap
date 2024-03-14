@@ -23,7 +23,6 @@ const addProductivityData = async (auth0Id, hoursStudied) => {
     const year = today.getFullYear();
 
     const formattedDate = `${day}/${month}/${year}`;
-    console.log("sending this date: ", formattedDate);
 
     const response = await axios.post(`${baseUrl}/add-data`, {
       auth0Id: auth0Id,

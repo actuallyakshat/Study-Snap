@@ -13,7 +13,7 @@ export const LogStudyHours = ({ cardStyle }) => {
 
   useEffect(() => {
     if (user) {
-      const today = new Date().toLocaleString("en-US", { weekday: "long" });
+      const today = new Date().toLocaleString("en-IN", { weekday: "long" });
       const todaySchedule = user.productivityData.Weekly.find(
         (item) => item.day === today
       );
@@ -23,15 +23,34 @@ export const LogStudyHours = ({ cardStyle }) => {
     }
   }, [user]);
 
+  function isEntryForTodayExists() {
+    const currentDate = new Date();
+    const currentDayOfWeek = currentDate.toLocaleString("en-IN", {
+      weekday: "long",
+    });
+
+    console.log("Current day of the week:", currentDayOfWeek);
+
+    const exists = user.productivityData.Weekly.some((day) => {
+      console.log("Checking day:", day.day);
+      console.log("Hours studied for this day:", day.hours);
+      return day.day === currentDayOfWeek && day.hours !== 0;
+    });
+
+    console.log("Entry for today exists:", exists);
+
+    return exists;
+  }
+
   const setStudiedHoursHandler = async () => {
-    console.log("called");
+    if (hoursStudied == 0) {
+      toast.error("Go study a little champ!");
+      return;
+    }
     const response = await addProductivityData(user.auth0Id, hoursStudied);
     if (response.success) {
-      toast.success("Data added successfully!", {
-        style: {
-          fontWeight: "bold",
-        },
-      });
+      const newEntryFlag = isEntryForTodayExists();
+      toast.success("Data added successfully!");
 
       // Update client-side data
       const currentDate = new Date();
@@ -72,7 +91,7 @@ export const LogStudyHours = ({ cardStyle }) => {
         weekly: updatedWeeklyData,
         monthly: updatedMonthlyData,
         yearly: updatedYearlyData,
-        streak: prevUser.streak + 1,
+        streak: newEntryFlag ? prevUser.streak : prevUser.streak + 1,
       }));
     }
   };
@@ -81,22 +100,14 @@ export const LogStudyHours = ({ cardStyle }) => {
     console.log("increment");
     console.log(hoursStudied);
     if (hoursStudied == 24) {
-      toast.error("There are only 24 hours in a day!", {
-        style: {
-          fontWeight: "bold",
-        },
-      });
+      toast.error("There are only 24 hours in a day!");
       return;
     }
     setHoursStudied(hoursStudied + 1);
   };
   const handleDecrement = () => {
     if (hoursStudied == 0) {
-      toast.error("Woah there! Set hours in positive", {
-        style: {
-          fontWeight: "bold",
-        },
-      });
+      toast.error("Woah there! Set hours in positive");
       return;
     }
     setHoursStudied(hoursStudied - 1);
@@ -130,13 +141,17 @@ export const LogStudyHours = ({ cardStyle }) => {
       {studiedUptoNow != hoursStudied && (
         <div className="absolute bottom-3 right-5">
           <button
+            className="hover:bg-white/10 p-1 rounded-md"
             onClick={() => {
               setHoursStudied(studiedUptoNow);
             }}
           >
             <IoClose className="text-2xl" />
           </button>
-          <button onClick={setStudiedHoursHandler}>
+          <button
+            className="hover:bg-white/10 p-1 rounded-md"
+            onClick={setStudiedHoursHandler}
+          >
             <IoCheckmark className="text-2xl" />
           </button>
         </div>

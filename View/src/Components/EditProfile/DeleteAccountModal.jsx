@@ -14,11 +14,7 @@ export const DeleteAccountModal = ({
     const response = await deleteUserAccount(user);
     if (response.success) {
       logout();
-      toast.success("Account deleted successfully!", {
-        style: {
-          fontWeight: "bold",
-        },
-      });
+      toast.success("Account deleted successfully!");
       setUser(null);
     }
   };

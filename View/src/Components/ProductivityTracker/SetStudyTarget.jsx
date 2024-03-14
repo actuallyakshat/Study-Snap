@@ -16,22 +16,14 @@ export const SetStudyTarget = ({ cardStyle, user, setUser }) => {
 
   const handleIncrement = () => {
     if (newTarget == 12) {
-      toast.error("You're not a machine buddy! Set lesser than 12 hours", {
-        style: {
-          fontWeight: "bold",
-        },
-      });
+      toast.error("You're not a machine buddy! Set lesser than 12 hours");
       return;
     }
     setNewTarget(newTarget + 1);
   };
   const handleDecrement = () => {
     if (newTarget == 0) {
-      toast.error("Woah there! Set hours in positive", {
-        style: {
-          fontWeight: "bold",
-        },
-      });
+      toast.error("Woah there! Set hours in positive");
       return;
     }
     setNewTarget(newTarget - 1);
@@ -41,11 +33,7 @@ export const SetStudyTarget = ({ cardStyle, user, setUser }) => {
     const response = await setStudyTarget(user.auth0Id, newTarget);
     console.log(response);
     if (response.success) {
-      toast.success("Target Set Successfully!", {
-        style: {
-          fontWeight: "bold",
-        },
-      });
+      toast.success("Target Set Successfully!");
       const newUser = { ...user };
       newUser.studyTarget = newTarget;
       setUser(newUser);
@@ -79,6 +67,7 @@ export const SetStudyTarget = ({ cardStyle, user, setUser }) => {
       {user?.studyTarget != newTarget && (
         <div className="absolute bottom-3 right-5">
           <button
+            className="hover:bg-white/10 p-1 rounded-md"
             onClick={() => {
               setNewTarget(0);
               setNewTarget(
@@ -96,7 +85,10 @@ export const SetStudyTarget = ({ cardStyle, user, setUser }) => {
           >
             <IoClose className="text-2xl" />
           </button>
-          <button onClick={setTargetHandler}>
+          <button
+            className="hover:bg-white/10 p-1 rounded-md"
+            onClick={setTargetHandler}
+          >
             <IoCheckmark className="text-2xl" />
           </button>
         </div>

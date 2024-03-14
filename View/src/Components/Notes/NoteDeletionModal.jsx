@@ -13,11 +13,7 @@ export const NoteDeletionModal = ({
     setDeleteNoteModal(false);
     const response = await deleteNote(noteId, user.auth0Id);
     if (response.success) {
-      toast.success("Note deleted successfully!", {
-        style: {
-          fontWeight: "bold",
-        },
-      });
+      toast.success("Note deleted successfully!");
       setSelectedNoteId(null);
       const updatedFolders = user.folders.map((folder) => ({
         ...folder,

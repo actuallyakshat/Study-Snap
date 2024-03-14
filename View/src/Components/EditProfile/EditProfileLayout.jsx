@@ -11,11 +11,7 @@ export const EditProfileLayout = () => {
   const submitHandler = async () => {
     const response = await updateUser(user, newName);
     if (response.success) {
-      toast.success("Changes saved successfully!", {
-        style: {
-          fontWeight: "bold",
-        },
-      });
+      toast.success("Changes saved successfully!");
     }
     const newUser = { ...user, name: newName };
     setUser(newUser);

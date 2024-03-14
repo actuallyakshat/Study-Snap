@@ -13,11 +13,7 @@ export const Todo = ({ item, setItems, user, handleUpdateClick }) => {
   const deleteTodoHandler = async () => {
     setItems((prevItems) => prevItems.filter((todo) => todo._id !== item._id));
     const response = await deleteTodo(item._id, user);
-    toast.error("Task deleted successfully!", {
-      style: {
-        fontWeight: "bold",
-      },
-    });
+    toast.error("Task deleted successfully!");
     console.log("response in delete handler = ", response);
   };
 

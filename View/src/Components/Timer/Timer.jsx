@@ -25,18 +25,10 @@ const Timer = () => {
     if (timerInputRef.current.value) {
       let inputValue = Math.round(timerInputRef.current.value);
       if (inputValue < 1) {
-        toast.error("Set a time of at least 1 minute!", {
-          style: {
-            fontWeight: "bold",
-          },
-        });
+        toast.error("Set a time of at least 1 minute!");
         return;
       } else if (inputValue > 120) {
-        toast.error("Set a time of less than 120 minutes!", {
-          style: {
-            fontWeight: "bold",
-          },
-        });
+        toast.error("Set a time of less than 120 minutes!");
         return;
       }
       setPlaying(false);

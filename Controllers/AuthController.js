@@ -37,6 +37,11 @@ const getDetails = async (req, res) => {
     const productivityData = await ProductivityData.find({ auth0Id });
 
     //Streak Logic
+    const currentDate = new Date();
+    const todayDateString = `${("0" + currentDate.getDate()).slice(-2)}/${(
+      "0" +
+      (currentDate.getMonth() + 1)
+    ).slice(-2)}/${currentDate.getFullYear()}`;
     const previousDate = new Date();
     previousDate.setDate(previousDate.getDate() - 1); // Get the previous date
 
@@ -45,13 +50,19 @@ const getDetails = async (req, res) => {
     const previousYear = previousDate.getFullYear();
 
     const previousDateString = `${previousDay}/${previousMonth}/${previousYear}`;
-
     const previousProductivityData = productivityData.find(
       (entry) => entry.date === previousDateString
     );
+    const todaysProductivityData = productivityData.find(
+      (entry) => entry.date === todayDateString
+    );
+    console.log(todaysProductivityData);
     if (!previousProductivityData) {
-      user.streak = 0;
-      await user.save();
+      if (!todaysProductivityData) {
+        console.log("Setting streak to 0");
+        user.streak = 0;
+        await user.save();
+      }
     }
 
     // Initialize arrays for weekly, monthly, and yearly summaries
