@@ -23,8 +23,8 @@ export const EditProfileLayout = () => {
   };
 
   return (
-    <div className="w-full editProfileBg  bg-center h-full flex items-center justify-center ">
-      <div className="flex bg-gray-900/70 shadow-lg shadow-gray-800/50 border border-gray-400/20 py-12 rounded-lg top-0  flex-col items-center justify-center w-full max-w-[30rem] px-7">
+    <div className="w-full editProfile bg-center h-full flex items-center justify-center ">
+      <div className="flex bg-spaceBlack/80 border-2 border-gray-600/80 py-12 rounded-lg top-0 flex-col items-center justify-center w-full max-w-[30rem] px-7">
         <div className="w-full">
           <h1 className="font-bold text-4xl text-center">Edit Profile</h1>
           <form

@@ -9,6 +9,7 @@ export const HomeLayout = () => {
       <Hero />
       <Features />
       <Testimonials />
+      <GetStarted />
       <Footer />
     </div>
   );

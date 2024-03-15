@@ -1,4 +1,24 @@
+import { useEffect, useRef } from "react";
+import { motion, useInView, useAnimation } from "framer-motion";
+
 export const Features = () => {
+  const ref = useRef(null);
+  const isInView = useInView(ref);
+  const mainControls = useAnimation();
+
+  useEffect(() => {
+    if (isInView) {
+      mainControls.start("visible");
+    }
+  }, [isInView]);
+
+  const animationVariants = {
+    hidden: { opacity: 0, x: -50 },
+    visible: { opacity: 1, x: 0 },
+  };
+
+  const animationTransition = { duration: 0.5 };
+
   const cardStyle =
     "bg-spaceBlack max-w-[35rem] border border-gray-700/80 min-h-[20rem] relative flex flex-col items-center justify-center rounded-lg p-4";
   const titleStyle = "text-4xl font-bold text-gray-100 mb-2";
@@ -7,16 +27,37 @@ export const Features = () => {
   return (
     <div className="min-h-screen h-full w-full py-8 features text-center">
       <div className="max-w-[80rem] px-6 w-full h-full mx-auto">
-        <h1 className="font-semibold text-4xl lg:text-5xl text-center pt-12">
+        <motion.h1
+          ref={ref}
+          variants={animationVariants}
+          initial="hidden"
+          animate={mainControls}
+          transition={{ ...animationTransition, delay: 0.1 }}
+          className="font-semibold text-4xl lg:text-5xl text-center pt-12"
+        >
           Packed With All the Productivity Essentials
-        </h1>
-        <p className="text-md text-gray-300 mx-auto max-w-[100ch]">
+        </motion.h1>
+        <motion.p
+          ref={ref}
+          variants={animationVariants}
+          initial="hidden"
+          animate={mainControls}
+          transition={{ ...animationTransition, delay: 0.4 }}
+          className="text-md text-gray-300 mx-auto max-w-[100ch]"
+        >
           Unlock peak productivity with our all-in-one powerhouse: a dynamic
           productivity tracking app boasting a to-do list, Pomodoro timer, notes
           tool, and daily study logging tools.
-        </p>
+        </motion.p>
         <div className="mt-8 justify-center flex flex-wrap gap-3">
-          <div className={cardStyle}>
+          <motion.div
+            ref={ref}
+            variants={animationVariants}
+            initial="hidden"
+            animate={mainControls}
+            transition={{ ...animationTransition, delay: 0.3 }}
+            className={cardStyle}
+          >
             <h1 className={titleStyle}>Productivity Tracker 📆</h1>
             <p className={descStyle}>
               Monitor study habits and track progress over time. By logging
@@ -25,8 +66,15 @@ export const Features = () => {
               improvement, and maintain motivation to consistently strive for
               academic excellence.
             </p>
-          </div>
-          <div className={cardStyle}>
+          </motion.div>
+          <motion.div
+            ref={ref}
+            variants={animationVariants}
+            initial="hidden"
+            animate={mainControls}
+            transition={{ ...animationTransition, delay: 0.4 }}
+            className={cardStyle}
+          >
             <h1 className={titleStyle}>To-Do List ✅</h1>
             <p className={descStyle}>
               Keep track of assignments, deadlines, and tasks with ease.
@@ -34,8 +82,15 @@ export const Features = () => {
               through the cracks, helping you stay on top of your academic
               responsibilities.
             </p>
-          </div>
-          <div className={cardStyle}>
+          </motion.div>
+          <motion.div
+            ref={ref}
+            variants={animationVariants}
+            initial="hidden"
+            animate={mainControls}
+            transition={{ ...animationTransition, delay: 0.5 }}
+            className={cardStyle}
+          >
             <h1 className={titleStyle}>Notes ✍🏻</h1>
             <p className={descStyle}>
               Capture notes, brainstorm ideas, and jot down important
@@ -44,8 +99,15 @@ export const Features = () => {
               convenient location, facilitating revision and aiding
               comprehension of course materials.
             </p>
-          </div>
-          <div className={cardStyle}>
+          </motion.div>
+          <motion.div
+            ref={ref}
+            variants={animationVariants}
+            initial="hidden"
+            animate={mainControls}
+            transition={{ ...animationTransition, delay: 0.6 }}
+            className={cardStyle}
+          >
             <h1 className={titleStyle}>Pomodoro Timer ⏰</h1>
             <p className={descStyle}>
               Keep track of assignments, deadlines, and tasks with ease.
@@ -53,7 +115,7 @@ export const Features = () => {
               through the cracks, helping you stay on top of your academic
               responsibilities.
             </p>
-          </div>
+          </motion.div>
         </div>
       </div>
     </div>

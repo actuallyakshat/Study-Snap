@@ -1,20 +1,60 @@
 import { FaGithub } from "react-icons/fa6";
 import { useAuth0 } from "@auth0/auth0-react";
+import { useEffect, useRef } from "react";
+import { motion, useInView, useAnimation } from "framer-motion";
 export const Hero = () => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true });
+  const mainControls = useAnimation();
+
+  useEffect(() => {
+    if (isInView) {
+      mainControls.start("visible");
+    }
+  }, [isInView]);
+
   const { loginWithRedirect } = useAuth0();
+
+  const animationVariants = {
+    hidden: { opacity: 0, x: -50 },
+    visible: { opacity: 1, x: 0 },
+  };
+
+  const animationTransition = { duration: 0.5 };
   return (
     <div className="h-full min-h-[calc(100vh-64px)] flex items-center herobg w-full">
       <div className="h-full mx-auto flex items-center justify-center px-8 w-full lg:max-w-[75%]">
         <div className="w-full flex flex-col justify-center items-center">
-          <h1 className="font-bold text-4xl mx-auto lg:text-6xl max-w-[25ch] text-center">
+          <motion.h1
+            ref={ref}
+            variants={animationVariants}
+            initial="hidden"
+            animate={mainControls}
+            transition={{ ...animationTransition, delay: 0.25 }}
+            className="font-bold text-4xl mx-auto lg:text-6xl max-w-[25ch] text-center"
+          >
             A No Bullsh*t Productivity Tracking Website for Students
-          </h1>
-          <h4 className="font-medium mx-auto my-2 text-gray-300/90 text-md lg:text-xl text-center max-w-[70ch]">
+          </motion.h1>
+          <motion.h4
+            ref={ref}
+            variants={animationVariants}
+            initial="hidden"
+            animate={mainControls}
+            transition={{ ...animationTransition, delay: 0.4 }}
+            className="font-medium mx-auto my-2 text-gray-300/90 text-md lg:text-xl text-center max-w-[70ch]"
+          >
             Track your study hours, set goals, and boost your productivity with
             our straightforward student-focused platform. No fluff, just
             results.
-          </h4>
-          <div className="flex px-4 space-x-4 mt-10">
+          </motion.h4>
+          <motion.div
+            ref={ref}
+            variants={animationVariants}
+            initial="hidden"
+            animate={mainControls}
+            transition={{ ...animationTransition, delay: 0.5 }}
+            className="flex px-4 space-x-4 mt-10"
+          >
             <button
               onClick={() =>
                 loginWithRedirect({
@@ -35,7 +75,7 @@ export const Hero = () => {
               <p>Github</p>
               <FaGithub className="text-xl" />
             </a>
-          </div>
+          </motion.div>
         </div>
       </div>
     </div>
