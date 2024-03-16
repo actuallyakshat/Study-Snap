@@ -5,11 +5,13 @@ import { toast } from "react-hot-toast";
 import { IoClose } from "react-icons/io5";
 import { IoCheckmark } from "react-icons/io5";
 import { addProductivityData } from "../../HandleApi/ProductivityDataApiHandler";
+import { LoadingSpinner } from "../Loading/LoadingSpinner";
 
 export const LogStudyHours = ({ cardStyle }) => {
   const [user, setUser] = useAtom(userAtom);
   const [studiedUptoNow, setStudiedUptoNow] = useState(0);
   const [hoursStudied, setHoursStudied] = useState(0);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (user) {
@@ -41,6 +43,7 @@ export const LogStudyHours = ({ cardStyle }) => {
       toast.error("Go study a little, champ!");
       return;
     }
+    setLoading(true);
     const response = await addProductivityData(
       user.auth0Id,
       hoursStudied,
@@ -91,6 +94,7 @@ export const LogStudyHours = ({ cardStyle }) => {
         yearly: updatedYearlyData,
         streak: newEntryFlag ? prevUser.streak : prevUser.streak + 1,
       }));
+      setLoading(false);
     }
   };
 
@@ -117,40 +121,46 @@ export const LogStudyHours = ({ cardStyle }) => {
           How many hours did you study for today?
         </p>
       </div>
-      <div className="flex items-center absolute top-1/2 text-4xl left-1/2 -translate-x-1/2">
-        <button onClick={handleDecrement}>-</button>
-        <input
-          type="text"
-          readOnly
-          value={`${
-            hoursStudied
-              ? hoursStudied === 1
-                ? `${hoursStudied} Hour`
-                : `${hoursStudied} Hours`
-              : "0 Hours"
-          }`}
-          placeholder="Enter Hours"
-          className="studyhours max-w-[200px] text-3xl bg-transparent focus:outline-none font-bold"
-        />
-        <button onClick={handleIncrement}>+</button>
-      </div>
-      {studiedUptoNow != hoursStudied && (
-        <div className="absolute bottom-3 right-5">
-          <button
-            className="hover:bg-white/10 p-1 rounded-md"
-            onClick={() => {
-              setHoursStudied(studiedUptoNow);
-            }}
-          >
-            <IoClose className="text-2xl" />
-          </button>
-          <button
-            className="hover:bg-white/10 p-1 rounded-md"
-            onClick={setStudiedHoursHandler}
-          >
-            <IoCheckmark className="text-2xl" />
-          </button>
-        </div>
+      {loading ? (
+        <LoadingSpinner />
+      ) : (
+        <>
+          <div className="flex items-center absolute top-1/2 text-4xl left-1/2 -translate-x-1/2">
+            <button onClick={handleDecrement}>-</button>
+            <input
+              type="text"
+              readOnly
+              value={`${
+                hoursStudied
+                  ? hoursStudied === 1
+                    ? `${hoursStudied} Hour`
+                    : `${hoursStudied} Hours`
+                  : "0 Hours"
+              }`}
+              placeholder="Enter Hours"
+              className="studyhours max-w-[200px] text-3xl bg-transparent focus:outline-none font-bold"
+            />
+            <button onClick={handleIncrement}>+</button>
+          </div>
+          {studiedUptoNow != hoursStudied && (
+            <div className="absolute bottom-3 right-5">
+              <button
+                className="hover:bg-white/10 p-1 rounded-md"
+                onClick={() => {
+                  setHoursStudied(studiedUptoNow);
+                }}
+              >
+                <IoClose className="text-2xl" />
+              </button>
+              <button
+                className="hover:bg-white/10 p-1 rounded-md"
+                onClick={setStudiedHoursHandler}
+              >
+                <IoCheckmark className="text-2xl" />
+              </button>
+            </div>
+          )}
+        </>
       )}
     </div>
   );
