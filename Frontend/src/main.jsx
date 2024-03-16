@@ -24,6 +24,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           authorizationParams={{
             audience: audience,
             scope: scope,
+            useRefreshTokens: true,
+            cacheLocation: "localstorage",
             redirect_uri: redirect_uri,
           }}
         >
