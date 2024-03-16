@@ -11,6 +11,7 @@ export const EditProfileLayout = () => {
   const [isLoading, setIsLoading] = useState("");
   const [showModal, setShowModal] = useState(false);
   const submitHandler = async () => {
+    if (!newName) return;
     setIsLoading(true);
     const response = await updateUser(user, newName);
     if (response.success) {
