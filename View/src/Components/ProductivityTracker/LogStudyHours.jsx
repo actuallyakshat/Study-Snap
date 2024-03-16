@@ -47,7 +47,11 @@ export const LogStudyHours = ({ cardStyle }) => {
       toast.error("Go study a little, champ!");
       return;
     }
-    const response = await addProductivityData(user.auth0Id, hoursStudied);
+    const response = await addProductivityData(
+      user.auth0Id,
+      hoursStudied,
+      user.token
+    );
     if (response.success) {
       const newEntryFlag = isEntryForTodayExists();
       toast.success("Data added successfully!");

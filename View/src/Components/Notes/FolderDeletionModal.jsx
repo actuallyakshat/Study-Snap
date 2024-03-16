@@ -11,7 +11,11 @@ export const FolderDeletionModal = ({
   const [user, setUser] = useAtom(userAtom);
   const deleteFolderHandler = async () => {
     setDeleteFolderModal(false);
-    const response = await deleteFolder(selectedFolderId, user.auth0Id);
+    const response = await deleteFolder(
+      selectedFolderId,
+      user.auth0Id,
+      user.token
+    );
     if (response.success) {
       const updatedFolders = user.folders.filter(
         (folder) => folder._id !== selectedFolderId

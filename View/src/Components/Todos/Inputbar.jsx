@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { createTodo, updateTodo } from "../../HandleApi/TodoApiHandler";
 import DateTimeDisplay from "./DateTimeDisplay";
+import { toast } from "react-hot-toast";
 
 export const Inputbar = ({
   inputRef,
@@ -10,6 +11,7 @@ export const Inputbar = ({
   updating,
   setUpdating,
   todoId,
+  setUser,
 }) => {
   const [task, setTask] = useState("");
 
@@ -22,26 +24,53 @@ export const Inputbar = ({
         return item;
       });
     });
+    setUser((prevUser) => ({
+      ...prevUser,
+      todos: prevUser.todos.map((todo) => {
+        if (todo._id === todoId) {
+          return { ...todo, task: updatedTask };
+        }
+        return todo;
+      }),
+    }));
   }
 
   const submitHandler = async () => {
     if (!task) return;
+
+    //Updation Logic
     if (updating) {
       console.log(`updating ${todoId} now!!`);
-      const response = await updateTodo(todoId, inputRef.current.value);
-      updateTodoItemLocally(todoId, response.task);
+      const response = await updateTodo(
+        todoId,
+        inputRef.current.value,
+        user.token
+      );
+      if (response.success) {
+        toast.success("Todo updated successfully!");
+      }
+      updateTodoItemLocally(todoId, response.updatedTodo.task);
       inputRef.current.value = "";
       setUpdating(false);
       console.log("response aaya", response);
-    } else {
+    }
+
+    //Creation Logic
+    else {
       inputRef.current.value = "";
       const response = await createTodo(task, user, items.length);
-      const updatedItems = [
-        ...items,
-        { _id: response.data.todo._id, task: task, isCompleted: false },
-      ];
+      const newTodo = {
+        _id: response.todo._id,
+        task: task,
+        isCompleted: false,
+      };
+      const updatedItems = [...items, newTodo];
       console.log(updatedItems);
       setItems(updatedItems);
+      setUser((prevUser) => ({
+        ...prevUser,
+        todos: [...prevUser.todos, newTodo],
+      }));
     }
     setTask("");
   };

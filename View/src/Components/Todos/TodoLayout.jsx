@@ -3,7 +3,7 @@ import { Reorder, AnimatePresence } from "framer-motion";
 import { debounce } from "lodash";
 import { Todo } from "./Todo";
 import { Inputbar } from "./Inputbar";
-import { useAtomValue } from "jotai";
+import { useAtom } from "jotai";
 import { userAtom } from "../../Utils/Store";
 import { InspirationalQuote } from "./InspirationalQuote";
 
@@ -11,7 +11,7 @@ import { reorderTodos } from "../../HandleApi/TodoApiHandler";
 import { MiniTimer } from "./MiniTimer";
 
 export const TodoLayout = () => {
-  const user = useAtomValue(userAtom);
+  const [user, setUser] = useAtom(userAtom);
   const [items, setItems] = useState(user ? user.todos : []);
   const [updating, setUpdating] = useState(false);
   const [todoId, setTodoId] = useState(null);
@@ -20,7 +20,12 @@ export const TodoLayout = () => {
 
   const debounceTime = 2000;
   const reorderHandler = async (items) => {
+    console.log(items);
     await reorderTodos(user, items);
+    setUser((prevUser) => ({
+      ...prevUser,
+      todos: items,
+    }));
   };
   const updateOrderWithDebounce = debounce(() => {
     if (JSON.stringify(items) !== JSON.stringify(user?.todos) && reorderFlag) {
@@ -57,11 +62,10 @@ export const TodoLayout = () => {
     setTodoId(_id);
     inputRef.current.value = title;
     inputRef.current.focus();
-    console.log("BRUH: ", todoId);
   };
 
   return (
-    <div className="h-full editProfileBg flex-1 flex justify-center">
+    <div className="h-full todobg flex-1 flex justify-center">
       <div className="min-w-[90%] mx-4 h-[90%] flex flex-col my-6 md:my-16 items-center">
         <div className="flex flex-col w-full md:max-w-[70%] xl:max-w-[50%]">
           <h1 className="text-center mt-3 text-5xl md:text-6xl font-Inter font-black">
@@ -72,6 +76,7 @@ export const TodoLayout = () => {
           <Inputbar
             inputRef={inputRef}
             user={user}
+            setUser={setUser}
             items={items}
             updating={updating}
             setItems={setItems}
@@ -93,6 +98,7 @@ export const TodoLayout = () => {
                       item={item}
                       setItems={setItems}
                       user={user}
+                      setUser={setUser}
                       updating={updating}
                       setUpdating={setUpdating}
                       handleUpdateClick={handleUpdateClick}

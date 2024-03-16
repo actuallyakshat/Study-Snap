@@ -26,7 +26,8 @@ export const NoteCreationModal = ({ setAddNoteModel, addNoteModel }) => {
       data.title,
       defaultContent,
       data.folder,
-      user.auth0Id
+      user.auth0Id,
+      user.token
     );
     console.log(response);
     if (response.success) {

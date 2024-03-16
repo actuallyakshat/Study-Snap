@@ -34,10 +34,19 @@ const updateUser = async (user, newName) => {
       return;
     }
     const auth0Id = user.auth0Id;
-    const response = await axios.put(`${baseUrl}/edit-profile`, {
-      auth0Id,
-      newName,
-    });
+    const { token } = user;
+    const response = await axios.put(
+      `${baseUrl}/edit-profile`,
+      {
+        auth0Id,
+        newName,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     return response.data;
   } catch (error) {
     console.error("Error updating user:", error);
@@ -51,9 +60,18 @@ const deleteUserAccount = async (user) => {
       console.error("Null User Error");
     }
     const auth0Id = user.auth0Id;
-    const response = await axios.delete(`${baseUrl}/delete-account`, {
-      data: { auth0Id },
-    });
+    const { token } = user;
+    const response = await axios.delete(
+      `${baseUrl}/delete-account`,
+      {
+        data: { auth0Id },
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     return response.data;
   } catch (error) {
     console.error("Error deleting user account:", error.message);

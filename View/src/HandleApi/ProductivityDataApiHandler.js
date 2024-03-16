@@ -1,12 +1,20 @@
 import axios from "axios";
 const baseUrl = "http://localhost:8000/api/v1/productivity";
 
-const setStudyTarget = async (auth0Id, studyTarget) => {
+const setStudyTarget = async (auth0Id, studyTarget, token) => {
   try {
-    const response = await axios.put(`${baseUrl}/set-target`, {
-      auth0Id: auth0Id,
-      studyTarget: studyTarget,
-    });
+    const response = await axios.put(
+      `${baseUrl}/set-target`,
+      {
+        auth0Id: auth0Id,
+        studyTarget: studyTarget,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
     return response.data;
   } catch (error) {
@@ -15,7 +23,7 @@ const setStudyTarget = async (auth0Id, studyTarget) => {
   }
 };
 
-const addProductivityData = async (auth0Id, hoursStudied) => {
+const addProductivityData = async (auth0Id, hoursStudied, token) => {
   try {
     const today = new Date();
     const day = String(today.getDate()).padStart(2, "0");
@@ -24,11 +32,19 @@ const addProductivityData = async (auth0Id, hoursStudied) => {
 
     const formattedDate = `${day}/${month}/${year}`;
 
-    const response = await axios.post(`${baseUrl}/add-data`, {
-      auth0Id: auth0Id,
-      hoursStudied: hoursStudied,
-      date: formattedDate,
-    });
+    const response = await axios.post(
+      `${baseUrl}/add-data`,
+      {
+        auth0Id: auth0Id,
+        hoursStudied: hoursStudied,
+        date: formattedDate,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
     return response.data;
   } catch (error) {

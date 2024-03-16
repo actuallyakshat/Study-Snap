@@ -26,9 +26,8 @@ export const Features = () => {
 
   return (
     <div className="min-h-screen h-full w-full py-8 features text-center">
-      <div className="max-w-[80rem] px-6 w-full h-full mx-auto">
+      <div ref={ref} className="max-w-[80rem] px-6 w-full h-full mx-auto">
         <motion.h1
-          ref={ref}
           variants={animationVariants}
           initial="hidden"
           animate={mainControls}
@@ -55,7 +54,7 @@ export const Features = () => {
             variants={animationVariants}
             initial="hidden"
             animate={mainControls}
-            transition={{ ...animationTransition, delay: 0.3 }}
+            transition={{ ...animationTransition, delay: 0.6 }}
             className={cardStyle}
           >
             <h1 className={titleStyle}>Productivity Tracker 📆</h1>
@@ -72,7 +71,7 @@ export const Features = () => {
             variants={animationVariants}
             initial="hidden"
             animate={mainControls}
-            transition={{ ...animationTransition, delay: 0.4 }}
+            transition={{ ...animationTransition, delay: 0.7 }}
             className={cardStyle}
           >
             <h1 className={titleStyle}>To-Do List ✅</h1>
@@ -88,7 +87,7 @@ export const Features = () => {
             variants={animationVariants}
             initial="hidden"
             animate={mainControls}
-            transition={{ ...animationTransition, delay: 0.5 }}
+            transition={{ ...animationTransition, delay: 0.8 }}
             className={cardStyle}
           >
             <h1 className={titleStyle}>Notes ✍🏻</h1>
@@ -105,7 +104,7 @@ export const Features = () => {
             variants={animationVariants}
             initial="hidden"
             animate={mainControls}
-            transition={{ ...animationTransition, delay: 0.6 }}
+            transition={{ ...animationTransition, delay: 0.9 }}
             className={cardStyle}
           >
             <h1 className={titleStyle}>Pomodoro Timer ⏰</h1>

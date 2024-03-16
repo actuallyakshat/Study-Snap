@@ -23,29 +23,45 @@ const createTodo = async (task, user, order) => {
       }
     );
 
-    return response;
+    return response.data;
   } catch (error) {
     console.error("Error while getting creating a todo:", error);
   }
 };
 
-const updateTodo = async (todoId, task) => {
+const updateTodo = async (todoId, task, token) => {
   try {
-    const response = await axios.put(`${baseUrl}/update`, {
-      todoId,
-      task,
-    });
+    const response = await axios.put(
+      `${baseUrl}/update`,
+      {
+        todoId,
+        task,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
-    return response.data.updatedTodo;
+    return response.data;
   } catch (error) {
     console.error("Error updating todo:", error);
   }
 };
-const updateTodoStatus = async (todoId) => {
+const updateTodoStatus = async (todoId, token) => {
   try {
-    const response = await axios.put(`${baseUrl}/update-status`, {
-      todoId,
-    });
+    const response = await axios.put(
+      `${baseUrl}/update-status`,
+      {
+        todoId,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
     return response.data.updatedTodo;
   } catch (error) {
@@ -69,7 +85,7 @@ const deleteTodo = async (todoId, user) => {
       },
     });
 
-    return response;
+    return response.data;
   } catch (error) {
     console.error("Error while deleting a todo:", error);
   }

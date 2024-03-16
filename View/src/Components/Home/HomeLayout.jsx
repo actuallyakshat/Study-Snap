@@ -1,5 +1,6 @@
 import { Features } from "./Features";
 import { Footer } from "./Footer";
+import { GetStarted } from "./GetStarted";
 import { Hero } from "./Hero";
 import { Testimonials } from "./Testimonials";
 

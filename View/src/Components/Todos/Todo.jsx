@@ -6,20 +6,34 @@ import { deleteTodo, updateTodoStatus } from "../../HandleApi/TodoApiHandler";
 import { MdDragIndicator } from "react-icons/md";
 import { toast } from "react-hot-toast";
 
-export const Todo = ({ item, setItems, user, handleUpdateClick }) => {
+export const Todo = ({ item, setItems, user, handleUpdateClick, setUser }) => {
   const controls = useDragControls();
   const [completed, setCompleted] = useState(item.isCompleted);
 
   const deleteTodoHandler = async () => {
+    // Remove the todo from local state
     setItems((prevItems) => prevItems.filter((todo) => todo._id !== item._id));
-    const response = await deleteTodo(item._id, user);
-    toast.error("Task deleted successfully!");
-    console.log("response in delete handler = ", response);
+
+    try {
+      // Delete the todo from the server
+      const response = await deleteTodo(item._id, user);
+      console.log(response);
+      setUser((prevUser) => ({
+        ...prevUser,
+        todos: prevUser.todos.filter((todo) => todo._id !== item._id),
+      }));
+      if (response.success) {
+        toast.error("Task deleted successfully!");
+      }
+    } catch (error) {
+      // Handle error if any
+      console.error("Error deleting todo:", error);
+    }
   };
 
   const handleCheckboxChange = async () => {
     setCompleted(!completed);
-    await updateTodoStatus(item._id);
+    await updateTodoStatus(item._id, user.token);
   };
 
   return (

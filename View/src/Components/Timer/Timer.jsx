@@ -109,7 +109,7 @@ const Timer = () => {
           textSize: "15px",
           pathTransitionDuration: 0.5,
           textColor: "#FFF",
-          pathColor: "#03ac13",
+          pathColor: "#7f007f",
           trailColor: "#FFF",
         })}
         className="max-w-[30rem]"

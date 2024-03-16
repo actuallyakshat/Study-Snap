@@ -5,17 +5,16 @@ import { Auth0Provider } from "@auth0/auth0-react";
 import "./index.css";
 import { BrowserRouter } from "react-router-dom";
 import TimerProvider from "./Components/Timer/TimerProvider.jsx";
-// const domain = `${import.meta.env.VITE_DOMAIN}`;
-// const clientId = `${import.meta.env.VITE_CLIENT_ID}`;
-// console.log("clientId: ", clientId);
-// console.log("domain: ", domain);
+const clientId = import.meta.env.VITE_CLIENT_ID;
+const domain = import.meta.env.VITE_DOMAIN;
+const audience = import.meta.env.VITE_AUDIENCE;
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
       <TimerProvider>
         <Auth0Provider
-          domain="dev-va3ob1dac8fm3vni.us.auth0.com"
-          clientId="vbqR2Ewo8TUWkAjUIovnZuZvF5Bl7g7h"
+          domain={domain}
+          clientId={clientId}
           authorizationParams={{
             audience: "https://studysnapbackend.com/auth0-api",
             scope: "openid profile email",

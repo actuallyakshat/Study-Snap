@@ -20,5 +20,5 @@ const jwtCheck = auth({
   issuerBaseURL: "https://dev-va3ob1dac8fm3vni.us.auth0.com/",
   tokenSigningAlg: "RS256",
 });
+app.use(jwtCheck);
 app.use("/api/v1", apiv1Router);
-app.use(jwtCheck); //applied protection on every route

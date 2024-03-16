@@ -25,7 +25,7 @@ const createTodo = async (req, res) => {
       { auth0Id: auth0Id },
       { $push: { todos: todo._id } }
     );
-    
+
     res.status(201).json({ success: true, todo });
   } catch (error) {
     console.error(error);
@@ -116,7 +116,7 @@ const deleteTodo = async (req, res) => {
       { $pull: { todos: todoId } }
     );
 
-    res.json({ deletedTodo });
+    res.json({ success: true, deletedTodo });
   } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, message: "Internal server error" });

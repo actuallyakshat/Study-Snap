@@ -62,7 +62,8 @@ export const NoteEditor = ({ content, noteId, setSelectedNoteId, title }) => {
       noteId,
       title,
       currentContent,
-      user.auth0Id
+      user.auth0Id,
+      user.token
     );
     console.log(response);
     if (response.success) {

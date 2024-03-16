@@ -5,10 +5,10 @@ import { addFolder } from "../../HandleApi/NotesApiHandler";
 import { useEffect } from "react";
 export const FolderCreationModal = ({ addFolderModal, setAddFolderModal }) => {
   const [user, setUser] = useAtom(userAtom);
-  const { register, handleSubmit, reset, resetField } = useForm();
+  const { register, handleSubmit, reset } = useForm();
   const onSubmit = async (data) => {
     setAddFolderModal(false);
-    const response = await addFolder(data.title, user.auth0Id);
+    const response = await addFolder(data.title, user.auth0Id, user.token);
     if (response.success) {
       const updatedUser = {
         ...user,
