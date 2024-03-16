@@ -10,13 +10,7 @@ const baseurl = process.env.AUTH_DOMAIN;
 const algo = process.env.AUTH0_ALGO;
 const { auth } = require("express-oauth2-jwt-bearer");
 
-app.use(cors(
-  {
-      origin: ["https://studysnap.vercel.app/"],
-      methods: ["POST", "GET"],
-      credentials: true
-  }
-));
+app.use(cors());
 app.listen(PORT, () => {
   console.log("Server started successfully at Port", PORT);
 });
@@ -34,5 +28,5 @@ const jwtCheck = auth({
   tokenSigningAlg: algo,
 });
 
-app.use(jwtCheck);
+// app.use(jwtCheck);
 app.use("/api/v1", apiv1Router);
