@@ -58,7 +58,7 @@ export const NoteCreationModal = ({ setAddNoteModel, addNoteModel }) => {
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className="popup-content max-w-[30em] w-full px-4 py-10 rounded-lg border border-gray-500/40 absolute bg-[#0d1117] shadow-lg shadow-gray-800/20 z-[11] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+            className="popup-content w-[90%] max-w-[30rem] md:w-full px-4 py-10 rounded-lg border border-gray-500/40 absolute bg-[#0d1117] shadow-lg shadow-gray-800/20 z-[11] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
           >
             <h1 className="text-3xl mb-4 font-bold text-center">
               Add New Note

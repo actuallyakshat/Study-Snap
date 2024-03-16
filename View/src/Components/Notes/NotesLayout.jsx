@@ -157,7 +157,7 @@ export const NotesLayout = () => {
             ))}
             {/* Render uncategorized notes */}
             {user?.folders &&
-              user.folders
+              user?.folders
                 .find((folder) => folder.name === "unorganized")
                 ?.notes?.map((note) => (
                   <NoteCard

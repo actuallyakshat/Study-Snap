@@ -25,7 +25,7 @@ export const HoursCompleted = ({ cardStyle }) => {
       <div className="w-[40%] absolute top-1/2 -translate-y-1/4">
         <CircularProgressbar
           value={completedHours}
-          maxValue={user?.studyTarget * 7}
+          maxValue={user?.studyTarget ? user.studyTarget * 7 : 1}
           text={`${Math.round(
             (completedHours / (user?.studyTarget * 7 || 1)) * 100
           )}%`}

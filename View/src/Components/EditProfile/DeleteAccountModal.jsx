@@ -1,7 +1,9 @@
+import { useState } from "react";
 import { deleteUserAccount } from "../../HandleApi/AuthApiHandler";
 import "../Auth/ModalAnimation.css";
 import { useAuth0 } from "@auth0/auth0-react";
 import toast from "react-hot-toast";
+import { LoadingSpinner } from "../Loading/LoadingSpinner";
 export const DeleteAccountModal = ({
   user,
   setUser,
@@ -9,13 +11,15 @@ export const DeleteAccountModal = ({
   setShowModal,
 }) => {
   const { logout } = useAuth0();
+  const [loading, setLoading] = useState(false);
   const deleteAccountHandler = async () => {
-    setShowModal(true);
+    setLoading(true);
     const response = await deleteUserAccount(user);
+    setLoading(false);
     if (response.success) {
-      logout();
       toast.success("Account deleted successfully!");
       setUser(null);
+      logout();
     }
   };
   return (
@@ -71,24 +75,28 @@ export const DeleteAccountModal = ({
                   Are you sure you wish to delete your account? This is a
                   permananent change and it cannot be reversed.
                 </h3>
-                <div className="space-x-3">
-                  <button
-                    data-modal-hide="popup-modal"
-                    type="button"
-                    onClick={() => setShowModal(false)}
-                    className="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primaryPurple"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    data-modal-hide="popup-modal"
-                    type="button"
-                    onClick={deleteAccountHandler}
-                    className="text-white bg-red-600 hover:bg-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center"
-                  >
-                    Delete Account
-                  </button>
-                </div>
+                {loading ? (
+                  <LoadingSpinner />
+                ) : (
+                  <div className="space-x-3">
+                    <button
+                      data-modal-hide="popup-modal"
+                      type="button"
+                      onClick={() => setShowModal(false)}
+                      className="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primaryPurple"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      data-modal-hide="popup-modal"
+                      type="button"
+                      onClick={deleteAccountHandler}
+                      className="text-white bg-red-600 hover:bg-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center"
+                    >
+                      Delete Account
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
           </div>

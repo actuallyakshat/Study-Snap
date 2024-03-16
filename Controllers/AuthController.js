@@ -1,5 +1,6 @@
 const User = require("../Models/User");
 const ProductivityData = require("../Models/ProductivityData");
+const Note = require("../Models/Note");
 
 const getDetails = async (req, res) => {
   try {
@@ -30,7 +31,10 @@ const getDetails = async (req, res) => {
       await user.save();
 
       // Fetch the newly created user
-      user = await User.findOne({ auth0Id });
+      user = await User.findOne({ auth0Id }).populate({
+        path: "folders",
+        populate: { path: "notes" },
+      });
     }
 
     // Fetch productivity data for the user
@@ -179,6 +183,7 @@ const deleteAccount = async (req, res) => {
     const auth0Id = req.body.auth0Id;
     const user = await User.findOne({ auth0Id: auth0Id });
     if (user) {
+      await Note.deleteMany({ folder: { $in: user.folders } });
       await user.deleteOne();
     } else if (!user) {
       return res.status(404).json({ success: false, error: "User not found" });

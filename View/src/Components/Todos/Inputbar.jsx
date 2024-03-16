@@ -2,6 +2,7 @@ import { useState } from "react";
 import { createTodo, updateTodo } from "../../HandleApi/TodoApiHandler";
 import DateTimeDisplay from "./DateTimeDisplay";
 import { toast } from "react-hot-toast";
+import { LoadingSpinner } from "../Loading/LoadingSpinner";
 
 export const Inputbar = ({
   inputRef,
@@ -14,6 +15,7 @@ export const Inputbar = ({
   setUser,
 }) => {
   const [task, setTask] = useState("");
+  const [loading, setLoading] = useState(false);
 
   async function updateTodoItemLocally(todoId, updatedTask) {
     setItems((prevItems) => {
@@ -36,6 +38,8 @@ export const Inputbar = ({
   }
 
   const submitHandler = async () => {
+    if (inputRef.current.value == "") return;
+    setLoading(true);
     if (!task) return;
 
     //Updation Logic
@@ -70,6 +74,7 @@ export const Inputbar = ({
       }));
     }
     setTask("");
+    setLoading(false);
   };
 
   return (
@@ -88,24 +93,30 @@ export const Inputbar = ({
           onChange={(e) => setTask(e.target.value)}
           className="px-3 py-2 h-10 flex-1 bg-slate-800 rounded-lg text-white focus:outline-none"
         />
-        <button
-          onClick={submitHandler}
-          type="button"
-          className="px-6 py-2 font-semibold text-sm md:text-md rounded-md bg-primaryPurple hover:bg-primaryPurple/80 transition-colors text-white"
-        >
-          {updating ? "Update" : "Add"}
-        </button>
-        {updating && (
-          <button
-            onClick={() => {
-              setUpdating(false);
-              inputRef.current.value = "";
-            }}
-            type="button"
-            className="px-4 py-2 font-semibold text-sm md:text-md rounded-md bg-red-700 hover:bg-red-800 transition-colors text-white"
-          >
-            Cancel
-          </button>
+        {loading ? (
+          <LoadingSpinner />
+        ) : (
+          <>
+            <button
+              onClick={submitHandler}
+              type="button"
+              className="px-6 py-2 font-semibold text-sm md:text-md rounded-md bg-primaryPurple hover:bg-primaryPurple/80 transition-colors text-white"
+            >
+              {updating ? "Update" : "Add"}
+            </button>
+            {updating && (
+              <button
+                onClick={() => {
+                  setUpdating(false);
+                  inputRef.current.value = "";
+                }}
+                type="button"
+                className="px-4 py-2 font-semibold text-sm md:text-md rounded-md bg-red-700 hover:bg-red-800 transition-colors text-white"
+              >
+                Cancel
+              </button>
+            )}
+          </>
         )}
       </div>
     </div>

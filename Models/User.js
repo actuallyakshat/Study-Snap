@@ -91,5 +91,28 @@ userSchema.pre(
   }
 );
 
+userSchema.pre(
+  "deleteOne",
+  { document: true, query: false },
+  async function (next) {
+    try {
+      const user = this;
+      await mongoose.model("Todo").deleteMany({ _id: { $in: user.todos } });
+      await mongoose
+        .model("CompletedTimer")
+        .deleteMany({ _id: { $in: user.completedTimers } });
+      await mongoose.model("Folder").deleteMany({ _id: { $in: user.folders } });
+      await mongoose
+        .model("ProductivityData")
+        .deleteMany({ _id: { $in: user.productivityData } });
+
+      next();
+    } catch (error) {
+      console.error("Error deleting referencing data:", error);
+      next(error);
+    }
+  }
+);
+
 const User = mongoose.model("User", userSchema);
 module.exports = User;

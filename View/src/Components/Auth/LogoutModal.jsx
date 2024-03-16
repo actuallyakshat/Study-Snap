@@ -7,7 +7,7 @@ export const LogoutModal = ({ logout, showModal, setShowModal }) => {
           tabIndex="-1"
           className="overflow-y-auto popup-overlay overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-full max-h-full"
         >
-          <div className="relative popup-content top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-4 w-full max-w-md max-h-full animate-fadeIn animate-slideIn">
+          <div className="relative w-[90%] max-w-[30em] md:w-full popup-content top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-4 max-h-full animate-fadeIn animate-slideIn">
             <div className="relative bg-white rounded-lg shadow">
               <button
                 type="button"

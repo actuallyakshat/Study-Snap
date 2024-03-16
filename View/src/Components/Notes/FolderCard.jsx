@@ -60,7 +60,7 @@ export const FolderCard = ({
         </div>
       </div>
       <div className={`pl-8 mt-1 space-y-2 ${isExpanded ? "block" : "hidden"}`}>
-        {folder.notes.map((note) => (
+        {folder?.notes?.map((note) => (
           <NoteCard
             key={note._id}
             note={note}

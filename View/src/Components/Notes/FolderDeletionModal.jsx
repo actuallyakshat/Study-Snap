@@ -34,7 +34,7 @@ export const FolderDeletionModal = ({
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className="popup-content max-w-[30em] w-full px-8 py-10 rounded-lg border border-gray-500/40 absolute bg-[#0d1117] shadow-lg shadow-gray-800/20 z-[11] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+            className="popup-content w-[90%] max-w-[30em] md:w-full px-8 py-10 rounded-lg border border-gray-500/40 absolute bg-[#0d1117] shadow-lg shadow-gray-800/20 z-[11] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
           >
             <h1 className="font-bold text-2xl text-center">Delete Folder</h1>
             <p className="text-sm mx-auto font-medium text-gray-100/90 mt-2 text-center">
