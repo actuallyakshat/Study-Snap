@@ -14,6 +14,10 @@ app.listen(PORT, () => {
   console.log("Server started successfully at Port", PORT);
 });
 
+app.get("/", (req, res) => {
+  res.send("Server started running successfully!");
+});
+
 DbConnect();
 app.use(cors());
 app.use(express.json());
@@ -23,5 +27,6 @@ const jwtCheck = auth({
   issuerBaseURL: baseurl,
   tokenSigningAlg: algo,
 });
+
 app.use(jwtCheck);
 app.use("/api/v1", apiv1Router);
