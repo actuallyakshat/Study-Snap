@@ -28,5 +28,5 @@ const jwtCheck = auth({
   tokenSigningAlg: algo,
 });
 
-// app.use(jwtCheck);
+app.use(jwtCheck);
 app.use("/api/v1", apiv1Router);
