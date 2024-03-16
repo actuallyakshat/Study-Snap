@@ -7,14 +7,12 @@ import {
 import { Dashboard } from "./Components/Dashboard/Dashboard";
 import { HomeLayout } from "./Components/Home/HomeLayout";
 import { PageNotFound } from "./Components/PageNotFound/PageNotFound";
-import { TodoLayout } from "./Components/Todos/TodoLayout";
 
 export const Routes = () => {
   return (
     <div className="flex flex-1 h-full w-full">
       <AppRoutes>
         <Route path="/" element={<HomeLayout />} />
-        <Route path="/test" element={<TodoLayout />} />
         <Route path="/dashboard/*" element={<Dashboard />} />
         <Route path="/*" element={<PageNotFound />} />
         <Route path="/not-found" element={<PageNotFound />} />
