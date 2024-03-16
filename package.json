@@ -4,7 +4,8 @@
   "description": "Study Snap is a minimal study tracking website that helps you track and visualise your progress in achieving your goals.",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js",
+    "dev": "nodemon index.js",
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
