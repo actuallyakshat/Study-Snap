@@ -21,13 +21,14 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           domain={domain}
           clientId={clientId}
           cacheLocation="localstorage"
+          useRefreshTokens={true}
           authorizationParams={{
             audience: audience,
             scope: scope,
-            useRefreshTokens: true,
-            cacheLocation: "localstorage",
             redirect_uri: redirect_uri,
           }}
+          // legacySameSiteCookie={false}
+          // cookieDomain={window.location.hostname}
         >
           <App />
         </Auth0Provider>
