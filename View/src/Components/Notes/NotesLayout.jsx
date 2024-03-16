@@ -12,7 +12,7 @@ import { FolderCreationModal } from "./FolderCreationModal";
 import { FolderDeletionModal } from "./FolderDeletionModal";
 
 export const NotesLayout = () => {
-  const [user, setUser] = useAtom(userAtom);
+  const [user, ] = useAtom(userAtom);
   const [searchQuery, setSearchQuery] = useState("");
   const [folders, setFolders] = useState(null);
   const [selectedNoteId, setSelectedNoteId] = useState(null);
