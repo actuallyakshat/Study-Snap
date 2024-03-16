@@ -20,15 +20,11 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Auth0Provider
           domain={domain}
           clientId={clientId}
-          cacheLocation="localstorage"
-          useRefreshTokens={true}
           authorizationParams={{
             audience: audience,
             scope: scope,
             redirect_uri: redirect_uri,
           }}
-          legacySameSiteCookie={false}
-          cookieDomain={window.location.hostname}
         >
           <App />
         </Auth0Provider>
