@@ -41,12 +41,12 @@ export const Inputbar = ({
         }),
       }));
 
-      setLoading(false);
-      setUpdating(false);
       const response = await updateTodo(todoId, task, user.token);
       if (response.success) {
         toast.success("Todo updated successfully!");
       }
+      setLoading(false);
+      setUpdating(false);
     } else {
       // Creation Logic - Directly add to local state
       const newTodo = {
@@ -60,14 +60,14 @@ export const Inputbar = ({
         todos: [...prevUser.todos, newTodo],
       }));
 
-      setLoading(false);
-      setTask("");
-      inputRef.current.value = "";
       const response = await createTodo(task, user, items.length);
       if (response.success) {
         toast.success("Todo created successfully!");
       }
+      setLoading(false);
     }
+    setTask("");
+    inputRef.current.value = "";
   };
 
   return (
