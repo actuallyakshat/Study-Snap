@@ -10,6 +10,7 @@ const baseurl = process.env.AUTH_DOMAIN;
 const algo = process.env.AUTH0_ALGO;
 const { auth } = require("express-oauth2-jwt-bearer");
 
+app.use(cors());
 app.listen(PORT, () => {
   console.log("Server started successfully at Port", PORT);
 });
@@ -19,7 +20,6 @@ app.get("/", (req, res) => {
 });
 
 DbConnect();
-app.use(cors());
 app.use(express.json());
 
 const jwtCheck = auth({
