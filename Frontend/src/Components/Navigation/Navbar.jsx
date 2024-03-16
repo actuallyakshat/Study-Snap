@@ -27,6 +27,7 @@ export const Navbar = () => {
     const fetchToken = async () => {
       try {
         const token = await getAccessTokenSilently();
+        console.log(token);
         return token;
       } catch (error) {
         console.error("Error fetching token:", error);
