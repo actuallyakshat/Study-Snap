@@ -1,5 +1,5 @@
 import axios from "axios";
-const baseUrl = "http://localhost:8000/api/v1/productivity";
+const baseUrl = `${import.meta.env.VITE_BASE_URL}/productivity`;
 
 const setStudyTarget = async (auth0Id, studyTarget, token) => {
   try {

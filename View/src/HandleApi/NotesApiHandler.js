@@ -1,5 +1,5 @@
 import axios from "axios";
-const baseUrl = "http://localhost:8000/api/v1/notes";
+const baseUrl = `${import.meta.env.VITE_BASE_URL}/notes`;
 
 const addNote = async (title, content, folderId, auth0Id, token) => {
   try {

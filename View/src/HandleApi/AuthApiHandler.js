@@ -1,5 +1,5 @@
 import axios from "axios";
-const baseUrl = "http://localhost:8000/api/v1/auth";
+const baseUrl = `${import.meta.env.VITE_BASE_URL}/auth`;
 
 const getUserDetails = async (user) => {
   try {
@@ -61,7 +61,7 @@ const deleteUserAccount = async (user) => {
     }
 
     const { auth0Id, token } = user;
-    
+
     const response = await axios.delete(`${baseUrl}/delete-account`, {
       headers: {
         Authorization: `Bearer ${token}`,

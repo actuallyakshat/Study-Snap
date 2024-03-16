@@ -1,5 +1,5 @@
 import axios from "axios";
-const baseUrl = "http://localhost:8000/api/v1/timer";
+const baseUrl = `${import.meta.env.VITE_BASE_URL}/timer`;
 
 const saveCompletedTimer = async (duration, date, time, user) => {
   try {
