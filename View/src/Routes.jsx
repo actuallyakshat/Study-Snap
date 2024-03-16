@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 import { Dashboard } from "./Components/Dashboard/Dashboard";
 import { HomeLayout } from "./Components/Home/HomeLayout";
+import { PageNotFound } from "./Components/PageNotFound/PageNotFound";
 
 export const Routes = () => {
   return (
@@ -13,6 +14,8 @@ export const Routes = () => {
       <AppRoutes>
         <Route path="/" element={<HomeLayout />} />
         <Route path="/dashboard/*" element={<Dashboard />} />
+        <Route path="/*" element={<PageNotFound />} />
+        <Route path="/not-found" element={<PageNotFound />} />
       </AppRoutes>
     </div>
   );
