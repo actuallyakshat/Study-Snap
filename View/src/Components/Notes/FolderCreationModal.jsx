@@ -21,8 +21,6 @@ export const FolderCreationModal = ({ addFolderModal, setAddFolderModal }) => {
   useEffect(() => {
     if (addFolderModal) {
       const titleInput = document.getElementById("title");
-
-      console.log(titleInput);
       if (titleInput) {
         titleInput.focus();
       }

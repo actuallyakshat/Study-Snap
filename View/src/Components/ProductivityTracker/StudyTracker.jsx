@@ -44,7 +44,6 @@ export const StudyTracker = () => {
   const [user, setUser] = useAtom(userAtom);
   const [selectedTab, setSelectedTab] = useState("Weekly");
 
-  console.log(user?.productivityData?.Weekly);
   return (
     <div className="mb-4">
       <div className="w-full px-4 my-4 flex justify-between items-center">

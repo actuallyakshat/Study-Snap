@@ -45,7 +45,6 @@ export const NotesLayout = () => {
         );
         return acc.concat(filteredFolderNotes);
       }, []);
-      console.log(filteredNotesArray);
       setFilteredNotes(filteredNotesArray);
     }
   }, [folders, searchQuery, user]);

@@ -9,7 +9,6 @@ export const SetStudyTarget = ({ cardStyle, user, setUser }) => {
 
   useEffect(() => {
     if (user?.studyTarget) {
-      console.log(user.studyTarget);
       setNewTarget(user.studyTarget);
     }
   }, [user]);
@@ -31,7 +30,6 @@ export const SetStudyTarget = ({ cardStyle, user, setUser }) => {
 
   const setTargetHandler = async () => {
     const response = await setStudyTarget(user.auth0Id, newTarget, user.token);
-    console.log(response);
     if (response.success) {
       toast.success("Target Set Successfully!");
       const newUser = { ...user };

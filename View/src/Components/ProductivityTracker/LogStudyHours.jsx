@@ -29,15 +29,9 @@ export const LogStudyHours = ({ cardStyle }) => {
       weekday: "long",
     });
 
-    console.log("Current day of the week:", currentDayOfWeek);
-
     const exists = user.productivityData.Weekly.some((day) => {
-      console.log("Checking day:", day.day);
-      console.log("Hours studied for this day:", day.hours);
       return day.day === currentDayOfWeek && day.hours !== 0;
     });
-
-    console.log("Entry for today exists:", exists);
 
     return exists;
   }
@@ -101,8 +95,6 @@ export const LogStudyHours = ({ cardStyle }) => {
   };
 
   const handleIncrement = () => {
-    console.log("increment");
-    console.log(hoursStudied);
     if (hoursStudied == 24) {
       toast.error("There are only 24 hours in a day!");
       return;

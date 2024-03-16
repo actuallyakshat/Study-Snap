@@ -12,8 +12,6 @@ export const NoteCreationModal = ({ setAddNoteModel, addNoteModel }) => {
   useEffect(() => {
     if (addNoteModel) {
       const titleInput = document.getElementById("title");
-
-      console.log(titleInput);
       if (titleInput) {
         titleInput.focus();
       }
@@ -21,7 +19,6 @@ export const NoteCreationModal = ({ setAddNoteModel, addNoteModel }) => {
   }, [addNoteModel]);
   const onSubmit = async (data) => {
     setAddNoteModel(false);
-    console.log(data);
     const response = await addNote(
       data.title,
       defaultContent,
@@ -29,7 +26,6 @@ export const NoteCreationModal = ({ setAddNoteModel, addNoteModel }) => {
       user.auth0Id,
       user.token
     );
-    console.log(response);
     if (response.success) {
       const updatedUserFolders = user.folders.map((folder) => {
         if (folder._id === data.folder) {

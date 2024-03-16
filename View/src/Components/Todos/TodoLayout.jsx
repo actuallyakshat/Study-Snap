@@ -20,7 +20,6 @@ export const TodoLayout = () => {
 
   const debounceTime = 2000;
   const reorderHandler = async (items) => {
-    console.log(items);
     await reorderTodos(user, items);
     setUser((prevUser) => ({
       ...prevUser,

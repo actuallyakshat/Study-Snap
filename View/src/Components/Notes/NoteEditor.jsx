@@ -34,7 +34,6 @@ import { useAtom } from "jotai";
 import { saveNote } from "../../HandleApi/NotesApiHandler";
 import { toast } from "react-hot-toast";
 export const NoteEditor = ({ content, noteId, setSelectedNoteId, title }) => {
-  
   const [editorContent, setEditorContent] = useState(content);
   const [deleteNoteModal, setDeleteNoteModal] = useState(false);
   const [user, setUser] = useAtom(userAtom);
@@ -66,7 +65,6 @@ export const NoteEditor = ({ content, noteId, setSelectedNoteId, title }) => {
       user.auth0Id,
       user.token
     );
-    console.log(response);
     if (response.success) {
       toast.success("File saved successfully");
     }
@@ -80,7 +78,6 @@ export const NoteEditor = ({ content, noteId, setSelectedNoteId, title }) => {
       });
     });
     setUser(updatedUser);
-    console.log("Note content saved successfully!");
   };
 
   return (

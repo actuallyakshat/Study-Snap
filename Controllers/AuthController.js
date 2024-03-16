@@ -56,10 +56,9 @@ const getDetails = async (req, res) => {
     const todaysProductivityData = productivityData.find(
       (entry) => entry.date === todayDateString
     );
-    console.log(todaysProductivityData);
+
     if (!previousProductivityData) {
       if (!todaysProductivityData) {
-        console.log("Setting streak to 0");
         user.streak = 0;
         await user.save();
       }

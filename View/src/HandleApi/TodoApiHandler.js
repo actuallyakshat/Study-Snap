@@ -7,7 +7,6 @@ const createTodo = async (task, user, order) => {
       console.error("Null User Error");
       return;
     }
-    console.log(user);
     const { sub: auth0Id, token } = user;
     const response = await axios.post(
       `${baseUrl}/create`,
@@ -71,7 +70,6 @@ const updateTodoStatus = async (todoId, token) => {
 
 const deleteTodo = async (todoId, user) => {
   try {
-    console.log("todoId: ", todoId, "user: ", user);
     if (!user) {
       console.error("Null User Error");
       return;

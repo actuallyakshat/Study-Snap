@@ -23,8 +23,6 @@ const saveCompletedTimer = async (duration, date, time, user) => {
         },
       }
     );
-
-    console.log("Response from saving a completed timer: ", response);
     return response;
   } catch (error) {
     console.error("Error while saving a completed timer:", error);

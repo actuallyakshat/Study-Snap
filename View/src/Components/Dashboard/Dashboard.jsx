@@ -13,7 +13,6 @@ export const Dashboard = () => {
   const user = useAtomValue(userAtom);
   const isLoading = useAtomValue(loadingAtom);
   useEffect(() => {
-    console.log(user);
     if (!isLoading) {
       if (!user) {
         navigate("/");

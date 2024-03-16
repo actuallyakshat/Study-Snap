@@ -81,13 +81,12 @@ userSchema.pre(
   { document: true, query: false },
   async function (next) {
     try {
-      console.log("Removing user with todos:", User.todos);
       await Todo.deleteMany({ _id: { $in: User.todos } });
       await CompletedTimer.deleteMany({ _id: { $in: User.completedTimers } });
       await Folder.deleteMany({ _id: { $in: User.folders } });
       next();
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   }
 );

@@ -109,10 +109,10 @@ export const Features = () => {
           >
             <h1 className={titleStyle}>Pomodoro Timer ⏰</h1>
             <p className={descStyle}>
-              Keep track of assignments, deadlines, and tasks with ease.
-              Organize your workload, prioritize tasks, and ensure nothing slips
-              through the cracks, helping you stay on top of your academic
-              responsibilities.
+              Enhance productivity by breaking work into focused intervals,
+              usually 25 minutes long, interspersed with short breaks. Boost
+              concentration, manage time effectively, and optimize workflow,
+              fostering a balance between productivity and rejuvenation.
             </p>
           </motion.div>
         </div>

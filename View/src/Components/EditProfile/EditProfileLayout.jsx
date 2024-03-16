@@ -4,18 +4,21 @@ import { useState } from "react";
 import { updateUser } from "../../HandleApi/AuthApiHandler";
 import toast from "react-hot-toast";
 import { DeleteAccountModal } from "./DeleteAccountModal";
+import { LoadingSpinner } from "../Loading/LoadingSpinner";
 export const EditProfileLayout = () => {
   const [user, setUser] = useAtom(userAtom);
   const [newName, setNewName] = useState("");
+  const [isLoading, setIsLoading] = useState("");
   const [showModal, setShowModal] = useState(false);
   const submitHandler = async () => {
+    setIsLoading(true);
     const response = await updateUser(user, newName);
     if (response.success) {
       toast.success("Changes saved successfully!");
     }
     const newUser = { ...user, name: newName };
     setUser(newUser);
-    console.log("Finally", user);
+    setIsLoading(false);
   };
 
   const deleteAccountHandler = async () => {
@@ -23,7 +26,7 @@ export const EditProfileLayout = () => {
   };
 
   return (
-    <div className="w-full editProfile bg-center h-full flex items-center justify-center ">
+    <div className="w-full editProfile bg-center px-4 h-full flex items-center justify-center ">
       <div className="flex bg-spaceBlack/80 border-2 border-gray-600/80 py-12 rounded-lg top-0 flex-col items-center justify-center w-full max-w-[30rem] px-7">
         <div className="w-full">
           <h1 className="font-bold text-4xl text-center">Edit Profile</h1>
@@ -72,13 +75,20 @@ export const EditProfileLayout = () => {
                 showModal={showModal}
                 setShowModal={setShowModal}
               />
-              <button
-                type="submit"
-                className="bg-primaryPurple hover:bg-primaryPurple/80 transition-colors px-4 py-2 text-sm rounded-md"
-                onClick={submitHandler}
-              >
-                Save
-              </button>
+              {isLoading ? (
+                <div className="mr-4">
+                  <LoadingSpinner />
+                </div>
+              ) : (
+                <button
+                  type="submit"
+                  disabled={isLoading}
+                  className="bg-primaryPurple hover:bg-primaryPurple/80 transition-colors px-4 py-2 text-sm rounded-md"
+                  onClick={submitHandler}
+                >
+                  Save
+                </button>
+              )}
             </div>
           </form>
         </div>

@@ -40,7 +40,6 @@ export const Inputbar = ({
 
     //Updation Logic
     if (updating) {
-      console.log(`updating ${todoId} now!!`);
       const response = await updateTodo(
         todoId,
         inputRef.current.value,
@@ -52,7 +51,6 @@ export const Inputbar = ({
       updateTodoItemLocally(todoId, response.updatedTodo.task);
       inputRef.current.value = "";
       setUpdating(false);
-      console.log("response aaya", response);
     }
 
     //Creation Logic
@@ -65,7 +63,6 @@ export const Inputbar = ({
         isCompleted: false,
       };
       const updatedItems = [...items, newTodo];
-      console.log(updatedItems);
       setItems(updatedItems);
       setUser((prevUser) => ({
         ...prevUser,

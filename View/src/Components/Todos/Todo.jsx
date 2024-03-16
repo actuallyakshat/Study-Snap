@@ -17,7 +17,6 @@ export const Todo = ({ item, setItems, user, handleUpdateClick, setUser }) => {
     try {
       // Delete the todo from the server
       const response = await deleteTodo(item._id, user);
-      console.log(response);
       setUser((prevUser) => ({
         ...prevUser,
         todos: prevUser.todos.filter((todo) => todo._id !== item._id),
