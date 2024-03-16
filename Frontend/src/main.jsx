@@ -27,8 +27,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
             scope: scope,
             redirect_uri: redirect_uri,
           }}
-          // legacySameSiteCookie={false}
-          // cookieDomain={window.location.hostname}
+          legacySameSiteCookie={false}
+          cookieDomain={window.location.hostname}
         >
           <App />
         </Auth0Provider>
