@@ -50,20 +50,15 @@ const saveNote = async (noteId, title, content, auth0Id, token) => {
 
 const deleteNote = async (noteId, auth0Id, token) => {
   try {
-    const response = await axios.delete(
-      `${baseUrl}/delete-note`,
-      {
-        data: {
-          noteId: noteId,
-          auth0Id: auth0Id,
-        },
+    const response = await axios.delete(`${baseUrl}/delete-note`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
       },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+      data: {
+        noteId: noteId,
+        auth0Id: auth0Id,
+      },
+    });
 
     return response.data;
   } catch (error) {
@@ -95,20 +90,15 @@ const addFolder = async (name, auth0Id, token) => {
 
 const deleteFolder = async (folderId, auth0Id, token) => {
   try {
-    const response = await axios.delete(
-      `${baseUrl}/delete-folder`,
-      {
-        data: {
-          folderId: folderId,
-          auth0Id: auth0Id,
-        },
+    const response = await axios.delete(`${baseUrl}/delete-folder`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
       },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+      data: {
+        folderId: folderId,
+        auth0Id: auth0Id,
+      },
+    });
 
     return response.data;
   } catch (error) {

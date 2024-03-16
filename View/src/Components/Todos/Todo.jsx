@@ -47,7 +47,7 @@ export const Todo = ({ item, setItems, user, handleUpdateClick, setUser }) => {
       dragListener={false}
       dragControls={controls}
     >
-      <div className="select-none border border-gray-600/30 flex items-center transition-colors text-md min-h-10 px-3 rounded-lg bg-slate-700/90 text-white hover:bg-slate-800 active:bg-slate-800/70">
+      <div className="select-none border border-gray-600/30 flex items-center transition-colors text-md min-h-10 px-3 rounded-lg bg-slate-800/80 text-white hover:bg-slate-800 active:bg-slate-800/70">
         <div className="gap-1 h-full flex-1 flex items-center">
           <div
             style={{ touchAction: "none" }}

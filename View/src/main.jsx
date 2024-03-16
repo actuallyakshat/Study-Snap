@@ -5,9 +5,14 @@ import { Auth0Provider } from "@auth0/auth0-react";
 import "./index.css";
 import { BrowserRouter } from "react-router-dom";
 import TimerProvider from "./Components/Timer/TimerProvider.jsx";
+
+//env imports
 const clientId = import.meta.env.VITE_CLIENT_ID;
 const domain = import.meta.env.VITE_DOMAIN;
 const audience = import.meta.env.VITE_AUDIENCE;
+const scope = import.meta.env.VITE_SCOPE;
+const redirect_uri = import.meta.env.VITE_REDIRECT_URI;
+
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
@@ -16,9 +21,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           domain={domain}
           clientId={clientId}
           authorizationParams={{
-            audience: "https://studysnapbackend.com/auth0-api",
-            scope: "openid profile email",
-            redirect_uri: "http://localhost:5173/dashboard/",
+            audience: audience,
+            scope: scope,
+            redirect_uri: redirect_uri,
           }}
         >
           <App />

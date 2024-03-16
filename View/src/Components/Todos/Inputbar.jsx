@@ -89,7 +89,7 @@ export const Inputbar = ({
             }
           }}
           onChange={(e) => setTask(e.target.value)}
-          className="px-3 py-2 h-10 flex-1 bg-slate-700 rounded-lg text-white focus:outline-none"
+          className="px-3 py-2 h-10 flex-1 bg-slate-800 rounded-lg text-white focus:outline-none"
         />
         <button
           onClick={submitHandler}

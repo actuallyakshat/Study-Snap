@@ -9,6 +9,7 @@ export const NoteDeletionModal = ({
   setSelectedNoteId,
 }) => {
   const [user, setUser] = useAtom(userAtom);
+  console.log(user.token);
   const deleteNoteHandler = async () => {
     setDeleteNoteModal(false);
     const response = await deleteNote(noteId, user.auth0Id, user.token);

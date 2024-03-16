@@ -34,6 +34,7 @@ import { useAtom } from "jotai";
 import { saveNote } from "../../HandleApi/NotesApiHandler";
 import { toast } from "react-hot-toast";
 export const NoteEditor = ({ content, noteId, setSelectedNoteId, title }) => {
+  
   const [editorContent, setEditorContent] = useState(content);
   const [deleteNoteModal, setDeleteNoteModal] = useState(false);
   const [user, setUser] = useAtom(userAtom);
