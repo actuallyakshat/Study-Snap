@@ -70,13 +70,13 @@ export const FolderCreationModal = ({ addFolderModal, setAddFolderModal }) => {
                     setAddFolderModal(false);
                     reset();
                   }}
-                  className="bg-red-600 hover:bg-red-700 transition-colors px-3 py-2 rounded-md text-sm"
+                  className="bg-red-600 hover:bg-red-600/80 transition-colors px-3 py-2 rounded-md text-sm"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="bg-primaryPurple hover:bg-primaryPurple/80 transition-colors px-3 py-2 rounded-md text-sm"
+                  className="bg-blue-900/80  hover:bg-blue-900/60 transition-colors px-3 py-2 rounded-md text-sm"
                 >
                   Add Folder
                 </button>

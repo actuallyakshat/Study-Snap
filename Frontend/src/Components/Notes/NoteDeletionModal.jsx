@@ -2,15 +2,18 @@ import { deleteNote } from "../../HandleApi/NotesApiHandler";
 import { useAtom } from "jotai";
 import { userAtom } from "../../Utils/Store";
 import { toast } from "react-hot-toast";
+import { useState } from "react";
+import { LoadingSpinner } from "../Loading/LoadingSpinner";
 export const NoteDeletionModal = ({
   deleteNoteModal,
   setDeleteNoteModal,
   noteId,
   setSelectedNoteId,
 }) => {
+  const [loading, setLoading] = useState(false);
   const [user, setUser] = useAtom(userAtom);
   const deleteNoteHandler = async () => {
-    setDeleteNoteModal(false);
+    setLoading(true);
     const response = await deleteNote(noteId, user.email, user.token);
     if (response.success) {
       toast.success("Note deleted successfully!");
@@ -21,6 +24,8 @@ export const NoteDeletionModal = ({
       }));
       setUser({ ...user, folders: updatedFolders });
     }
+    setLoading(false);
+    setDeleteNoteModal(false);
   };
   return (
     <>
@@ -38,20 +43,26 @@ export const NoteDeletionModal = ({
               Are you sure you want to delete this note? This action cannot be
               undone.
             </p>
-            <div className="w-full flex justify-center gap-3 mt-4">
-              <button
-                onClick={() => setDeleteNoteModal(false)}
-                className="border hover:bg-red-700 border-red-600 px-3 py-2 transition-colors rounded-md text-sm"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={deleteNoteHandler}
-                className="bg-red-600 hover:bg-red-700 transition-colors px-3 py-2 rounded-md text-sm"
-              >
-                Delete Note
-              </button>
-            </div>
+            {loading ? (
+              <div className="w-full flex items-center justify-center mt-4">
+                <LoadingSpinner />
+              </div>
+            ) : (
+              <div className="w-full flex justify-center gap-3 mt-4">
+                <button
+                  onClick={() => setDeleteNoteModal(false)}
+                  className="border hover:bg-red-700 border-red-600 px-3 py-2 transition-colors rounded-md text-sm"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={deleteNoteHandler}
+                  className="bg-red-600 hover:bg-red-700 transition-colors px-3 py-2 rounded-md text-sm"
+                >
+                  Delete Note
+                </button>
+              </div>
+            )}
           </div>
         </div>
       )}

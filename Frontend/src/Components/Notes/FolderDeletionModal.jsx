@@ -1,6 +1,8 @@
 import { useAtom } from "jotai";
 import { userAtom } from "../../Utils/Store";
 import { deleteFolder } from "../../HandleApi/NotesApiHandler";
+import { useState } from "react";
+import { LoadingSpinner } from "../Loading/LoadingSpinner";
 export const FolderDeletionModal = ({
   deleteFolderModal,
   setDeleteFolderModal,
@@ -9,8 +11,9 @@ export const FolderDeletionModal = ({
   setSelectedFolderId,
 }) => {
   const [user, setUser] = useAtom(userAtom);
+  const [loading, setLoading] = useState(false);
   const deleteFolderHandler = async () => {
-    setDeleteFolderModal(false);
+    setLoading(true);
     const response = await deleteFolder(
       selectedFolderId,
       user.email,
@@ -24,6 +27,8 @@ export const FolderDeletionModal = ({
       setSelectedFolderId(null);
       setSelectedNoteId(null);
     }
+    setLoading(false);
+    setDeleteFolderModal(false);
   };
   return (
     <>
@@ -41,20 +46,26 @@ export const FolderDeletionModal = ({
               Are you sure you want to delete this folder? All the notes inside
               this folder will also be deleted.
             </p>
-            <div className="w-full flex justify-center gap-3 mt-4">
-              <button
-                onClick={() => setDeleteFolderModal(false)}
-                className="border hover:bg-red-700 border-red-600 px-3 py-2 transition-colors rounded-md text-sm"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={deleteFolderHandler}
-                className="bg-red-600 hover:bg-red-700 transition-colors px-3 py-2 rounded-md text-sm"
-              >
-                Delete Folder
-              </button>
-            </div>
+            {loading ? (
+              <div className="w-full flex items-center justify-center mt-4">
+                <LoadingSpinner />
+              </div>
+            ) : (
+              <div className="w-full flex justify-center gap-3 mt-4">
+                <button
+                  onClick={() => setDeleteFolderModal(false)}
+                  className="border hover:bg-red-700 border-red-600 px-3 py-2 transition-colors rounded-md text-sm"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={deleteFolderHandler}
+                  className="bg-red-600 hover:bg-red-700 transition-colors px-3 py-2 rounded-md text-sm"
+                >
+                  Delete Folder
+                </button>
+              </div>
+            )}
           </div>
         </div>
       )}

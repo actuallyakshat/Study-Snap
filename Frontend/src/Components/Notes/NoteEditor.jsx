@@ -33,10 +33,12 @@ import { userAtom } from "../../Utils/Store";
 import { useAtom } from "jotai";
 import { saveNote } from "../../HandleApi/NotesApiHandler";
 import { toast } from "react-hot-toast";
+import { LoadingSpinner } from "../Loading/LoadingSpinner";
 export const NoteEditor = ({ content, noteId, setSelectedNoteId, title }) => {
   const [editorContent, setEditorContent] = useState(content);
   const [deleteNoteModal, setDeleteNoteModal] = useState(false);
   const [user, setUser] = useAtom(userAtom);
+  const [loading, setLoading] = useState(false);
 
   const editor = useEditor({
     extensions,
@@ -57,6 +59,7 @@ export const NoteEditor = ({ content, noteId, setSelectedNoteId, title }) => {
   if (!editor) return null;
 
   const handleSaveNote = async () => {
+    setLoading(true);
     const currentContent = editor.getHTML();
     const response = await saveNote(
       noteId,
@@ -65,6 +68,7 @@ export const NoteEditor = ({ content, noteId, setSelectedNoteId, title }) => {
       user.email,
       user.token
     );
+    setLoading(false);
     if (response.success) {
       toast.success("File saved successfully");
     }
@@ -202,22 +206,28 @@ export const NoteEditor = ({ content, noteId, setSelectedNoteId, title }) => {
             <LuHeading4 className="size-5" />
           </button>
         </div>
-        <div className="flex items-stretch gap-3 ">
-          <button
-            className="flex items-center bg-white/20 px-4 hover:bg-green-500/20 transition-colors rounded-md py-2 text-sm gap-3"
-            onClick={handleSaveNote}
-          >
-            <p>Save</p>
-            <FaSave className="size-5 hover:text-gray-300 transition-colors" />
-          </button>
-          <button
-            onClick={() => setDeleteNoteModal(true)}
-            className="flex items-center bg-white/20 hover:bg-red-500/40 transition-colors rounded-md py-2 text-sm gap-3 px-4"
-          >
-            <p>Delete</p>
-            <FaTrash className="size-5 hover:text-gray-300  transition-colors" />
-          </button>
-        </div>
+        {loading ? (
+          <div className="mr-4">
+            <LoadingSpinner />
+          </div>
+        ) : (
+          <div className="flex items-stretch gap-3 ">
+            <button
+              className="flex items-center bg-white/20 px-4 hover:bg-green-500/20 transition-colors rounded-md py-2 text-sm gap-3"
+              onClick={handleSaveNote}
+            >
+              <p>Save</p>
+              <FaSave className="size-5 hover:text-gray-300 transition-colors" />
+            </button>
+            <button
+              onClick={() => setDeleteNoteModal(true)}
+              className="flex items-center bg-white/20 hover:bg-red-500/40 transition-colors rounded-md py-2 text-sm gap-3 px-4"
+            >
+              <p>Delete</p>
+              <FaTrash className="size-5 hover:text-gray-300  transition-colors" />
+            </button>
+          </div>
+        )}
       </div>
       <div className="w-full">
         <EditorContent editor={editor} />
