@@ -1,4 +1,21 @@
-export const LogoutModal = ({ logout, showModal, setShowModal }) => {
+import { googleLogout } from "@react-oauth/google";
+import { useSetAtom } from "jotai";
+import {
+  googleCredentialsAtom,
+  isAuthenticatedAtom,
+  userAtom,
+} from "../../Utils/Store";
+export const LogoutModal = ({ showModal, setShowModal }) => {
+  const setIsAuthenticated = useSetAtom(isAuthenticatedAtom);
+  const setUser = useSetAtom(userAtom);
+  const setToken = useSetAtom(googleCredentialsAtom);
+  const logoutHandler = () => {
+    setIsAuthenticated(false);
+    setToken(null);
+    setUser(null);
+    googleLogout();
+  };
+
   return (
     <div>
       {showModal && (
@@ -63,7 +80,7 @@ export const LogoutModal = ({ logout, showModal, setShowModal }) => {
                   <button
                     data-modal-hide="popup-modal"
                     type="button"
-                    onClick={() => logout()}
+                    onClick={logoutHandler}
                     className="text-white bg-red-600 hover:bg-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center"
                   >
                     Logout

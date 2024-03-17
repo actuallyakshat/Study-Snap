@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { deleteUserAccount } from "../../HandleApi/AuthApiHandler";
 import "../Auth/ModalAnimation.css";
-import { useAuth0 } from "@auth0/auth0-react";
 import toast from "react-hot-toast";
 import { LoadingSpinner } from "../Loading/LoadingSpinner";
 export const DeleteAccountModal = ({
@@ -10,7 +9,6 @@ export const DeleteAccountModal = ({
   showModal,
   setShowModal,
 }) => {
-  const { logout } = useAuth0();
   const [loading, setLoading] = useState(false);
   const deleteAccountHandler = async () => {
     setLoading(true);
@@ -19,7 +17,6 @@ export const DeleteAccountModal = ({
     if (response.success) {
       toast.success("Account deleted successfully!");
       setUser(null);
-      logout();
     }
   };
   return (

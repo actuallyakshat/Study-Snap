@@ -1,5 +1,5 @@
 import { FaGithub } from "react-icons/fa6";
-import { useAuth0 } from "@auth0/auth0-react";
+
 import { useEffect, useRef } from "react";
 import { motion, useInView, useAnimation } from "framer-motion";
 export const Hero = () => {
@@ -13,7 +13,6 @@ export const Hero = () => {
     }
   }, [isInView]);
 
-  const { loginWithRedirect } = useAuth0();
 
   const animationVariants = {
     hidden: { opacity: 0, x: -50 },
@@ -56,13 +55,6 @@ export const Hero = () => {
             className="flex px-4 space-x-4 mt-10"
           >
             <button
-              onClick={() =>
-                loginWithRedirect({
-                  authorizationParams: {
-                    screen_hint: "signup",
-                  },
-                })
-              }
               className="px-6 bg-primaryPurple hover:bg-primaryPurple/80 transition-colors font-medium rounded-lg text-sm py-3"
             >
               Get Started

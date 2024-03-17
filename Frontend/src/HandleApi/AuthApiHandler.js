@@ -1,19 +1,17 @@
 import axios from "axios";
 const baseUrl = `${import.meta.env.VITE_BASE_URL}/auth`;
-
-const getUserDetails = async (user) => {
+const getUserDetails = async (user, token) => {
   try {
     if (!user) {
       console.error("Null User Error");
       return;
     }
-    const { nickname, token, email, sub: auth0Id } = user;
+    const { email, name } = user;
     const response = await axios.post(
       `${baseUrl}/getDetails`,
       {
-        name: nickname,
-        auth0Id,
         email,
+        name,
       },
       {
         headers: {
