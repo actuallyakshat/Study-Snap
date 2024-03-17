@@ -8,14 +8,14 @@ const saveCompletedTimer = async (duration, date, time, user) => {
       console.error("Null User Error");
       return;
     }
-    const { sub: auth0Id, token } = user;
+    const { email, token } = user;
     const response = await axios.post(
       `${baseUrl}/save-completed-timer`,
       {
         duration,
         date,
         time,
-        auth0Id,
+        email,
       },
       {
         headers: {

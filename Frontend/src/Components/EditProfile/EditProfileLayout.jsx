@@ -1,7 +1,6 @@
-import { useAtom } from "jotai";
-import { userAtom } from "../../Utils/Store";
+import { useAtom, useSetAtom } from "jotai";
+import { googleCredentialsAtom, userAtom } from "../../Utils/Store";
 import { useState } from "react";
-import { updateUser } from "../../HandleApi/AuthApiHandler";
 import toast from "react-hot-toast";
 import { DeleteAccountModal } from "./DeleteAccountModal";
 import { LoadingSpinner } from "../Loading/LoadingSpinner";
@@ -10,12 +9,13 @@ export const EditProfileLayout = () => {
   const [newName, setNewName] = useState("");
   const [isLoading, setIsLoading] = useState("");
   const [showModal, setShowModal] = useState(false);
+  
   const submitHandler = async () => {
     setIsLoading(true);
-    const response = await updateUser(user, newName);
-    if (response.success) {
-      toast.success("Changes saved successfully!");
-    }
+    // const response = await updateUser(user, newName);
+    // if (response.success) {
+    //   toast.success("Changes saved successfully!");
+    // }
     const newUser = { ...user, name: newName };
     setUser(newUser);
     setIsLoading(false);

@@ -42,7 +42,7 @@ export const LogStudyHours = ({ cardStyle }) => {
       return;
     }
     const response = await addProductivityData(
-      user.auth0Id,
+      user.email,
       hoursStudied,
       user.token
     );

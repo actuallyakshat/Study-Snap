@@ -4,13 +4,13 @@ const User = require("../Models/User");
 // Controller function to save a completed timer entry
 const saveCompletedTimer = async (req, res) => {
   try {
-    const { duration, date, time, auth0Id } = req.body;
+    const { duration, date, time, email } = req.body;
 
     // Check if required fields are provided
-    if (!duration || !date || !time || !auth0Id) {
+    if (!duration || !date || !time || !email) {
       return res.status(400).json({
         success: false,
-        error: "Duration, date, time, and auth0Id are required.",
+        error: "Duration, date, time, and email are required.",
       });
     }
 
@@ -31,7 +31,7 @@ const saveCompletedTimer = async (req, res) => {
     await completedTimer.save();
 
     // Update user's completedTimer array
-    const user = await User.findOne({ auth0Id: auth0Id });
+    const user = await User.findOne({ email: email });
     if (!user) {
       return res.status(404).json({ success: false, error: "User not found." });
     }

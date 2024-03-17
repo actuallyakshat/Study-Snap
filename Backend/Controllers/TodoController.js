@@ -3,13 +3,13 @@ const User = require("../Models/User");
 
 const createTodo = async (req, res) => {
   try {
-    const { task, auth0Id, order } = req.body;
-    if (!task || !auth0Id) {
+    const { task, email, order } = req.body;
+    if (!task || !email) {
       return res
         .status(400)
-        .json({ success: false, message: "Task and auth0Id are required" });
+        .json({ success: false, message: "Task and email are required" });
     }
-    const user = await User.findOne({ auth0Id });
+    const user = await User.findOne({ email });
     if (!user) {
       return res
         .status(404)
@@ -22,7 +22,7 @@ const createTodo = async (req, res) => {
     await todo.save();
 
     await User.findOneAndUpdate(
-      { auth0Id: auth0Id },
+      { email: email },
       { $push: { todos: todo._id } }
     );
 
@@ -96,12 +96,12 @@ const updateTodoStatus = async (req, res) => {
 
 const deleteTodo = async (req, res) => {
   try {
-    const { todoId, auth0Id } = req.body;
+    const { todoId, email } = req.body;
 
-    if (!todoId || !auth0Id) {
+    if (!todoId || !email) {
       return res
         .status(400)
-        .json({ success: false, message: "TodoId and auth0Id are required" });
+        .json({ success: false, message: "TodoId and email are required" });
     }
 
     const deletedTodo = await Todo.findByIdAndDelete(todoId);
@@ -112,7 +112,7 @@ const deleteTodo = async (req, res) => {
     }
 
     await User.findOneAndUpdate(
-      { auth0Id: auth0Id },
+      { email: email },
       { $pull: { todos: todoId } }
     );
 

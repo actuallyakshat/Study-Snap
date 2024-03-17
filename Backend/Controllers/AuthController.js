@@ -150,36 +150,10 @@ const getDetails = async (req, res) => {
   }
 };
 
-const editProfile = async (req, res) => {
-  try {
-    const { auth0Id, newName } = req.body;
-    const user = await User.findOne({ auth0Id: auth0Id });
-    if (!user) {
-      return res.status(404).json({ success: false, error: "User not found." });
-    }
-    user.name = newName;
-
-    await user.save();
-
-    res.status(200).json({
-      success: true,
-      message: "User name updated successfully.",
-      user,
-    });
-  } catch (error) {
-    console.error("Error changing user name:", error);
-    // Return error response
-    res.status(500).json({
-      success: false,
-      error: "Server error. Failed to update user name.",
-    });
-  }
-};
-
 const deleteAccount = async (req, res) => {
   try {
-    const auth0Id = req.body.auth0Id;
-    const user = await User.findOne({ auth0Id: auth0Id });
+    const email = req.body.email;
+    const user = await User.findOne({ email });
     if (user) {
       await Note.deleteMany({ folder: { $in: user.folders } });
       await user.deleteOne();
@@ -197,6 +171,5 @@ const deleteAccount = async (req, res) => {
 
 module.exports = {
   getDetails,
-  editProfile,
   deleteAccount,
 };

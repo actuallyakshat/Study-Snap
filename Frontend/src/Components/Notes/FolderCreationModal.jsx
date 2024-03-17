@@ -8,7 +8,7 @@ export const FolderCreationModal = ({ addFolderModal, setAddFolderModal }) => {
   const { register, handleSubmit, reset } = useForm();
   const onSubmit = async (data) => {
     setAddFolderModal(false);
-    const response = await addFolder(data.title, user.auth0Id, user.token);
+    const response = await addFolder(data.title, user.email, user.token);
     if (response.success) {
       const updatedUser = {
         ...user,

@@ -37,6 +37,7 @@ export const Navbar = () => {
   useEffect(() => {
     if (!token) {
       setIsAuthenticated(false);
+      setLoading(false);
     } else {
       try {
         const decoded = jwtDecode(token);
@@ -48,6 +49,7 @@ export const Navbar = () => {
               const response = await getUserDetails(tempUser, token);
               const userDb = response.data.user;
               const updatedUser = { ...tempUser, ...userDb };
+              updatedUser.token = token;
               setUser(updatedUser);
             } catch (error) {
               console.error("Error updating user:", error);
@@ -85,6 +87,9 @@ export const Navbar = () => {
         <div className="flex ml-auto items-center justify-end space-x-4">
           {!isAuthenticated ? (
             <GoogleLogin
+              size="medium"
+              text="signin"
+              shape="rectangular"
               onSuccess={onSuccessHandler}
               onError={() => {
                 toast.error("Something went wrong!");
