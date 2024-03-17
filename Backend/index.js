@@ -3,12 +3,9 @@ const express = require("express");
 const cors = require("cors");
 const DbConnect = require("./Config/database");
 const apiv1Router = require("./Routes/IndexRouter");
+const verifyToken = require("./Middlewares/verifyToken");
 const app = express();
 const PORT = process.env.PORT || 8080;
-const audience = process.env.AUTH0_AUDIENCE;
-const baseurl = process.env.AUTH_DOMAIN;
-const algo = process.env.AUTH0_ALGO;
-const { auth } = require("express-oauth2-jwt-bearer");
 
 app.use(cors());
 app.listen(PORT, () => {
@@ -21,12 +18,5 @@ app.get("/", (req, res) => {
 
 DbConnect();
 app.use(express.json());
-
-const jwtCheck = auth({
-  audience: audience,
-  issuerBaseURL: baseurl,
-  tokenSigningAlg: algo,
-});
-
-app.use(jwtCheck);
+app.use(verifyToken);
 app.use("/api/v1", apiv1Router);

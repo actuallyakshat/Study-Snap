@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { createTodo, updateTodo } from "../../HandleApi/TodoApiHandler";
 import DateTimeDisplay from "./DateTimeDisplay";
-import { toast } from "react-hot-toast";
 import { LoadingSpinner } from "../Loading/LoadingSpinner";
 
 export const Inputbar = ({
@@ -42,10 +41,7 @@ export const Inputbar = ({
       }));
       setLoading(false);
       setUpdating(false);
-      const response = await updateTodo(todoId, task, user.token);
-      if (response.success) {
-        toast.success("Todo updated successfully!");
-      }
+      await updateTodo(todoId, task, user.token);
     } else {
       // Creation Logic - Directly add to local state
       const newTodo = {
@@ -61,10 +57,7 @@ export const Inputbar = ({
       setLoading(false);
       setTask("");
       inputRef.current.value = "";
-      const response = await createTodo(task, user, items.length);
-      if (response.success) {
-        toast.success("Todo created successfully!");
-      }
+      await createTodo(task, user, items.length);
     }
   };
 

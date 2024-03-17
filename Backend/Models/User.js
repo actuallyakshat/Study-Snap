@@ -5,13 +5,9 @@ const Folder = require("./Folder");
 const ProductivityData = require("./ProductivityData");
 
 const userSchema = new mongoose.Schema({
-  auth0Id: {
-    type: String,
-    required: true,
-    unique: true,
-  },
   email: {
     type: String,
+    required: true,
     unique: true,
   },
   name: {

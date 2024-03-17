@@ -5,7 +5,7 @@ const Folder = require("../Models/Folder");
 // Controller function to add a new note
 const addNote = async (req, res) => {
   try {
-    const { title, content, dateCreated, folderId, auth0Id } = req.body;
+    const { title, content, dateCreated, folderId, email } = req.body;
 
     const newNote = new Note({
       title,
@@ -21,7 +21,7 @@ const addNote = async (req, res) => {
       { new: true }
     );
     await User.findOneAndUpdate(
-      { auth0Id },
+      { email },
       { $addToSet: { folders: folderId } },
       { new: true }
     );
@@ -54,9 +54,9 @@ const saveNoteContent = async (req, res) => {
 
 const deleteNote = async (req, res) => {
   try {
-    const { noteId, auth0Id } = req.body;
+    const { noteId, email } = req.body;
     await Note.findByIdAndDelete(noteId);
-    await User.findOneAndUpdate({ auth0Id }, { $pull: { folders: noteId } });
+    await User.findOneAndUpdate({ email }, { $pull: { folders: noteId } });
     await Folder.updateMany({ notes: noteId }, { $pull: { notes: noteId } });
 
     res
@@ -71,7 +71,7 @@ const deleteNote = async (req, res) => {
 // Controller function to add a new folder
 const addFolder = async (req, res) => {
   try {
-    const { name, auth0Id } = req.body;
+    const { name, email } = req.body;
     const newFolder = new Folder({
       name,
     });
@@ -79,7 +79,7 @@ const addFolder = async (req, res) => {
     await newFolder.save();
 
     await User.findOneAndUpdate(
-      { auth0Id },
+      { email },
       { $addToSet: { folders: newFolder._id } }, // Add the new folder ID to the folders array if it doesn't already exist
       { new: true }
     );
@@ -93,7 +93,7 @@ const addFolder = async (req, res) => {
 
 const deleteFolder = async (req, res) => {
   try {
-    const { folderId, auth0Id } = req.body;
+    const { folderId, email } = req.body;
 
     // Find and delete the folder from the database
     await Folder.findByIdAndDelete(folderId);
@@ -103,7 +103,7 @@ const deleteFolder = async (req, res) => {
 
     // Remove the folder from the user's folders array
     await User.findOneAndUpdate(
-      { auth0Id },
+      { email },
       { $pull: { folders: folderId } },
       { new: true }
     );

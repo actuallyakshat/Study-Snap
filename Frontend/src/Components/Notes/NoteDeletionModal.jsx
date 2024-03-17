@@ -11,7 +11,7 @@ export const NoteDeletionModal = ({
   const [user, setUser] = useAtom(userAtom);
   const deleteNoteHandler = async () => {
     setDeleteNoteModal(false);
-    const response = await deleteNote(noteId, user.auth0Id, user.token);
+    const response = await deleteNote(noteId, user.email, user.token);
     if (response.success) {
       toast.success("Note deleted successfully!");
       setSelectedNoteId(null);

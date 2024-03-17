@@ -3,18 +3,14 @@ import { LogoutModal } from "../Auth/LogoutModal";
 import { Link } from "react-router-dom";
 import { userAtom } from "../../Utils/Store";
 import { useAtomValue } from "jotai";
-function DropdownMenu({ logout }) {
+
+function DropdownMenu() {
   const [isOpen, setIsOpen] = useState(false);
   const [logoutModal, setLogoutModal] = useState(false);
-  const [username, setUsername] = useState("");
   const user = useAtomValue(userAtom);
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
-
-useEffect(() => {
-    setUsername(user?.name?.split(" ")[0]);
-  }, [user]);
 
   return (
     <div className="relative inline-block text-left">
@@ -27,7 +23,7 @@ useEffect(() => {
           aria-expanded={isOpen ? "true" : "false"}
           aria-haspopup="true"
         >
-          {username}&apos;s Tools
+          {user?.given_name}&apos;s Tools
           <svg
             className="-mr-1 h-5 w-5 text-gray-400"
             viewBox="0 0 20 20"
@@ -55,7 +51,7 @@ useEffect(() => {
           <div className="bg-white rounded-md">
             <Link
               to="/dashboard/"
-              className="text-gray-700 hover:bg-gray-200 rounded-md hover:bg-gray-200 h-full font-medium block px-4 py-2 text-sm"
+              className="text-gray-700 hover:bg-gray-200 rounded-md h-full font-medium block px-4 py-2 text-sm"
               role="menuitem"
               id="menu-item-0"
               onClick={toggleMenu}
@@ -96,7 +92,7 @@ useEffect(() => {
               id="menu-item-0"
               onClick={toggleMenu}
             >
-              Edit Profile
+              Settings
             </Link>
 
             <button
@@ -106,7 +102,6 @@ useEffect(() => {
               Logout
             </button>
             <LogoutModal
-              logout={logout}
               showModal={logoutModal}
               setShowModal={setLogoutModal}
             />

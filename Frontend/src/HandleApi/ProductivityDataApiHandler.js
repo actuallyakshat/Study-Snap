@@ -1,12 +1,12 @@
 import axios from "axios";
 const baseUrl = `${import.meta.env.VITE_BASE_URL}/productivity`;
 
-const setStudyTarget = async (auth0Id, studyTarget, token) => {
+const setStudyTarget = async (email, studyTarget, token) => {
   try {
     const response = await axios.put(
       `${baseUrl}/set-target`,
       {
-        auth0Id: auth0Id,
+        email,
         studyTarget: studyTarget,
       },
       {
@@ -23,7 +23,7 @@ const setStudyTarget = async (auth0Id, studyTarget, token) => {
   }
 };
 
-const addProductivityData = async (auth0Id, hoursStudied, token) => {
+const addProductivityData = async (email, hoursStudied, token) => {
   try {
     const today = new Date();
     const day = String(today.getDate()).padStart(2, "0");
@@ -35,7 +35,7 @@ const addProductivityData = async (auth0Id, hoursStudied, token) => {
     const response = await axios.post(
       `${baseUrl}/add-data`,
       {
-        auth0Id: auth0Id,
+        email,
         hoursStudied: hoursStudied,
         date: formattedDate,
       },

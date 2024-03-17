@@ -13,7 +13,7 @@ export const FolderDeletionModal = ({
     setDeleteFolderModal(false);
     const response = await deleteFolder(
       selectedFolderId,
-      user.auth0Id,
+      user.email,
       user.token
     );
     if (response.success) {

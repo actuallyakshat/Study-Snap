@@ -3,9 +3,9 @@ const User = require("../Models/User");
 
 const addProductivityData = async (req, res) => {
   try {
-    const { auth0Id, date, month, week, day, hoursStudied } = req.body;
+    const { email, date, month, week, day, hoursStudied } = req.body;
     let existingProductivityData = await ProductivityData.findOne({
-      auth0Id,
+      email,
       date: date,
     });
 
@@ -14,7 +14,7 @@ const addProductivityData = async (req, res) => {
       await existingProductivityData.save();
     } else {
       existingProductivityData = new ProductivityData({
-        auth0Id,
+        email,
         date: date,
         month,
         week,
@@ -24,7 +24,7 @@ const addProductivityData = async (req, res) => {
       await existingProductivityData.save();
 
       await User.updateOne(
-        { auth0Id },
+        { email },
         {
           $push: { productivityData: existingProductivityData._id },
           $inc: { streak: 1 },
@@ -45,16 +45,16 @@ const addProductivityData = async (req, res) => {
 
 const setStudyTarget = async (req, res) => {
   try {
-    const { auth0Id, studyTarget } = req.body;
-    if (!studyTarget || !auth0Id) {
+    const { email, studyTarget } = req.body;
+    if (!studyTarget || !email) {
       return res.status(400).json({
         success: false,
-        message: "studyTarget and auth0Id are required",
+        message: "studyTarget and email are required",
       });
     }
 
     const user = await User.findOneAndUpdate(
-      { auth0Id: auth0Id },
+      { email: email },
       { studyTarget: studyTarget }
     );
 

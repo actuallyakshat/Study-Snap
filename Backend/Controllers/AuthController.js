@@ -4,10 +4,9 @@ const Note = require("../Models/Note");
 
 const getDetails = async (req, res) => {
   try {
-    const { auth0Id, email, name } = req.body;
+    const { email, name } = req.body;
 
-    // Fetch user details including todos, completedTimers, and folders
-    let user = await User.findOne({ auth0Id })
+    let user = await User.findOne({ email })
       .populate({
         path: "todos",
         options: { sort: { order: 1 } },
@@ -24,21 +23,20 @@ const getDetails = async (req, res) => {
     // If user doesn't exist, create a new user
     if (!user) {
       user = new User({
-        auth0Id,
         email,
         name,
       });
       await user.save();
 
       // Fetch the newly created user
-      user = await User.findOne({ auth0Id }).populate({
+      user = await User.findOne({ email }).populate({
         path: "folders",
         populate: { path: "notes" },
       });
     }
 
     // Fetch productivity data for the user
-    const productivityData = await ProductivityData.find({ auth0Id });
+    const productivityData = await ProductivityData.find({ email });
 
     //Streak Logic
     const currentDate = new Date();
@@ -152,36 +150,10 @@ const getDetails = async (req, res) => {
   }
 };
 
-const editProfile = async (req, res) => {
-  try {
-    const { auth0Id, newName } = req.body;
-    const user = await User.findOne({ auth0Id: auth0Id });
-    if (!user) {
-      return res.status(404).json({ success: false, error: "User not found." });
-    }
-    user.name = newName;
-
-    await user.save();
-
-    res.status(200).json({
-      success: true,
-      message: "User name updated successfully.",
-      user,
-    });
-  } catch (error) {
-    console.error("Error changing user name:", error);
-    // Return error response
-    res.status(500).json({
-      success: false,
-      error: "Server error. Failed to update user name.",
-    });
-  }
-};
-
 const deleteAccount = async (req, res) => {
   try {
-    const auth0Id = req.body.auth0Id;
-    const user = await User.findOne({ auth0Id: auth0Id });
+    const email = req.body.email;
+    const user = await User.findOne({ email });
     if (user) {
       await Note.deleteMany({ folder: { $in: user.folders } });
       await user.deleteOne();
@@ -199,6 +171,5 @@ const deleteAccount = async (req, res) => {
 
 module.exports = {
   getDetails,
-  editProfile,
   deleteAccount,
 };

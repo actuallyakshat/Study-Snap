@@ -1,59 +1,73 @@
-import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect, useState } from "react";
 import { useAtom, useSetAtom } from "jotai";
-import { loadingAtom, sidebarOpenAtom, userAtom } from "../../Utils/Store";
+import {
+  googleCredentialsAtom,
+  isAuthenticatedAtom,
+  loadingAtom,
+  sidebarOpenAtom,
+  userAtom,
+} from "../../Utils/Store";
 import DropdownMenu from "./DropdownMenu";
 import { getUserDetails } from "../../HandleApi/AuthApiHandler";
 import { Link } from "react-router-dom";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { jwtDecode } from "jwt-decode";
 import { useLocation } from "react-router-dom";
-
+import { toast } from "react-hot-toast";
+import { GoogleLogin } from "@react-oauth/google";
 export const Navbar = () => {
-  const setUser = useSetAtom(userAtom);
-  const setLoading = useSetAtom(loadingAtom);
+  const [token, setToken] = useAtom(googleCredentialsAtom);
+  const [isAuthenticated, setIsAuthenticated] = useAtom(isAuthenticatedAtom);
+  const [user, setUser] = useAtom(userAtom);
+  const [loading, setLoading] = useAtom(loadingAtom);
   const [sidebarOpen, setSidebarOpen] = useAtom(sidebarOpenAtom);
   const location = useLocation();
 
-  const {
-    logout,
-    isAuthenticated,
-    loginWithRedirect,
-    user,
-    getAccessTokenSilently,
-    isLoading,
-  } = useAuth0();
+  const onSuccessHandler = (credentialResponse) => {
+    setToken(credentialResponse.credential);
+    setIsAuthenticated(true);
+  };
 
   useEffect(() => {
-    const fetchToken = async () => {
-      try {
-        const token = await getAccessTokenSilently();
-        console.log(token);
-        return token;
-      } catch (error) {
-        console.error("Error fetching token:", error);
-      }
-    };
+    if (token) {
+      setIsAuthenticated(true);
+    }
+  }, [token]);
 
-    const updateUser = async () => {
-      if (!isLoading && isAuthenticated) {
-        try {
-          user.token = await fetchToken();
-          const response = await getUserDetails(user);
-          const userDb = response.data.user;
-          const updatedUser = { ...user, ...userDb };
-          setUser(updatedUser);
-        } catch (error) {
-          console.error("Error updating user:", error);
-        } finally {
-          setLoading(false);
-        }
-      } else if (!isLoading && !isAuthenticated) {
+  useEffect(() => {
+    if (!token) {
+      setIsAuthenticated(false);
+      setLoading(false);
+    } else {
+      try {
+        const decoded = jwtDecode(token);
+        const tempUser = decoded;
+
+        const updateUser = async () => {
+          if (!loading && isAuthenticated) {
+            try {
+              const response = await getUserDetails(tempUser, token);
+              const userDb = response.data.user;
+              const updatedUser = { ...tempUser, ...userDb };
+              updatedUser.token = token;
+              setUser(updatedUser);
+            } catch (error) {
+              console.error("Error updating user:", error);
+            }
+          } else if (!loading && !isAuthenticated) {
+            setLoading(false);
+          }
+        };
+        updateUser();
         setLoading(false);
+      } catch (error) {
+        // setIsAuthenticated(false);
+        console.error("Error decoding token:", error);
+        toast.error("Please re-login!");
       }
-    };
-    updateUser();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isAuthenticated, isLoading]);
+  }, [isAuthenticated, loading]);
 
   return (
     <div className="h-[64px] relative w-full px-4 border-b border-white/25">
@@ -72,22 +86,19 @@ export const Navbar = () => {
 
         <div className="flex ml-auto items-center justify-end space-x-4">
           {!isAuthenticated ? (
-            <div className="space-x-4">
-              <button onClick={() => loginWithRedirect()}>Login</button>
-              <button
-                onClick={() =>
-                  loginWithRedirect({
-                    authorizationParams: {
-                      screen_hint: "signup",
-                    },
-                  })
-                }
-              >
-                Register
-              </button>
-            </div>
+            <GoogleLogin
+              size="medium"
+              text="signin"
+              shape="rectangular"
+              onSuccess={onSuccessHandler}
+              onError={() => {
+                toast.error("Something went wrong!");
+                console.error("Login Failed");
+              }}
+              useOneTap
+            />
           ) : (
-            <DropdownMenu logout={logout} />
+            <DropdownMenu />
           )}
         </div>
       </div>

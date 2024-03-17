@@ -1,7 +1,7 @@
 import axios from "axios";
 const baseUrl = `${import.meta.env.VITE_BASE_URL}/notes`;
 
-const addNote = async (title, content, folderId, auth0Id, token) => {
+const addNote = async (title, content, folderId, email, token) => {
   try {
     const response = await axios.post(
       `${baseUrl}/add-note`,
@@ -9,7 +9,7 @@ const addNote = async (title, content, folderId, auth0Id, token) => {
         title: title,
         content: content,
         folderId: folderId,
-        auth0Id: auth0Id,
+        email,
       },
       {
         headers: {
@@ -24,7 +24,7 @@ const addNote = async (title, content, folderId, auth0Id, token) => {
     throw error;
   }
 };
-const saveNote = async (noteId, title, content, auth0Id, token) => {
+const saveNote = async (noteId, title, content, email, token) => {
   try {
     const response = await axios.put(
       `${baseUrl}/save-note`,
@@ -32,7 +32,7 @@ const saveNote = async (noteId, title, content, auth0Id, token) => {
         noteId,
         title,
         content,
-        auth0Id,
+        email,
       },
       {
         headers: {
@@ -48,7 +48,7 @@ const saveNote = async (noteId, title, content, auth0Id, token) => {
   }
 };
 
-const deleteNote = async (noteId, auth0Id, token) => {
+const deleteNote = async (noteId, email, token) => {
   try {
     const response = await axios.delete(`${baseUrl}/delete-note`, {
       headers: {
@@ -56,7 +56,7 @@ const deleteNote = async (noteId, auth0Id, token) => {
       },
       data: {
         noteId: noteId,
-        auth0Id: auth0Id,
+        email,
       },
     });
 
@@ -67,13 +67,13 @@ const deleteNote = async (noteId, auth0Id, token) => {
   }
 };
 
-const addFolder = async (name, auth0Id, token) => {
+const addFolder = async (name, email, token) => {
   try {
     const response = await axios.post(
       `${baseUrl}/add-folder`,
       {
         name: name,
-        auth0Id: auth0Id,
+        email: email,
       },
       {
         headers: {
@@ -88,7 +88,7 @@ const addFolder = async (name, auth0Id, token) => {
   }
 };
 
-const deleteFolder = async (folderId, auth0Id, token) => {
+const deleteFolder = async (folderId, email, token) => {
   try {
     const response = await axios.delete(`${baseUrl}/delete-folder`, {
       headers: {
@@ -96,7 +96,7 @@ const deleteFolder = async (folderId, auth0Id, token) => {
       },
       data: {
         folderId: folderId,
-        auth0Id: auth0Id,
+        email,
       },
     });
 

@@ -7,12 +7,12 @@ const createTodo = async (task, user, order) => {
       console.error("Null User Error");
       return;
     }
-    const { sub: auth0Id, token } = user;
+    const { email, token } = user;
     const response = await axios.post(
       `${baseUrl}/create`,
       {
         task,
-        auth0Id,
+        email,
         order,
       },
       {
@@ -75,9 +75,9 @@ const deleteTodo = async (todoId, user) => {
       return;
     }
 
-    const { sub: auth0Id, token } = user;
+    const { email, token } = user;
     const response = await axios.delete(`${baseUrl}/delete`, {
-      data: { todoId, auth0Id },
+      data: { todoId, email },
       headers: {
         Authorization: `Bearer ${token}`,
       },
