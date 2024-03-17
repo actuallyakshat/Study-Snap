@@ -3,9 +3,11 @@ import { IoClose } from "react-icons/io5";
 import { IoCheckmark } from "react-icons/io5";
 import { toast } from "react-hot-toast";
 import { setStudyTarget } from "../../HandleApi/ProductivityDataApiHandler";
+import { LoadingSpinner } from "../Loading/LoadingSpinner";
 export const SetStudyTarget = ({ cardStyle, user, setUser }) => {
   const targetInput = useRef(null);
   const [newTarget, setNewTarget] = useState(user ? user.studyTarget : 0);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (user?.studyTarget) {
@@ -29,7 +31,9 @@ export const SetStudyTarget = ({ cardStyle, user, setUser }) => {
   };
 
   const setTargetHandler = async () => {
+    setLoading(true);
     const response = await setStudyTarget(user.email, newTarget, user.token);
+    setLoading(false);
     if (response.success) {
       toast.success("Target Set Successfully!");
       const newUser = { ...user };
@@ -46,20 +50,32 @@ export const SetStudyTarget = ({ cardStyle, user, setUser }) => {
         </p>
       </div>
       <div className="flex items-center justify-center absolute top-1/2 text-4xl left-1/2 -translate-x-1/2 ">
-        <button onClick={handleDecrement}>-</button>
-        <input
-          type="text"
-          readOnly
-          placeholder="Enter Hours"
-          value={`${
-            newTarget
-              ? `${newTarget == 1 ? `${newTarget} Hour` : `${newTarget} Hours`}`
-              : ""
-          }`}
-          ref={targetInput}
-          className="studyhours max-w-[220px] text-3xl bg-transparent focus:outline-none font-bold"
-        />
-        <button onClick={handleIncrement}>+</button>
+        {loading ? (
+          <div className="pt-4">
+            <LoadingSpinner />
+          </div>
+        ) : (
+          <>
+            <button onClick={handleDecrement}>-</button>
+            <input
+              type="text"
+              readOnly
+              placeholder="Enter Hours"
+              value={`${
+                newTarget
+                  ? `${
+                      newTarget == 1
+                        ? `${newTarget} Hour`
+                        : `${newTarget} Hours`
+                    }`
+                  : ""
+              }`}
+              ref={targetInput}
+              className="studyhours max-w-[220px] text-3xl bg-transparent focus:outline-none font-bold"
+            />
+            <button onClick={handleIncrement}>+</button>
+          </>
+        )}
       </div>
 
       {user?.studyTarget != newTarget && (

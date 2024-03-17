@@ -122,7 +122,9 @@ export const LogStudyHours = ({ cardStyle }) => {
         </p>
       </div>
       {loading ? (
-        <LoadingSpinner />
+        <div className="flex-1 flex items-center pb-12">
+          <LoadingSpinner />
+        </div>
       ) : (
         <>
           <div className="flex items-center absolute top-1/2 text-4xl left-1/2 -translate-x-1/2">
