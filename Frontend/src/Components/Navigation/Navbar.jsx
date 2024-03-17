@@ -10,7 +10,7 @@ import {
 import DropdownMenu from "./DropdownMenu";
 import { getUserDetails } from "../../HandleApi/AuthApiHandler";
 import { Link } from "react-router-dom";
-import { GiHamburgerMenu, GiToken } from "react-icons/gi";
+import { GiHamburgerMenu } from "react-icons/gi";
 import { jwtDecode } from "jwt-decode";
 import { useLocation } from "react-router-dom";
 import { toast } from "react-hot-toast";

@@ -31,7 +31,6 @@ const verifyToken = async (req, res, next) => {
             });
         }
       }
-      console.log(payload);
       next();
       return;
     }

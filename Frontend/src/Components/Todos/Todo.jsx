@@ -4,7 +4,6 @@ import { MdEdit } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
 import { deleteTodo, updateTodoStatus } from "../../HandleApi/TodoApiHandler";
 import { MdDragIndicator } from "react-icons/md";
-import { toast } from "react-hot-toast";
 
 export const Todo = ({ item, setItems, user, handleUpdateClick, setUser }) => {
   const controls = useDragControls();
@@ -16,14 +15,11 @@ export const Todo = ({ item, setItems, user, handleUpdateClick, setUser }) => {
 
     try {
       // Delete the todo from the server
-      const response = await deleteTodo(item._id, user);
+      await deleteTodo(item._id, user);
       setUser((prevUser) => ({
         ...prevUser,
         todos: prevUser.todos.filter((todo) => todo._id !== item._id),
       }));
-      if (response.success) {
-        toast.error("Task deleted successfully!");
-      }
     } catch (error) {
       // Handle error if any
       console.error("Error deleting todo:", error);

@@ -11,7 +11,7 @@ import {
 import { useAtomValue } from "jotai";
 import { NotesLayout } from "../Notes/NotesLayout";
 import { TimerLayout } from "../Timer/TimerLayout";
-import { EditProfileLayout } from "../EditProfile/EditProfileLayout";
+import { AccountSettings } from "../AccountSettings/AccountSettings";
 export const Dashboard = () => {
   const navigate = useNavigate();
   const user = useAtomValue(userAtom);
@@ -32,7 +32,7 @@ export const Dashboard = () => {
         <Route path="/todos" element={<TodoLayout />} />
         <Route path="/notes" element={<NotesLayout />} />
         <Route path="/timer" element={<TimerLayout />} />
-        <Route path="/edit-profile" element={<EditProfileLayout />} />
+        <Route path="/edit-profile" element={<AccountSettings />} />
         <Route path="/*" element={<Navigate to="/not-found" replace />} />
       </Routes>
     </div>

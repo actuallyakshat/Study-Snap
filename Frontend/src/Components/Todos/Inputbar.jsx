@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { createTodo, updateTodo } from "../../HandleApi/TodoApiHandler";
 import DateTimeDisplay from "./DateTimeDisplay";
-import { toast } from "react-hot-toast";
 import { LoadingSpinner } from "../Loading/LoadingSpinner";
 
 export const Inputbar = ({
@@ -17,64 +16,49 @@ export const Inputbar = ({
   const [task, setTask] = useState("");
   const [loading, setLoading] = useState(false);
 
-  async function updateTodoItemLocally(todoId, updatedTask) {
-    setItems((prevItems) => {
-      return prevItems.map((item) => {
-        if (item._id === todoId) {
-          return { ...item, task: updatedTask };
-        }
-        return item;
-      });
-    });
-    setUser((prevUser) => ({
-      ...prevUser,
-      todos: prevUser.todos.map((todo) => {
-        if (todo._id === todoId) {
-          return { ...todo, task: updatedTask };
-        }
-        return todo;
-      }),
-    }));
-  }
-
   const submitHandler = async () => {
-    if (inputRef.current.value == "") return;
+    if (inputRef.current.value === "") return;
     setLoading(true);
     if (!task) return;
 
-    //Updation Logic
+    // Updation Logic
     if (updating) {
-      const response = await updateTodo(
-        todoId,
-        inputRef.current.value,
-        user.token
-      );
-      if (response.success) {
-        toast.success("Todo updated successfully!");
-      }
-      updateTodoItemLocally(todoId, response.updatedTodo.task);
-      inputRef.current.value = "";
+      const updatedItems = items.map((item) => {
+        if (item._id === todoId) {
+          return { ...item, task };
+        }
+        return item;
+      });
+      setItems(updatedItems);
+      setUser((prevUser) => ({
+        ...prevUser,
+        todos: prevUser.todos.map((todo) => {
+          if (todo._id === todoId) {
+            return { ...todo, task };
+          }
+          return todo;
+        }),
+      }));
+      setLoading(false);
       setUpdating(false);
-    }
-
-    //Creation Logic
-    else {
-      inputRef.current.value = "";
-      const response = await createTodo(task, user, items.length);
+      await updateTodo(todoId, task, user.token);
+    } else {
+      // Creation Logic - Directly add to local state
       const newTodo = {
-        _id: response.todo._id,
-        task: task,
+        _id: Date.now().toString(),
+        task,
         isCompleted: false,
       };
-      const updatedItems = [...items, newTodo];
-      setItems(updatedItems);
+      setItems((prevItems) => [...prevItems, newTodo]); // Functional update
       setUser((prevUser) => ({
         ...prevUser,
         todos: [...prevUser.todos, newTodo],
       }));
+      setLoading(false);
+      setTask("");
+      inputRef.current.value = "";
+      await createTodo(task, user, items.length);
     }
-    setTask("");
-    setLoading(false);
   };
 
   return (

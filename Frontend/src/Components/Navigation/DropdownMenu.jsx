@@ -92,7 +92,7 @@ function DropdownMenu() {
               id="menu-item-0"
               onClick={toggleMenu}
             >
-              Edit Profile
+              Settings
             </Link>
 
             <button
