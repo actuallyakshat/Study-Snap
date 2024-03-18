@@ -84,7 +84,7 @@ export const Testimonials = () => {
         transition={{ ...animationTransition, delay: 0.6 }}
         className="max-w-[70rem] w-full border-2 p-3 border-gray-600/70 rounded-xl h-full bg-black/50 relative overflow-hidden"
       >
-        <div className="flex flex-col bg-primaryPurple/20 rounded-b-xl w-full h-full items-center rounded-t-xl">
+        <div className="flex flex-col bg-primaryPurple/20 overflow-hidden rounded-b-xl w-full h-full items-center rounded-t-xl">
           <div className="flex justify-between bg-spaceBlack/80 w-full py-7 rounded-t-xl px-8">
             <div className="flex items-center gap-3">
               <div className="size-4 bg-red-600 rounded-full"></div>

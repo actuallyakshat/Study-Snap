@@ -18,7 +18,7 @@ export const TodoLayout = () => {
   const [reorderFlag, setReorderFlag] = useState(false);
   const inputRef = useRef(null);
 
-  const debounceTime = 3000;
+  const debounceTime = 1000;
   const reorderHandler = async (items) => {
     await reorderTodos(user, items);
     setUser((prevUser) => ({
