@@ -2,12 +2,14 @@ import { useForm } from "react-hook-form";
 import { useAtom } from "jotai";
 import { userAtom } from "../../Utils/Store";
 import { addFolder } from "../../HandleApi/NotesApiHandler";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { LoadingSpinner } from "../Loading/LoadingSpinner";
 export const FolderCreationModal = ({ addFolderModal, setAddFolderModal }) => {
   const [user, setUser] = useAtom(userAtom);
+  const [loading, setLoading] = useState(false);
   const { register, handleSubmit, reset } = useForm();
   const onSubmit = async (data) => {
-    setAddFolderModal(false);
+    setLoading(true);
     const response = await addFolder(data.title, user.email, user.token);
     if (response.success) {
       const updatedUser = {
@@ -16,6 +18,8 @@ export const FolderCreationModal = ({ addFolderModal, setAddFolderModal }) => {
       };
       setUser(updatedUser);
     }
+    setLoading(false);
+    setAddFolderModal(false);
     reset();
   };
   useEffect(() => {
@@ -63,24 +67,30 @@ export const FolderCreationModal = ({ addFolderModal, setAddFolderModal }) => {
                   className="w-full rounded-lg py-1 text-black px-2 font-medium focus:ring-2 focus:outline-none focus:ring-blue-600"
                 />
               </div>
-              <div className="max-w-[80%] w-fit ml-auto gap-2 mt-6 flex items-center">
-                <button
-                  type="button"
-                  onClick={() => {
-                    setAddFolderModal(false);
-                    reset();
-                  }}
-                  className="bg-red-600 hover:bg-red-600/80 transition-colors px-3 py-2 rounded-md text-sm"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="bg-blue-900/80  hover:bg-blue-900/60 transition-colors px-3 py-2 rounded-md text-sm"
-                >
-                  Add Folder
-                </button>
-              </div>
+              {loading ? (
+                <div className="w-full flex items-center justify-center pt-3">
+                  <LoadingSpinner />
+                </div>
+              ) : (
+                <div className="max-w-[80%] w-fit ml-auto gap-2 mt-6 flex items-center">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setAddFolderModal(false);
+                      reset();
+                    }}
+                    className="bg-red-600 hover:bg-red-600/80 transition-colors px-3 py-2 rounded-md text-sm"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    className="bg-blue-900/80  hover:bg-blue-900/60 transition-colors px-3 py-2 rounded-md text-sm"
+                  >
+                    Add Folder
+                  </button>
+                </div>
+              )}
             </form>
           </div>
         </div>

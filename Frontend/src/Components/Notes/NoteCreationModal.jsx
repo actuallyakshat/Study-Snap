@@ -2,11 +2,13 @@ import { useForm } from "react-hook-form";
 import { useAtom } from "jotai";
 import { userAtom } from "../../Utils/Store";
 import { addNote } from "../../HandleApi/NotesApiHandler";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { LoadingSpinner } from "../Loading/LoadingSpinner";
 
 export const NoteCreationModal = ({ setAddNoteModel, addNoteModel }) => {
   const [user, setUser] = useAtom(userAtom);
   const { register, handleSubmit, reset } = useForm();
+  const [loading, setLoading] = useState(false);
 
   const defaultContent = "Content goes here...";
   useEffect(() => {
@@ -18,7 +20,7 @@ export const NoteCreationModal = ({ setAddNoteModel, addNoteModel }) => {
     }
   }, [addNoteModel]);
   const onSubmit = async (data) => {
-    setAddNoteModel(false);
+    setLoading(true);
     const response = await addNote(
       data.title,
       defaultContent,
@@ -39,7 +41,8 @@ export const NoteCreationModal = ({ setAddNoteModel, addNoteModel }) => {
       });
       setUser({ ...user, folders: updatedUserFolders });
     }
-
+    setLoading(false);
+    setAddNoteModel(false);
     reset();
   };
   const handleKeyDown = (event) => {
@@ -98,24 +101,30 @@ export const NoteCreationModal = ({ setAddNoteModel, addNoteModel }) => {
                   ))}
                 </select>
               </div>
-              <div className="gap-2 pt-2 flex justify-end">
-                <button
-                  type="button"
-                  onClick={() => {
-                    setAddNoteModel(false);
-                    reset();
-                  }}
-                  className="bg-red-600 hover:bg-red-700 transition-colors px-3 py-2 rounded-md text-sm"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="bg-primaryPurple hover:bg-primaryPurple/80 transition-colors px-3 py-2 rounded-md text-sm"
-                >
-                  Add Note
-                </button>
-              </div>
+              {loading ? (
+                <div className="w-full flex items-center justify-center pt-3">
+                  <LoadingSpinner />
+                </div>
+              ) : (
+                <div className="gap-2 pt-2 flex justify-end">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setAddNoteModel(false);
+                      reset();
+                    }}
+                    className="bg-red-600 hover:bg-red-700 transition-colors px-3 py-2 rounded-md text-sm"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    className="bg-primaryPurple hover:bg-primaryPurple/80 transition-colors px-3 py-2 rounded-md text-sm"
+                  >
+                    Add Note
+                  </button>
+                </div>
+              )}
             </form>
           </div>
         </div>
