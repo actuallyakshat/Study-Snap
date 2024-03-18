@@ -41,6 +41,7 @@ export const Inputbar = ({
       }));
       setLoading(false);
       setUpdating(false);
+      inputRef.current.value = "";
       await updateTodo(todoId, task, user.token);
     } else {
       // Creation Logic - Directly add to local state
