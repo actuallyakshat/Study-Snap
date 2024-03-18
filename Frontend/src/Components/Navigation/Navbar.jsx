@@ -109,7 +109,7 @@ export const Navbar = () => {
               {user?.picture ? (
                 <img
                   src={user.picture}
-                  className="hidden md:block rounded-full size-11"
+                  className="hidden md:block rounded-full size-10"
                 />
               ) : (
                 ""

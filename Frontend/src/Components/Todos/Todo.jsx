@@ -82,13 +82,13 @@ export const Todo = ({
             <div className="flex justify-self-end h-full items-center gap-2">
               <button
                 onClick={() => handleUpdateClick(item.task, item._id)}
-                className="text-xl cursor-pointer"
+                className="text-xl cursor-pointer hover:text-red-600 transition-colors rounded-lg p-1"
               >
                 <MdEdit />
               </button>
               <button
                 onClick={deleteTodoHandler}
-                className="text-xl cursor-pointer"
+                className="text-xl cursor-pointer hover:text-red-600 transition-colors rounded-lg p-1"
               >
                 <MdDelete />
               </button>
