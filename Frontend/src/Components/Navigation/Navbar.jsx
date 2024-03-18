@@ -107,7 +107,10 @@ export const Navbar = () => {
             <div className="flex items-center gap-4">
               <DropdownMenu />
               {user?.picture ? (
-                <img src={user.picture} className="rounded-full size-11" />
+                <img
+                  src={user.picture}
+                  className="hidden md:block rounded-full size-11"
+                />
               ) : (
                 ""
               )}

@@ -1,5 +1,6 @@
 const Todo = require("../Models/Todo");
 const User = require("../Models/User");
+const mongoose = require("mongoose");
 
 const createTodo = async (req, res) => {
   try {
@@ -111,10 +112,7 @@ const deleteTodo = async (req, res) => {
         .json({ success: false, message: "Todo not found" });
     }
 
-    await User.findOneAndUpdate(
-      { email: email },
-      { $pull: { todos: todoId } }
-    );
+    await User.findOneAndUpdate({ email: email }, { $pull: { todos: todoId } });
 
     res.json({ success: true, deletedTodo });
   } catch (error) {

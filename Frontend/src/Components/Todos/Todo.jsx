@@ -5,12 +5,22 @@ import { MdDelete } from "react-icons/md";
 import { deleteTodo, updateTodoStatus } from "../../HandleApi/TodoApiHandler";
 import { MdDragIndicator } from "react-icons/md";
 
-export const Todo = ({ item, setItems, user, handleUpdateClick, setUser }) => {
+export const Todo = ({
+  item,
+  setItems,
+  user,
+  handleUpdateClick,
+  setUser,
+  setUpdating,
+  inputRef,
+}) => {
   const controls = useDragControls();
   const [completed, setCompleted] = useState(item.isCompleted);
 
   const deleteTodoHandler = async () => {
     // Remove the todo from local state
+    setUpdating(false);
+    inputRef.current.value = "";
     setItems((prevItems) => prevItems.filter((todo) => todo._id !== item._id));
 
     try {
@@ -37,8 +47,8 @@ export const Todo = ({ item, setItems, user, handleUpdateClick, setUser }) => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       key={item}
+      item={item}
       value={item}
-      id={item}
       dragListener={false}
       dragControls={controls}
     >

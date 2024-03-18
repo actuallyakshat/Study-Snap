@@ -19,7 +19,10 @@ export const Inputbar = ({
   const submitHandler = async () => {
     if (inputRef.current.value === "") return;
     setLoading(true);
-    if (!task) return;
+    if (!task) {
+      setLoading(false);
+      return;
+    }
 
     // Updation Logic
     if (updating) {
@@ -45,20 +48,59 @@ export const Inputbar = ({
       await updateTodo(todoId, task, user.token);
     } else {
       // Creation Logic - Directly add to local state
+      // const newTodo = {
+      //   _id: Date.now().toString(),
+      //   task,
+      //   isCompleted: false,
+      // };
+      // setItems((prevItems) => [...prevItems, newTodo]); // Functional update
+      // setUser((prevUser) => ({
+      //   ...prevUser,
+      //   todos: [...prevUser.todos, newTodo],
+      // }));
+      // setLoading(false);
+      // setTask("");
+      // inputRef.current.value = "";
+      // console.log(newTodo);
+      // const response = await createTodo(task, user, items.length);
+      // console.log(response);
+      // console.log("scene yeh hai: ");
+
       const newTodo = {
         _id: Date.now().toString(),
         task,
         isCompleted: false,
       };
-      setItems((prevItems) => [...prevItems, newTodo]); // Functional update
+
+      setItems((prevItems) => [...prevItems, newTodo]);
+      console.log("items in input: ", items);
       setUser((prevUser) => ({
         ...prevUser,
         todos: [...prevUser.todos, newTodo],
       }));
+      console.log("call ke pehle", newTodo);
+      const response = await createTodo(task, user, items.length);
+      const updatedItems = items.map((item) => {
+        if (item._id === newTodo._id) {
+          // Update the _id of newTodo with the ID received from the backend
+          return { ...newTodo, _id: response._id };
+        }
+        return item;
+      });
+
+      // Update the items array with the updated newTodo object
+      setItems(updatedItems);
+
+      // Update the user object as well if necessary
+      setUser((prevUser) => ({
+        ...prevUser,
+        todos: [...prevUser.todos, { ...newTodo, _id: response._id }],
+      }));
+
       setLoading(false);
       setTask("");
       inputRef.current.value = "";
-      await createTodo(task, user, items.length);
+      console.log(newTodo);
     }
   };
 
