@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { motion, useInView, useAnimation } from "framer-motion";
 
-export const Features = () => {
+export const Features = ({ scrollRef }) => {
   const ref = useRef(null);
   const isInView = useInView(ref);
   const mainControls = useAnimation();
@@ -25,7 +25,10 @@ export const Features = () => {
   const descStyle = "text-gray-300 lg:px-6 text-center";
 
   return (
-    <div className="min-h-screen h-full w-full py-8 features text-center">
+    <div
+      ref={scrollRef}
+      className="min-h-screen h-full w-full py-8 features text-center"
+    >
       <div ref={ref} className="max-w-[80rem] px-6 w-full h-full mx-auto">
         <motion.h1
           variants={animationVariants}
