@@ -1,4 +1,4 @@
-# Study Snap Readme
+# Study Snap
 
 Welcome to Study Snap, your ultimate productivity companion designed to empower your academic journey and boost your study efficiency.
 
