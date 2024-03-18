@@ -22,6 +22,7 @@ const getUserDetails = async (user, token) => {
     return response;
   } catch (error) {
     console.error("Error while getting user details:", error);
+    throw new Error(error);
   }
 };
 

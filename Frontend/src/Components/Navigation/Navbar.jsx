@@ -44,7 +44,7 @@ export const Navbar = () => {
         const tempUser = decoded;
 
         const updateUser = async () => {
-          if (!loading && isAuthenticated) {
+          if (isAuthenticated) {
             try {
               const response = await getUserDetails(tempUser, token);
               const userDb = response.data.user;
@@ -52,9 +52,12 @@ export const Navbar = () => {
               updatedUser.token = token;
               setUser(updatedUser);
             } catch (error) {
+              setIsAuthenticated(false);
+              setLoading(false);
+              setToken(null);
               console.error("Error updating user:", error);
             }
-          } else if (!loading && !isAuthenticated) {
+          } else if (!isAuthenticated) {
             setLoading(false);
           }
         };
@@ -62,6 +65,9 @@ export const Navbar = () => {
         setLoading(false);
       } catch (error) {
         // setIsAuthenticated(false);
+        setIsAuthenticated(false);
+        setToken(null);
+        setLoading(false);
         console.error("Error decoding token:", error);
         toast.error("Please re-login!");
       }
@@ -98,7 +104,14 @@ export const Navbar = () => {
               useOneTap
             />
           ) : (
-            <DropdownMenu />
+            <div className="flex items-center gap-4">
+              <DropdownMenu />
+              {user?.picture ? (
+                <img src={user.picture} className="rounded-full size-11" />
+              ) : (
+                ""
+              )}
+            </div>
           )}
         </div>
       </div>
