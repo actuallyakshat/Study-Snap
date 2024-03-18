@@ -56,13 +56,8 @@ export const TodoLayout = () => {
     if (user) setItems(user.todos);
   }, [user]);
 
-  useEffect(() => {
-    console.log("Items update hue");
-    console.log(items);
-  }, [items]);
-
   const handleUpdateClick = (title, _id) => {
-    console.log("setting id: ", _id);
+
     setUpdating(true);
     setTodoId(_id);
     inputRef.current.value = title;
