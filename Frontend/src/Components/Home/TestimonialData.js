@@ -1,34 +1,31 @@
 const data = [
   {
-    name: "Akshat Dubey",
-    course: "BTECH CSE",
-    review:
-      "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quaerat illo asperiores neque corporis illum! Assumenda accusamus magnam sit consequatur fugiat fugit nemo corporis suscipit. Ipsa eum beatae labore quas maiores modi minima sapiente quia eius soluta? Nostrum, doloribus dolorem. Saepe nam itaque maiores, quam modi at ut maxime libero a quia expedita? Ullam consequuntur at ab totam nihil, veritatis blanditiis harum possimus recusandae fugiat. Possimus nihil, dignissimos odio earum amet inventore voluptatum quia quod eos itaque sunt fugit alias! Officia quo",
-    image: "https://i.scdn.co/image/ab67616100005174a11b2a6b38822c822f2fdf40",
-  },
-  {
-    name: "Vishesh Shah",
+    name: "Nehal Aggarwal",
     course: "BCOM ECO",
     review:
-      "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quaerat illo asperiores neque corporis illum! Assumenda accusamus magnam sit consequatur fugiat fugit nemo corporis suscipit. Ipsa eum beatae labore quas maiores modi minima sapiente quia eius soluta? Nostrum, doloribus dolorem. Saepe nam itaque maiores, quam modi at ut maxime libero a quia expedita? Ullam consequuntur at ab totam nihil, veritatis blanditiis harum possimus recusandae fugiat. Possimus nihil, dignissimos odio earum amet inventore voluptatum quia quod eos itaque sunt fugit alias! Officia quo",
-    image:
-      "https://eliteadmin.themedesigner.in/demos/bt4/university/dist/images/users/9.jpg",
+      "I've been using StudySnap for a while now, and it's completely changed my study routine. I can simply manage my study hours and goals using its user-friendly design, which includes weekly, monthly, and annual study graphs. But what actually distinguishes StudySnap is its all-encompassing capabilities. From to-do lists to built-in notes and Pomodoro trackers, I have everything I need right here. It has helped me study more efficiently and effectively. Highly recommended.",
+    image: "/testimonialImages/nehal.png",
+  },
+  {
+    name: "Dhruv Kaushik",
+    course: "BTECH CSE",
+    review:
+      "Study snap is a very productive platform and unique of its kind. It gives you all the tools to be more productive and take charge of your time. Very thoughtfully made by Akshat.",
+    image: "/testimonialImages/dhruv.jpg",
   },
   {
     name: "Om Chauhan",
     course: "BTECH CSE",
     review:
-      "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quaerat illo asperiores neque corporis illum! Assumenda accusamus magnam sit consequatur fugiat fugit nemo corporis suscipit. Ipsa eum beatae labore quas maiores modi minima sapiente quia eius soluta? Nostrum, doloribus dolorem. Saepe nam itaque maiores, quam modi at ut maxime libero a quia expedita? Ullam consequuntur at ab totam nihil, veritatis blanditiis harum possimus recusandae fugiat. Possimus nihil, dignissimos odio earum amet inventore voluptatum quia quod eos itaque sunt fugit alias! Officia quo",
-    image:
-      "https://cloudcommercepro.com/wp-content/uploads/2022/06/dummy-customer.jpg",
+      "This productivity tracker has been a game-changer for me. With features like the pomodoro timer, note-taking, and insightful visualizations, I've been able to track my study sessions effectively. The intuitive interface and seamless user experience make it a pleasure to use daily. I'm truly impressed by the impact it's had on my productivity and would highly recommend it to anyone looking to maximize their study time.",
+    image: "/testimonialImages/om.jpg",
   },
   {
     name: "Dhruv Kaushik",
     course: "BBA",
     review:
-      "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quaerat illo asperiores neque corporis illum! Assumenda accusamus magnam sit consequatur fugiat fugit nemo corporis suscipit. Ipsa eum beatae labore quas maiores modi minima sapiente quia eius soluta? Nostrum, doloribus dolorem. Saepe nam itaque maiores, quam modi at ut maxime libero a quia expedita? Ullam consequuntur at ab totam nihil, veritatis blanditiis harum possimus recusandae fugiat. Possimus nihil, dignissimos odio earum amet inventore voluptatum quia quod eos itaque sunt fugit alias! Officia quo",
-    image:
-      "https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250",
+      "Study snap is a very productive platform and unique of its kind. It gives you all the tools to be more productive and take charge of your time. Very thoughtfully made by Akshat",
+    image: "/testimonialImages/dhruv.jpg",
   },
 ];
 
