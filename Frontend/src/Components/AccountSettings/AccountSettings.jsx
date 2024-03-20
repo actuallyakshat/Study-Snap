@@ -33,7 +33,7 @@ export const AccountSettings = () => {
             <p className="font-medium text-md md:text-lg">{user?.email}</p>
           </div>
           <div className="max-w-[60%] h-[1px] my-4 mx-auto bg-white/40"></div>
-          <h1 className="text-3xl font-bold mx-auto text-center hover:text-red-600 transition-colors w-fit">
+          <h1 className="text-3xl font-bold mx-auto text-center w-fit">
             Danger Zone
           </h1>
           <div className="w-full flex items-center pt-4 justify-center">

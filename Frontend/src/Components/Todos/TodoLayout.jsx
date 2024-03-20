@@ -46,7 +46,6 @@ export const TodoLayout = () => {
   const handleReorder = (newOrder) => {
     setReorderFlag(true);
     setItems(newOrder);
-    console.log(newOrder);
     setUser((prevUser) => ({
       ...prevUser,
       todos: newOrder,

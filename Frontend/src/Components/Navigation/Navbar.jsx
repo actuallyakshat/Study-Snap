@@ -55,6 +55,7 @@ export const Navbar = () => {
               setIsAuthenticated(false);
               setLoading(false);
               setToken(null);
+              toast.error("Please retry logging in!");
               console.error("Error updating user:", error);
             }
           } else if (!isAuthenticated) {
