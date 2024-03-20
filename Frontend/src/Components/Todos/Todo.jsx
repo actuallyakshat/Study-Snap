@@ -22,14 +22,13 @@ export const Todo = ({
     setUpdating(false);
     inputRef.current.value = "";
     setItems((prevItems) => prevItems.filter((todo) => todo._id !== item._id));
-
+    setUser((prevUser) => ({
+      ...prevUser,
+      todos: prevUser.todos.filter((todo) => todo._id !== item._id),
+    }));
     try {
       // Delete the todo from the server
       await deleteTodo(item._id, user);
-      setUser((prevUser) => ({
-        ...prevUser,
-        todos: prevUser.todos.filter((todo) => todo._id !== item._id),
-      }));
     } catch (error) {
       // Handle error if any
       console.error("Error deleting todo:", error);

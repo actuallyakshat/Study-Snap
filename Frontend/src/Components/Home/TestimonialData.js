@@ -22,7 +22,7 @@ const data = [
   },
   {
     name: "Sneha Gupta",
-    course: "BA Psychology",
+    course: "BA Hons Applied Psychology",
     review:
       "Study Snap is a great website for keeping a track of your day to day progress, it is a one stop destination for people who want to be at their best versions everyday. It is so minimal and user-friendly that any user can easily keep a track of their activities. My personal favourite is the productivity tracker which keeps me motivated over time, along with all the flawless tools and seemless editing done!",
     image: "/testimonialImages/sneha.jpg",
