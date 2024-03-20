@@ -21,11 +21,11 @@ const data = [
     image: "/testimonialImages/om.jpg",
   },
   {
-    name: "Dhruv Kaushik",
-    course: "BBA",
+    name: "Sneha Gupta",
+    course: "BA Psychology",
     review:
-      "Study snap is a very productive platform and unique of its kind. It gives you all the tools to be more productive and take charge of your time. Very thoughtfully made by Akshat",
-    image: "/testimonialImages/dhruv.jpg",
+      "Study Snap is a great website for keeping a track of your day to day progress, it is a one stop destination for people who want to be at their best versions everyday. It is so minimal and user-friendly that any user can easily keep a track of their activities. My personal favourite is the productivity tracker which keeps me motivated over time, along with all the flawless tools and seemless editing done!",
+    image: "/testimonialImages/sneha.jpg",
   },
 ];
 

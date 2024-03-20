@@ -18,13 +18,9 @@ export const TodoLayout = () => {
   const [reorderFlag, setReorderFlag] = useState(false);
   const inputRef = useRef(null);
 
-  const debounceTime = 1000;
+  const debounceTime = 2000;
   const reorderHandler = async (items) => {
     await reorderTodos(user, items);
-    setUser((prevUser) => ({
-      ...prevUser,
-      todos: items,
-    }));
   };
   const updateOrderWithDebounce = debounce(() => {
     if (JSON.stringify(items) !== JSON.stringify(user?.todos) && reorderFlag) {
@@ -50,6 +46,11 @@ export const TodoLayout = () => {
   const handleReorder = (newOrder) => {
     setReorderFlag(true);
     setItems(newOrder);
+    console.log(newOrder);
+    setUser((prevUser) => ({
+      ...prevUser,
+      todos: newOrder,
+    }));
   };
 
   useEffect(() => {
