@@ -10,6 +10,7 @@ const googleAuth = require("./Passport/GoogleAuth");
 const apiv1Router = require("./Routes/IndexRouter");
 
 const app = express();
+app.enable('trust proxy')
 app.use(
   cors({
     origin: process.env.CLIENT_URL,
