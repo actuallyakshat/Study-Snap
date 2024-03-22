@@ -15,9 +15,11 @@ export const AuthContextProvider = ({ children }) => {
     const checkUserLoggedIn = async () => {
       try {
         const response = await checkIfAuthenticated();
+        console.log(response);
         if (response) {
           const details = await getUserDetails(response);
           setUser(details);
+          console.log(details);
         }
         setLoading(false);
       } catch (error) {

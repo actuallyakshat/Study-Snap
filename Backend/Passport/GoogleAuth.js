@@ -20,6 +20,7 @@ passport.use(
     },
     async function (accessToken, refreshToken, profile, done) {
       const { email, name } = profile._json;
+      console.log(profile);
       const user = await User.findOne({ email: email });
       if (!user) {
         newUser = new User({
