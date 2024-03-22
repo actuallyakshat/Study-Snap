@@ -11,11 +11,11 @@ function App() {
   const navigate = useNavigate();
   const user = useAtomValue(userAtom);
   const loading = useAtomValue(loadingAtom);
-  useEffect(() => {
-    if (!loading && !user) {
-      navigate("/");
-    }
-  }, [user, loading]);
+  // useEffect(() => {
+  //   if (!loading && !user) {
+  //     navigate("/");
+  //   }
+  // }, [user, loading]);
 
   return (
     <>
