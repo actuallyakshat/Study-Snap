@@ -14,7 +14,7 @@ export const ProductivityTrackerLayout = () => {
     <div className="w-full h-full flex-1 py-8">
       <div className="mx-auto h-full px-3 md:max-w-[80%] w-full">
         <h1 className="font-bold p-4 text-3xl md:text-5xl">
-          Hey {user?.given_name}, Let&apos;s Keep Going!
+          Hey {user?.name.split(" ")[0]}, Let&apos;s Keep Going!
         </h1>
         <StudyTracker />
         <div className="w-full justify-center flex flex-wrap md:flex-row gap-3">
