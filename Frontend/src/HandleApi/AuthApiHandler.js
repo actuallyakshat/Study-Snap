@@ -1,25 +1,29 @@
 import axios from "axios";
 const baseUrl = `${import.meta.env.VITE_BASE_URL}/auth`;
-const getUserDetails = async (user, token) => {
+
+const checkIfAuthenticated = async () => {
+  const response = await axios.get(`${baseUrl}/check`, {
+    withCredentials: true,
+  });
+  if (response) return response.data.user;
+};
+
+const logoutUser = async () => {
+  await axios.post(`${baseUrl}/logout`, null, { withCredentials: true });
+};
+
+const getUserDetails = async (user) => {
   try {
     if (!user) {
       console.error("Null User Error");
       return;
     }
     const { email, name } = user;
-    const response = await axios.post(
-      `${baseUrl}/getDetails`,
-      {
-        email,
-        name,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    return response;
+    const response = await axios.post(`${baseUrl}/getDetails`, {
+      email,
+      name,
+    });
+    return response.data.user;
   } catch (error) {
     console.error("Error while getting user details:", error);
     throw new Error(error);
@@ -48,4 +52,4 @@ const deleteUserAccount = async (user) => {
   }
 };
 
-export { getUserDetails, deleteUserAccount };
+export { logoutUser, checkIfAuthenticated, getUserDetails, deleteUserAccount };

@@ -1,5 +1,4 @@
 import { FaGithub } from "react-icons/fa6";
-import { GoogleLogin } from "@react-oauth/google";
 import { useEffect, useRef } from "react";
 import { motion, useInView, useAnimation } from "framer-motion";
 export const Hero = ({ scrollToFeatures }) => {

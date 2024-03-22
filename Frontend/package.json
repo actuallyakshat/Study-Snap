@@ -10,7 +10,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@react-oauth/google": "^0.12.1",
     "@tailwindcss/typography": "^0.5.10",
     "@tiptap/extension-bullet-list": "^2.2.4",
     "@tiptap/extension-heading": "^2.2.4",
@@ -24,7 +23,6 @@
     "framer-motion": "^11.0.8",
     "inspirational-quotes": "^2.0.1",
     "jotai": "^2.7.0",
-    "jwt-decode": "^4.0.0",
     "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-circular-progressbar": "^2.1.0",

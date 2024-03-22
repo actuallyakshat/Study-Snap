@@ -1,19 +1,13 @@
-import { googleLogout } from "@react-oauth/google";
 import { useSetAtom } from "jotai";
-import {
-  googleCredentialsAtom,
-  isAuthenticatedAtom,
-  userAtom,
-} from "../../Utils/Store";
+import { userAtom } from "../../Utils/Store";
+import { toast } from "react-hot-toast";
+import { logoutUser } from "../../HandleApi/AuthApiHandler";
 export const LogoutModal = ({ showModal, setShowModal }) => {
-  const setIsAuthenticated = useSetAtom(isAuthenticatedAtom);
   const setUser = useSetAtom(userAtom);
-  const setToken = useSetAtom(googleCredentialsAtom);
-  const logoutHandler = () => {
-    setIsAuthenticated(false);
-    setToken(null);
+  const logoutHandler = async () => {
+    toast.success("Logged out!");
+    await logoutUser();
     setUser(null);
-    googleLogout();
   };
 
   return (

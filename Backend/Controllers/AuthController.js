@@ -20,21 +20,6 @@ const getDetails = async (req, res) => {
         populate: { path: "notes" },
       });
 
-    // If user doesn't exist, create a new user
-    if (!user) {
-      user = new User({
-        email,
-        name,
-      });
-      await user.save();
-
-      // Fetch the newly created user
-      user = await User.findOne({ email }).populate({
-        path: "folders",
-        populate: { path: "notes" },
-      });
-    }
-
     // Fetch productivity data for the user
     const productivityData = await ProductivityData.find({ email });
 

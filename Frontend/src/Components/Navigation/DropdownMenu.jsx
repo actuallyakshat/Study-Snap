@@ -22,12 +22,12 @@ function DropdownMenu() {
           <button
             type="button"
             onClick={toggleMenu}
-            className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold transition-colors text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-100"
+            className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold transition-colors text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-300"
             id="menu-button"
             aria-expanded={isOpen ? "true" : "false"}
             aria-haspopup="true"
           >
-            {user?.given_name}&apos;s Tools
+            {user?.name.split(" ")[0]}&apos;s Tools
             <svg
               className="-mr-1 h-5 w-5 text-gray-400"
               viewBox="0 0 20 20"

@@ -2,25 +2,18 @@ import { useState } from "react";
 import { deleteUserAccount } from "../../HandleApi/AuthApiHandler";
 import "../Auth/ModalAnimation.css";
 import toast from "react-hot-toast";
-import { useSetAtom } from "jotai";
-
 import { LoadingSpinner } from "../Loading/LoadingSpinner";
-import { googleCredentialsAtom, isAuthenticatedAtom } from "../../Utils/Store";
 export const DeleteAccountModal = ({
   user,
   setUser,
   showModal,
   setShowModal,
 }) => {
-  const setToken = useSetAtom(googleCredentialsAtom);
-  const setIsAuthenticated = useSetAtom(isAuthenticatedAtom);
   const [loading, setLoading] = useState(false);
   const deleteAccountHandler = async () => {
     setLoading(true);
     const response = await deleteUserAccount(user);
-    setToken(null);
     setLoading(false);
-    setIsAuthenticated(false);
 
     if (response.success) {
       toast.success("Account deleted successfully!");
