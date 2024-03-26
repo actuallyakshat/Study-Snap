@@ -19,6 +19,10 @@ const TimerProvider = ({ children }) => {
   const [user, setUser] = useAtom(clientUserAtom);
   const [play] = useSound(timerCompletionSound, { volume: 0.8 });
 
+  useEffect(() => {
+    console.log(isPlaying);
+  }, [isPlaying]);
+
   const formatTime = () => {
     const minutes = Math.floor(timer / 60);
     const seconds = timer % 60;
@@ -60,6 +64,7 @@ const TimerProvider = ({ children }) => {
   };
 
   useEffect(() => {
+    console.log(timer);
     let interval;
     if (isPlaying) {
       document.title = `Study Snap | ${formatTime()}`;

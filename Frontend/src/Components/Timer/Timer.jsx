@@ -7,7 +7,7 @@ import { FaPause } from "react-icons/fa";
 import { FaStop } from "react-icons/fa";
 import { FaGear } from "react-icons/fa6";
 import { toast } from "react-hot-toast";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const Timer = () => {
@@ -17,9 +17,19 @@ const Timer = () => {
   const [settingsOpen, setSettingsOpen] = useState(false);
   const timerInputRef = useRef(null);
 
+  useEffect(() => {
+    console.log(playing);
+  }, [playing]);
+
   const handleStartStop = () => {
     setPlaying((prevPlaying) => !prevPlaying);
   };
+
+  useEffect(() => {
+    if (settingsOpen && timerInputRef.current) {
+      timerInputRef.current.focus();
+    }
+  }, [settingsOpen]);
 
   const handleSetTimer = () => {
     if (timerInputRef.current.value) {
@@ -33,6 +43,7 @@ const Timer = () => {
       }
       setPlaying(false);
       setTotalTime(inputValue * 60);
+      setTimer(inputValue * 60);
       setSettingsOpen(false);
     }
   };
@@ -93,7 +104,9 @@ const Timer = () => {
         ) : (
           <button
             className="text-sm px-4 py-3 hover:bg-white/10 h-fit flex items-center gap-3 transition-colors bg-white/20 rounded-lg"
-            onClick={() => setSettingsOpen(!settingsOpen)}
+            onClick={() => {
+              setSettingsOpen(!settingsOpen);
+            }}
           >
             <p className="text-sm">Settings</p>
             <FaGear className="text-xl" />

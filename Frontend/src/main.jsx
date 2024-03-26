@@ -6,7 +6,6 @@ import { BrowserRouter } from "react-router-dom";
 import TimerProvider from "./Components/Timer/TimerProvider.jsx";
 import { ClerkProvider } from "@clerk/clerk-react";
 //env imports
-const clientId = import.meta.env.VITE_CLIENT_ID;
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 if (!PUBLISHABLE_KEY) {
   throw new Error("Missing Publishable Key");
@@ -15,9 +14,11 @@ if (!PUBLISHABLE_KEY) {
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
-      <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
-        <App />
-      </ClerkProvider>
+      <TimerProvider>
+        <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
+          <App />
+        </ClerkProvider>
+      </TimerProvider>
     </BrowserRouter>
   </React.StrictMode>
 );
