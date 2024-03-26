@@ -7,20 +7,12 @@ const createTodo = async (task, user, order) => {
       console.error("Null User Error");
       return;
     }
-    const { email, token } = user;
-    const response = await axios.post(
-      `${baseUrl}/create`,
-      {
-        task,
-        email,
-        order,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const { email } = user;
+    const response = await axios.post(`${baseUrl}/create`, {
+      task,
+      email,
+      order,
+    });
 
     return response.data;
   } catch (error) {
@@ -28,39 +20,23 @@ const createTodo = async (task, user, order) => {
   }
 };
 
-const updateTodo = async (todoId, task, token) => {
+const updateTodo = async (todoId, task) => {
   try {
-    const response = await axios.put(
-      `${baseUrl}/update`,
-      {
-        todoId,
-        task,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const response = await axios.put(`${baseUrl}/update`, {
+      todoId,
+      task,
+    });
 
     return response.data;
   } catch (error) {
     console.error("Error updating todo:", error);
   }
 };
-const updateTodoStatus = async (todoId, token) => {
+const updateTodoStatus = async (todoId) => {
   try {
-    const response = await axios.put(
-      `${baseUrl}/update-status`,
-      {
-        todoId,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const response = await axios.put(`${baseUrl}/update-status`, {
+      todoId,
+    });
 
     return response.data.updatedTodo;
   } catch (error) {
@@ -75,12 +51,9 @@ const deleteTodo = async (todoId, user) => {
       return;
     }
 
-    const { email, token } = user;
+    const { email } = user;
     const response = await axios.delete(`${baseUrl}/delete`, {
       data: { todoId, email },
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
     });
 
     return response.data;
@@ -91,16 +64,7 @@ const deleteTodo = async (todoId, user) => {
 
 const reorderTodos = async (user, newOrder) => {
   try {
-    const token = user.token;
-    const response = await axios.put(
-      `${baseUrl}/update-order`,
-      { newOrder }, // Send newOrder directly as the request body
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const response = await axios.put(`${baseUrl}/update-order`, { newOrder });
 
     return response;
   } catch (error) {

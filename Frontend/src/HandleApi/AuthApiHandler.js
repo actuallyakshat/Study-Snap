@@ -36,12 +36,9 @@ const deleteUserAccount = async (user) => {
       throw new Error("Null User Error");
     }
 
-    const { email, token } = user;
+    const { email } = user;
 
     const response = await axios.delete(`${baseUrl}/delete-account`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
       data: { email },
     });
 

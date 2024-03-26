@@ -32,7 +32,7 @@ export const SetStudyTarget = ({ cardStyle, user, setUser }) => {
 
   const setTargetHandler = async () => {
     setLoading(true);
-    const response = await setStudyTarget(user.email, newTarget, user.token);
+    const response = await setStudyTarget(user.email, newTarget);
     setLoading(false);
     if (response.success) {
       toast.success("Target Set Successfully!");

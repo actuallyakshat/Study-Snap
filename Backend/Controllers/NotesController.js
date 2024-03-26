@@ -67,7 +67,6 @@ const deleteNote = async (req, res) => {
     res.status(500).json({ success: false, error: "Server error" });
   }
 };
-
 // Controller function to add a new folder
 const addFolder = async (req, res) => {
   try {

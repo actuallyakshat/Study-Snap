@@ -44,11 +44,7 @@ export const LogStudyHours = ({ cardStyle }) => {
       return;
     }
     setLoading(true);
-    const response = await addProductivityData(
-      user.email,
-      hoursStudied,
-      user.token
-    );
+    const response = await addProductivityData(user.email, hoursStudied);
     if (response.success) {
       const newEntryFlag = isEntryForTodayExists();
       toast.success("Data added successfully!");

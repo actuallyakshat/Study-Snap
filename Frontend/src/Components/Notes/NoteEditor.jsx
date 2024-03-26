@@ -61,13 +61,7 @@ export const NoteEditor = ({ content, noteId, setSelectedNoteId, title }) => {
   const handleSaveNote = async () => {
     setLoading(true);
     const currentContent = editor.getHTML();
-    const response = await saveNote(
-      noteId,
-      title,
-      currentContent,
-      user.email,
-      user.token
-    );
+    const response = await saveNote(noteId, title, currentContent, user.email);
     setLoading(false);
     if (response.success) {
       toast.success("File saved successfully");

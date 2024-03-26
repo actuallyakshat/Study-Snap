@@ -45,7 +45,7 @@ export const Inputbar = ({
       setLoading(false);
       setUpdating(false);
       inputRef.current.value = "";
-      await updateTodo(todoId, task, user.token);
+      await updateTodo(todoId, task);
     } else {
       //Create todo
       const updatedItems = [...items];
@@ -68,7 +68,7 @@ export const Inputbar = ({
       const response = await createTodo(task, user, items.length);
       const index = updatedItems.findIndex((item) => item._id === tempId);
       if (index !== -1) {
-        updatedItems[index]._id = response.todo._id; 
+        updatedItems[index]._id = response.todo._id;
         setItems(updatedItems);
         setUser((prevUser) => ({
           ...prevUser,

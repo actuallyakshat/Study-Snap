@@ -25,8 +25,7 @@ export const NoteCreationModal = ({ setAddNoteModel, addNoteModel }) => {
       data.title,
       defaultContent,
       data.folder,
-      user.email,
-      user.token
+      user.email
     );
     if (response.success) {
       const updatedUserFolders = user.folders.map((folder) => {

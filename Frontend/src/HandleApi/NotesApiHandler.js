@@ -1,22 +1,14 @@
 import axios from "axios";
 const baseUrl = `${import.meta.env.VITE_BASE_URL}/notes`;
 
-const addNote = async (title, content, folderId, email, token) => {
+const addNote = async (title, content, folderId, email) => {
   try {
-    const response = await axios.post(
-      `${baseUrl}/add-note`,
-      {
-        title: title,
-        content: content,
-        folderId: folderId,
-        email,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const response = await axios.post(`${baseUrl}/add-note`, {
+      title: title,
+      content: content,
+      folderId: folderId,
+      email,
+    });
 
     return response.data;
   } catch (error) {
@@ -24,22 +16,14 @@ const addNote = async (title, content, folderId, email, token) => {
     throw error;
   }
 };
-const saveNote = async (noteId, title, content, email, token) => {
+const saveNote = async (noteId, title, content, email) => {
   try {
-    const response = await axios.put(
-      `${baseUrl}/save-note`,
-      {
-        noteId,
-        title,
-        content,
-        email,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const response = await axios.put(`${baseUrl}/save-note`, {
+      noteId,
+      title,
+      content,
+      email,
+    });
 
     return response.data;
   } catch (error) {
@@ -48,12 +32,9 @@ const saveNote = async (noteId, title, content, email, token) => {
   }
 };
 
-const deleteNote = async (noteId, email, token) => {
+const deleteNote = async (noteId, email) => {
   try {
     const response = await axios.delete(`${baseUrl}/delete-note`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
       data: {
         noteId: noteId,
         email,
@@ -67,20 +48,12 @@ const deleteNote = async (noteId, email, token) => {
   }
 };
 
-const addFolder = async (name, email, token) => {
+const addFolder = async (name, email) => {
   try {
-    const response = await axios.post(
-      `${baseUrl}/add-folder`,
-      {
-        name: name,
-        email: email,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const response = await axios.post(`${baseUrl}/add-folder`, {
+      name: name,
+      email: email,
+    });
     return response.data;
   } catch (error) {
     console.error("Error adding folder:", error);
@@ -88,12 +61,9 @@ const addFolder = async (name, email, token) => {
   }
 };
 
-const deleteFolder = async (folderId, email, token) => {
+const deleteFolder = async (folderId, email) => {
   try {
     const response = await axios.delete(`${baseUrl}/delete-folder`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
       data: {
         folderId: folderId,
         email,

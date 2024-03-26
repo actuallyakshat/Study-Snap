@@ -37,7 +37,7 @@ export const Todo = ({
 
   const handleCheckboxChange = async () => {
     setCompleted(!completed);
-    await updateTodoStatus(item._id, user.token);
+    await updateTodoStatus(item._id);
   };
 
   return (

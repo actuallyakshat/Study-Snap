@@ -70,12 +70,11 @@ const getDetails = async (req, res) => {
       { day: "Sunday", hours: 0 },
     ];
 
-    // Determine the number of days in the current month
+    // Initialize monthly summary as an array for the current month
     const today = new Date();
     const currentYear = today.getFullYear();
     const currentMonth = today.getMonth() + 1; // Month is 0-indexed
     const daysInMonth = new Date(currentYear, currentMonth, 0).getDate();
-
     const monthlySummary = new Array(daysInMonth).fill(0).map((_, index) => ({
       day: index + 1,
       hours: 0,
@@ -87,40 +86,43 @@ const getDetails = async (req, res) => {
       hours: 0,
     }));
 
+    // Calculate start and end dates for the current week (Monday to Sunday)
+    const startOfWeek = new Date(currentDate);
+    startOfWeek.setDate(startOfWeek.getDate() - (startOfWeek.getDay() - 1)); // Start of current week (Monday)
+    const endOfWeek = new Date(currentDate);
+    endOfWeek.setDate(startOfWeek.getDate() + 6); // End of current week (Sunday)
+
+    // Filter productivity data to include only entries from the current ongoing week
+    const currentWeekData = productivityData.filter((entry) => {
+      const entryDate = new Date(entry.date);
+      return entryDate >= startOfWeek && entryDate <= endOfWeek;
+    });
+
+    // Iterate through filtered productivity data to update weekly summary
+    currentWeekData.forEach((entry) => {
+      const { date, hoursStudied } = entry;
+      const entryDate = new Date(date);
+      let dayOfWeek = entryDate.getDay(); // 0 for Sunday, 1 for Monday, etc.
+      if (dayOfWeek === 0) dayOfWeek = 7; // Convert Sunday to 7
+      weeklySummary[dayOfWeek - 1].hours += hoursStudied; // Adjust index to start from 0
+    });
+
     // Iterate through productivity data to calculate summaries
     productivityData.forEach((entry) => {
       const { date, hoursStudied } = entry;
       const [day, month, year] = date.split("/"); // Split the date string
 
-      // Create a date object
-      const convertedDate = new Date(`${year}-${month}-${day}`);
-
-      // Check if the entry falls within the current month
-      if (
-        convertedDate.getMonth() + 1 === currentMonth &&
-        convertedDate.getFullYear() === currentYear
-      ) {
-        // Adjust day of the week for Monday starting week
-        let dayOfWeek = convertedDate.getDay(); // 0 for Sunday, 1 for Monday, etc.
-        if (dayOfWeek === 0) dayOfWeek = 7; // Convert Sunday to 7
-
-        // Update weekly summary
-        weeklySummary[dayOfWeek - 1].hours += hoursStudied; // Adjust index to start from 0
-      }
-
       // Update monthly summary if the entry belongs to the current month
-      if (
-        convertedDate.getMonth() + 1 === currentMonth &&
-        convertedDate.getFullYear() === currentYear
-      ) {
-        const dayOfMonth = convertedDate.getDate(); // Get the day of the month
+      if (parseInt(month) === currentMonth && parseInt(year) === currentYear) {
+        const dayOfMonth = parseInt(day); // Get the day of the month
         monthlySummary[dayOfMonth - 1].hours += hoursStudied;
       }
 
       // Update yearly summary
-      const monthName = new Date(convertedDate).toLocaleString("default", {
-        month: "long",
-      });
+      const monthName = new Date(`${year}-${month}-${day}`).toLocaleString(
+        "default",
+        { month: "long" }
+      );
       const monthIndex = yearlySummary.findIndex(
         (month) => month.month === monthName
       );
