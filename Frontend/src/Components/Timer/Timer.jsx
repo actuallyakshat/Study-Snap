@@ -17,10 +17,6 @@ const Timer = () => {
   const [settingsOpen, setSettingsOpen] = useState(false);
   const timerInputRef = useRef(null);
 
-  useEffect(() => {
-    console.log(playing);
-  }, [playing]);
-
   const handleStartStop = () => {
     setPlaying((prevPlaying) => !prevPlaying);
   };
