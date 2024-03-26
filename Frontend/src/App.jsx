@@ -16,6 +16,7 @@ function App() {
   useEffect(() => {
     if (!user) return;
     else {
+      console.log("calling get details");
       const getDetails = async () => {
         const tempUser = {
           email: user.primaryEmailAddress.emailAddress,
