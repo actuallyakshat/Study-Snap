@@ -31,24 +31,30 @@ const getDetails = async (req, res) => {
         populate: { path: "notes" },
       });
     }
-
     const productivityData = await ProductivityData.find({ email });
 
     const startOfWeek = new Date();
     startOfWeek.setHours(0, 0, 0, 0);
-    startOfWeek.setDate(startOfWeek.getDate() - startOfWeek.getDay());
+    startOfWeek.setDate(
+      startOfWeek.getDate() -
+        (startOfWeek.getDay() === 0 ? 6 : startOfWeek.getDay() - 1)
+    );
 
     const endOfWeek = new Date(startOfWeek);
     endOfWeek.setDate(endOfWeek.getDate() + 6);
 
+    // Adjust end of week to include Sunday of next week
+    const endOfWeekNextSunday = new Date(endOfWeek);
+    endOfWeekNextSunday.setDate(endOfWeekNextSunday.getDate() + 1);
+
     const weeklySummary = [
-      { day: "Sunday", hours: 0 },
       { day: "Monday", hours: 0 },
       { day: "Tuesday", hours: 0 },
       { day: "Wednesday", hours: 0 },
       { day: "Thursday", hours: 0 },
       { day: "Friday", hours: 0 },
       { day: "Saturday", hours: 0 },
+      { day: "Sunday", hours: 0 },
     ];
 
     productivityData.forEach((entry) => {
@@ -56,8 +62,8 @@ const getDetails = async (req, res) => {
       const [day, month, year] = date.split("/");
       const entryDate = new Date(`${year}-${month}-${day}`);
 
-      if (entryDate >= startOfWeek && entryDate <= endOfWeek) {
-        let dayOfWeek = entryDate.getDay();
+      if (entryDate >= startOfWeek && entryDate <= endOfWeekNextSunday) {
+        let dayOfWeek = entryDate.getDay() === 0 ? 6 : entryDate.getDay() - 1; // Adjust for Sunday as last day
         weeklySummary[dayOfWeek].hours += hoursStudied;
       }
     });
@@ -96,9 +102,6 @@ const getDetails = async (req, res) => {
       );
       yearlySummary[monthIndex].hours += hoursStudied;
     });
-
-    const sundayEntry = weeklySummary.shift();
-    weeklySummary.push(sundayEntry);
 
     res.status(200).json({
       user: {

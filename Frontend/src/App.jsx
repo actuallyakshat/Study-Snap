@@ -41,10 +41,12 @@ function App() {
         <ClerkLoading>
           <Loading />
         </ClerkLoading>
-        <div className="flex flex-col items-stretch w-full flex-1 h-full">
-          <Navbar user={user} />
-          <Routes user={user} />
-        </div>
+        <ClerkLoaded>
+          <div className="flex flex-col items-stretch w-full flex-1 h-full">
+            <Navbar user={user} />
+            <Routes user={user} />
+          </div>
+        </ClerkLoaded>
       </div>
     </>
   );
