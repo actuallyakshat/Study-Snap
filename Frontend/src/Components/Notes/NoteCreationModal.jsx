@@ -1,12 +1,12 @@
 import { useForm } from "react-hook-form";
 import { useAtom } from "jotai";
-import { userAtom } from "../../Utils/Store";
+import { clientUserAtom } from "../../Utils/Store";
 import { addNote } from "../../HandleApi/NotesApiHandler";
 import { useEffect, useState } from "react";
 import { LoadingSpinner } from "../Loading/LoadingSpinner";
 
 export const NoteCreationModal = ({ setAddNoteModel, addNoteModel }) => {
-  const [user, setUser] = useAtom(userAtom);
+  const [user, setUser] = useAtom(clientUserAtom);
   const { register, handleSubmit, reset } = useForm();
   const [loading, setLoading] = useState(false);
 

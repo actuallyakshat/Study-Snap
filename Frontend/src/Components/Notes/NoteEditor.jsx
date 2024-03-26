@@ -29,7 +29,7 @@ import { LuHeading3 } from "react-icons/lu";
 import { LuHeading4 } from "react-icons/lu";
 import { FaListOl } from "react-icons/fa6";
 import { NoteDeletionModal } from "./NoteDeletionModal";
-import { userAtom } from "../../Utils/Store";
+import { clientUserAtom } from "../../Utils/Store";
 import { useAtom } from "jotai";
 import { saveNote } from "../../HandleApi/NotesApiHandler";
 import { toast } from "react-hot-toast";
@@ -37,7 +37,7 @@ import { LoadingSpinner } from "../Loading/LoadingSpinner";
 export const NoteEditor = ({ content, noteId, setSelectedNoteId, title }) => {
   const [editorContent, setEditorContent] = useState(content);
   const [deleteNoteModal, setDeleteNoteModal] = useState(false);
-  const [user, setUser] = useAtom(userAtom);
+  const [user, setUser] = useAtom(clientUserAtom);
   const [loading, setLoading] = useState(false);
 
   const editor = useEditor({

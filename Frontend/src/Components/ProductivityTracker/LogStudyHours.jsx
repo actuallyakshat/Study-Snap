@@ -1,4 +1,4 @@
-import { userAtom } from "../../Utils/Store";
+import { clientUserAtom } from "../../Utils/Store";
 import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
@@ -8,7 +8,7 @@ import { addProductivityData } from "../../HandleApi/ProductivityDataApiHandler"
 import { LoadingSpinner } from "../Loading/LoadingSpinner";
 
 export const LogStudyHours = ({ cardStyle }) => {
-  const [user, setUser] = useAtom(userAtom);
+  const [user, setUser] = useAtom(clientUserAtom);
   const [studiedUptoNow, setStudiedUptoNow] = useState(0);
   const [hoursStudied, setHoursStudied] = useState(0);
   const [loading, setLoading] = useState(false);

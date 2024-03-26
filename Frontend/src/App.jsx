@@ -2,37 +2,46 @@ import { Toaster } from "react-hot-toast";
 import { Routes } from "./Routes";
 import { Navbar } from "./Components/Navigation/Navbar";
 import Loading from "./Components/Loading/Loading";
-import { loadingAtom, userAtom } from "./Utils/Store";
-import { useAtomValue } from "jotai";
+import { loadingAtom, clientUserAtom } from "./Utils/Store";
+import { useAtom, useAtomValue } from "jotai";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { ClerkLoaded, ClerkLoading, useUser } from "@clerk/clerk-react";
+import { getUserDetails } from "./HandleApi/AuthApiHandler";
 
 function App() {
   const navigate = useNavigate();
-  const user = useAtomValue(userAtom);
-  const loading = useAtomValue(loadingAtom);
+  const { user } = useUser();
+  const [clientUser, setClientUser] = useAtom(clientUserAtom);
   useEffect(() => {
-    if (!loading && !user) {
-      navigate("/");
+    if (!user) return;
+    else {
+      const getDetails = async () => {
+        const tempUser = {
+          email: user.primaryEmailAddress.emailAddress,
+          name: user.fullName,
+        };
+        const response = await getUserDetails(tempUser);
+        return response;
+      };
+      getDetails().then((response) => {
+        setClientUser(response);
+      });
+      navigate("/dashboard");
     }
-  }, [user, loading]);
+  }, [user]);
 
   return (
     <>
       <div className="font-Poppins flex flex-col items-center min-h-screen h-full w-full bg-spaceBlack text-white">
         <Toaster />
-        {loading ? (
+        <ClerkLoading>
           <Loading />
-        ) : (
-          <div
-            className={`${
-              loading ? "hidden" : "flex flex-col items-stretch"
-            } w-full flex-1 h-full`}
-          >
-            <Navbar user={user} />
-            <Routes user={user} />
-          </div>
-        )}
+        </ClerkLoading>
+        <div className="flex flex-col items-stretch w-full flex-1 h-full">
+          <Navbar user={user} />
+          <Routes user={user} />
+        </div>
       </div>
     </>
   );

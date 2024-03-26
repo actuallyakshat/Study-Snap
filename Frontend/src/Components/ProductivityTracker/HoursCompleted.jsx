@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
-import { userAtom } from "../../Utils/Store";
+import { clientUserAtom } from "../../Utils/Store";
 import { useAtom } from "jotai";
 export const HoursCompleted = ({ cardStyle }) => {
-  const [user, ] = useAtom(userAtom);
+  const [user] = useAtom(clientUserAtom);
   const [completedHours, setCompletedHours] = useState(0);
   useEffect(() => {
     if (user) {

@@ -4,7 +4,17 @@ import { ProductivityTrackerLayout } from "../ProductivityTracker/ProductivityTr
 import { NotesLayout } from "../Notes/NotesLayout";
 import { TimerLayout } from "../Timer/TimerLayout";
 import { AccountSettings } from "../AccountSettings/AccountSettings";
+import { useUser } from "@clerk/clerk-react";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
 export const Dashboard = () => {
+  const { user } = useUser();
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!user) navigate("/");
+  }, []);
+
   return (
     <div className="w-full flex-1 flex">
       <Routes>

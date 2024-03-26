@@ -6,7 +6,7 @@ import {
   isPlayingAtom,
   timerAtom,
   totalTimeAtom,
-  userAtom,
+  clientUserAtom,
 } from "../../Utils/Store";
 import { saveCompletedTimer } from "../../HandleApi/TimerApiHandler";
 import timerCompletionSound from "/sounds/timer-completion-sound.mp3";
@@ -16,7 +16,7 @@ const TimerProvider = ({ children }) => {
   const [timer, setTimer] = useAtom(timerAtom);
   const [isPlaying, setIsPlaying] = useAtom(isPlayingAtom);
   const totalTimer = useAtomValue(totalTimeAtom);
-  const [user, setUser] = useAtom(userAtom);
+  const [user, setUser] = useAtom(clientUserAtom);
   const [play] = useSound(timerCompletionSound, { volume: 0.8 });
 
   const formatTime = () => {

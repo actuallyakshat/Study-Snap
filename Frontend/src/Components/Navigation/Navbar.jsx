@@ -1,19 +1,18 @@
 import { useAtom } from "jotai";
-import { sidebarOpenAtom } from "../../Utils/Store";
+import { clientUserAtom, sidebarOpenAtom } from "../../Utils/Store";
 import DropdownMenu from "./DropdownMenu";
 import { Link } from "react-router-dom";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { useLocation } from "react-router-dom";
 import { FaGoogle } from "react-icons/fa";
+import { SignInButton, useClerk, UserButton } from "@clerk/clerk-react";
+import { useEffect } from "react";
 const loginUrl = import.meta.env.VITE_LOGINURL;
 
 export const Navbar = ({ user }) => {
+  const { openSignIn } = useClerk();
   const [sidebarOpen, setSidebarOpen] = useAtom(sidebarOpenAtom);
   const location = useLocation();
-
-  const loginHandler = async () => {
-    window.open(loginUrl, "_self");
-  };
 
   return (
     <div className="h-[64px] relative w-full px-4 border-b border-white/25">
@@ -33,14 +32,16 @@ export const Navbar = ({ user }) => {
         <div className="flex ml-auto items-center justify-end space-x-4">
           {!user ? (
             <button
-              className="py-2 px-4 text-sm rounded-lg font-semibold hover:bg-gray-300 transition-colors bg-white text-black flex items-center justify-center gap-2"
-              onClick={loginHandler}
+              onClick={() => openSignIn()}
+              className="transition-colors border border-gray-500 font-semibold hover:text-black hover:bg-white py-2 px-4 text-sm rounded-lg"
             >
               Login
-              <FaGoogle />
             </button>
           ) : (
-            <DropdownMenu user={user} />
+            <>
+              <DropdownMenu user={user} />
+              <UserButton afterSignOutUrl="/" />
+            </>
           )}
         </div>
       </div>

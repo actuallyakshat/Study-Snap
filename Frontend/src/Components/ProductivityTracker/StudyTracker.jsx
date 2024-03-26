@@ -38,10 +38,10 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { CustomTooltip } from "./CustomTooltip";
-import { userAtom } from "../../Utils/Store";
+import { clientUserAtom } from "../../Utils/Store";
 import { useAtom } from "jotai";
 export const StudyTracker = () => {
-  const [user, setUser] = useAtom(userAtom);
+  const [user, setUser] = useAtom(clientUserAtom);
   const [selectedTab, setSelectedTab] = useState("Weekly");
 
   return (

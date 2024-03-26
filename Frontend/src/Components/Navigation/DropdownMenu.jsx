@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
 import { LogoutModal } from "../Auth/LogoutModal";
 import { Link } from "react-router-dom";
-import { userAtom } from "../../Utils/Store";
+import { clientUserAtom } from "../../Utils/Store";
 import { useAtomValue } from "jotai";
 import { LoadingSpinner } from "../Loading/LoadingSpinner";
+import { useUser } from "@clerk/clerk-react";
 
 function DropdownMenu() {
   const [isOpen, setIsOpen] = useState(false);
   const [logoutModal, setLogoutModal] = useState(false);
-  const user = useAtomValue(userAtom);
+  const { user } = useUser();
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
@@ -16,7 +17,7 @@ function DropdownMenu() {
   return (
     <div className="relative inline-block text-left">
       <div>
-        {!user?.name ? (
+        {!user?.fullName ? (
           <LoadingSpinner />
         ) : (
           <button
@@ -27,7 +28,7 @@ function DropdownMenu() {
             aria-expanded={isOpen ? "true" : "false"}
             aria-haspopup="true"
           >
-            {user?.name.split(" ")[0]}&apos;s Tools
+            {user?.fullName.split(" ")[0]}&apos;s Tools
             <svg
               className="-mr-1 h-5 w-5 text-gray-400"
               viewBox="0 0 20 20"

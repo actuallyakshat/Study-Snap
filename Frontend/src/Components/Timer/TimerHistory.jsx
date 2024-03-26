@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
-import { userAtom } from "../../Utils/Store";
+import { clientUserAtom } from "../../Utils/Store";
 import { HistoryCard } from "./HistoryCard";
 import { useAtomValue } from "jotai";
 
 export const TimerHistory = () => {
-  const user = useAtomValue(userAtom);
+  const user = useAtomValue(clientUser);
   const [completedTimers, setCompletedTimers] = useState([]);
 
   useEffect(() => {

@@ -3,12 +3,16 @@ import { deleteUserAccount } from "../../HandleApi/AuthApiHandler";
 import "../Auth/ModalAnimation.css";
 import toast from "react-hot-toast";
 import { LoadingSpinner } from "../Loading/LoadingSpinner";
+import { useClerk } from "@clerk/clerk-react";
+import { useNavigate } from "react-router-dom";
 export const DeleteAccountModal = ({
   user,
   setUser,
   showModal,
   setShowModal,
 }) => {
+  const { signOut } = useClerk();
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const deleteAccountHandler = async () => {
     setLoading(true);
@@ -18,6 +22,8 @@ export const DeleteAccountModal = ({
     if (response.success) {
       toast.success("Account deleted successfully!");
       setUser(null);
+      signOut();
+      navigate("/");
     }
   };
   return (

@@ -1,5 +1,5 @@
 import { useAtom } from "jotai";
-import { userAtom } from "../../Utils/Store";
+import { clientUserAtom } from "../../Utils/Store";
 import { deleteFolder } from "../../HandleApi/NotesApiHandler";
 import { useState } from "react";
 import { LoadingSpinner } from "../Loading/LoadingSpinner";
@@ -10,7 +10,7 @@ export const FolderDeletionModal = ({
   selectedFolderId,
   setSelectedFolderId,
 }) => {
-  const [user, setUser] = useAtom(userAtom);
+  const [user, setUser] = useAtom(clientUserAtom);
   const [loading, setLoading] = useState(false);
   const deleteFolderHandler = async () => {
     setLoading(true);

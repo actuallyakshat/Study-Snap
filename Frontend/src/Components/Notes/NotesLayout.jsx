@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { AiOutlineFileAdd, AiOutlineFolderAdd } from "react-icons/ai";
 import { Note } from "./Note";
-import { sidebarOpenAtom, userAtom } from "../../Utils/Store";
+import { sidebarOpenAtom, clientUserAtom } from "../../Utils/Store";
 import { useAtom } from "jotai";
 import { IoMdClose } from "react-icons/io";
 import { FolderCard } from "./FolderCard";
@@ -12,7 +12,7 @@ import { FolderCreationModal } from "./FolderCreationModal";
 import { FolderDeletionModal } from "./FolderDeletionModal";
 
 export const NotesLayout = () => {
-  const [user, ] = useAtom(userAtom);
+  const [user] = useAtom(clientUserAtom);
   const [searchQuery, setSearchQuery] = useState("");
   const [folders, setFolders] = useState(null);
   const [selectedNoteId, setSelectedNoteId] = useState(null);

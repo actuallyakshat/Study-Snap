@@ -20,6 +20,14 @@ const getDetails = async (req, res) => {
         populate: { path: "notes" },
       });
 
+    if (!user) {
+      user = new User({
+        email,
+        name,
+      });
+      await user.save();
+    }
+
     // Fetch productivity data for the user
     const productivityData = await ProductivityData.find({ email });
 

@@ -1,10 +1,10 @@
 import { useAtom } from "jotai";
-import { userAtom } from "../../Utils/Store";
+import { clientUserAtom } from "../../Utils/Store";
 import { useState } from "react";
 import { DeleteAccountModal } from "./DeleteAccountModal";
 
 export const AccountSettings = () => {
-  const [user, setUser] = useAtom(userAtom);
+  const [user, setUser] = useAtom(clientUserAtom);
   const [showModal, setShowModal] = useState(false);
 
   const deleteAccountHandler = async () => {

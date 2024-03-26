@@ -4,14 +4,14 @@ import { debounce } from "lodash";
 import { Todo } from "./Todo";
 import { Inputbar } from "./Inputbar";
 import { useAtom } from "jotai";
-import { userAtom } from "../../Utils/Store";
+import { clientUserAtom } from "../../Utils/Store";
 import { InspirationalQuote } from "./InspirationalQuote";
 
 import { reorderTodos } from "../../HandleApi/TodoApiHandler";
 import { MiniTimer } from "./MiniTimer";
 
 export const TodoLayout = () => {
-  const [user, setUser] = useAtom(userAtom);
+  const [user, setUser] = useAtom(clientUserAtom);
   const [items, setItems] = useState(user ? user.todos : []);
   const [updating, setUpdating] = useState(false);
   const [todoId, setTodoId] = useState(null);
@@ -20,10 +20,16 @@ export const TodoLayout = () => {
 
   const debounceTime = 2000;
   const reorderHandler = async (items) => {
+    console.log("setting todos");
     await reorderTodos(user, items);
   };
   const updateOrderWithDebounce = debounce(() => {
-    if (JSON.stringify(items) !== JSON.stringify(user?.todos) && reorderFlag) {
+    console.log("last function called");
+    console.log(
+      "kya badlu?: ",
+      JSON.stringify(items) !== JSON.stringify(user?.todos)
+    );
+    if (reorderFlag) {
       reorderHandler(items);
       setReorderFlag(false);
     }
@@ -45,6 +51,7 @@ export const TodoLayout = () => {
 
   const handleReorder = (newOrder) => {
     setReorderFlag(true);
+    console.log(reorderFlag);
     setItems(newOrder);
     setUser((prevUser) => ({
       ...prevUser,

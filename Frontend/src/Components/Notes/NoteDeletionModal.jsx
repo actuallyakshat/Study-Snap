@@ -1,6 +1,6 @@
 import { deleteNote } from "../../HandleApi/NotesApiHandler";
 import { useAtom } from "jotai";
-import { userAtom } from "../../Utils/Store";
+import { clientUserAtom } from "../../Utils/Store";
 import { toast } from "react-hot-toast";
 import { useState } from "react";
 import { LoadingSpinner } from "../Loading/LoadingSpinner";
@@ -11,7 +11,7 @@ export const NoteDeletionModal = ({
   setSelectedNoteId,
 }) => {
   const [loading, setLoading] = useState(false);
-  const [user, setUser] = useAtom(userAtom);
+  const [user, setUser] = useAtom(clientUserAtom);
   const deleteNoteHandler = async () => {
     setLoading(true);
     const response = await deleteNote(noteId, user.email, user.token);

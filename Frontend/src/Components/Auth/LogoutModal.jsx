@@ -1,13 +1,17 @@
 import { useSetAtom } from "jotai";
-import { userAtom } from "../../Utils/Store";
+import { clientUserAtom } from "../../Utils/Store";
 import { toast } from "react-hot-toast";
-import { logoutUser } from "../../HandleApi/AuthApiHandler";
+import { useNavigate } from "react-router-dom";
+import { useClerk } from "@clerk/clerk-react";
 export const LogoutModal = ({ showModal, setShowModal }) => {
-  const setUser = useSetAtom(userAtom);
+  const navigate = useNavigate();
+  const setUser = useSetAtom(clientUserAtom);
+  const { signOut } = useClerk();
   const logoutHandler = async () => {
     toast.success("Logged out!");
-    await logoutUser();
     setUser(null);
+    signOut();
+    navigate("/");
   };
 
   return (

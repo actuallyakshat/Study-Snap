@@ -1,8 +1,8 @@
 import React from "react";
-import { userAtom } from "../../Utils/Store";
+import { clientUserAtom } from "../../Utils/Store";
 import { useAtom } from "jotai";
 export const StreakRecord = ({ cardStyle }) => {
-  const [user, setUser] = useAtom(userAtom);
+  const [user, setUser] = useAtom(clientUserAtom);
   return (
     <div className={cardStyle}>
       <div className="w-full text-center mt-8">

@@ -1,11 +1,11 @@
 import { useForm } from "react-hook-form";
 import { useAtom } from "jotai";
-import { userAtom } from "../../Utils/Store";
+import { clientUserAtom } from "../../Utils/Store";
 import { addFolder } from "../../HandleApi/NotesApiHandler";
 import { useEffect, useState } from "react";
 import { LoadingSpinner } from "../Loading/LoadingSpinner";
 export const FolderCreationModal = ({ addFolderModal, setAddFolderModal }) => {
-  const [user, setUser] = useAtom(userAtom);
+  const [user, setUser] = useAtom(clientUserAtom);
   const [loading, setLoading] = useState(false);
   const { register, handleSubmit, reset } = useForm();
   const onSubmit = async (data) => {
