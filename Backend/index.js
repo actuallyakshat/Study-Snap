@@ -9,12 +9,7 @@ const apiv1Router = require("./Routes/IndexRouter");
 const app = express();
 
 app.enable("trust proxy");
-app.use(
-  cors({
-    origin: process.env.CLIENT_URL,
-    credentials: true,
-  })
-);
+app.use(cors());
 app.listen(PORT, () => {
   console.log("Server started successfully at Port", PORT);
 });
