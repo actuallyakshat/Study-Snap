@@ -97,9 +97,8 @@ const getDetails = async (req, res) => {
       yearlySummary[monthIndex].hours += hoursStudied;
     });
 
-    const sundayEntry = weeklySummary.shift(); // Remove Sunday entry from the beginning
-    weeklySummary.push(sundayEntry); // Push Sunday entry to the end
-    console.log(weeklySummary);
+    const sundayEntry = weeklySummary.shift();
+    weeklySummary.push(sundayEntry);
 
     res.status(200).json({
       user: {

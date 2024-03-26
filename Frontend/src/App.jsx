@@ -13,10 +13,11 @@ function App() {
   const navigate = useNavigate();
   const { user } = useUser();
   const [clientUser, setClientUser] = useAtom(clientUserAtom);
+  const [loading, setLoading] = useAtom(loadingAtom);
   useEffect(() => {
     if (!user) return;
     else {
-      console.log("calling get details");
+      setLoading(true);
       const getDetails = async () => {
         const tempUser = {
           email: user.primaryEmailAddress.emailAddress,
@@ -29,6 +30,7 @@ function App() {
         setClientUser(response);
       });
       navigate("/dashboard");
+      setLoading(false);
     }
   }, [user]);
 
@@ -39,6 +41,7 @@ function App() {
         <ClerkLoading>
           <Loading />
         </ClerkLoading>
+        {loading && <Loading />}
         <div className="flex flex-col items-stretch w-full flex-1 h-full">
           <Navbar user={user} />
           <Routes user={user} />
