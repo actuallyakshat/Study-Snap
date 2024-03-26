@@ -4,7 +4,7 @@ import { HistoryCard } from "./HistoryCard";
 import { useAtomValue } from "jotai";
 
 export const TimerHistory = () => {
-  const user = useAtomValue(clientUser);
+  const user = useAtomValue(clientUserAtom);
   const [completedTimers, setCompletedTimers] = useState([]);
 
   useEffect(() => {
