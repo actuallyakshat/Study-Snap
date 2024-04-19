@@ -19,6 +19,7 @@ const getUserDetails = async (user) => {
       return;
     }
     const { email, name } = user;
+
     const response = await axios.post(`${baseUrl}/getDetails`, {
       email,
       name,

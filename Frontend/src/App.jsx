@@ -6,22 +6,29 @@ import { loadingAtom, clientUserAtom } from "./Utils/Store";
 import { useAtom, useAtomValue } from "jotai";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { ClerkLoaded, ClerkLoading, useUser } from "@clerk/clerk-react";
+import {
+  ClerkLoaded,
+  ClerkLoading,
+  useClerk,
+  useUser,
+} from "@clerk/clerk-react";
 import { getUserDetails } from "./HandleApi/AuthApiHandler";
 
 function App() {
   const navigate = useNavigate();
   const { user } = useUser();
+  const { loaded } = useClerk();
   const [clientUser, setClientUser] = useAtom(clientUserAtom);
   const [loading, setLoading] = useAtom(loadingAtom);
   useEffect(() => {
-    if (!user) return;
+    if (!loaded) return;
+    else if (loaded && !user) return;
     else {
       setLoading(true);
       const getDetails = async () => {
         const tempUser = {
-          email: user.primaryEmailAddress.emailAddress,
-          name: user.fullName,
+          email: user?.primaryEmailAddress?.emailAddress,
+          name: user?.fullName,
         };
         const response = await getUserDetails(tempUser);
         return response;
@@ -29,10 +36,9 @@ function App() {
       getDetails().then((response) => {
         setClientUser(response);
       });
-      navigate("/dashboard");
       setLoading(false);
     }
-  }, [user]);
+  }, [user, loaded, setClientUser, setLoading]);
 
   return (
     <>
