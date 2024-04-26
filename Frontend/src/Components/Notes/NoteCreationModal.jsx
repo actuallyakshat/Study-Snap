@@ -5,14 +5,26 @@ import { addNote } from "../../HandleApi/NotesApiHandler";
 import { useEffect, useState } from "react";
 import { LoadingSpinner } from "../Loading/LoadingSpinner";
 
-export const NoteCreationModal = ({ setAddNoteModel, addNoteModel }) => {
+export const NoteCreationModal = ({
+  setSelectedNoteId,
+  setAddNoteModel,
+  setSidebarOpen,
+  addNoteModel,
+  selectedFolderId,
+}) => {
   const [user, setUser] = useAtom(clientUserAtom);
   const { register, handleSubmit, reset } = useForm();
   const [loading, setLoading] = useState(false);
+  const [folderSelected, setFolderSelected] = useState(selectedFolderId);
+  useEffect(() => {
+    console.log("selectedFolder: ", selectedFolderId);
+    console.log("All folders: ", user?.folders);
+  }, [selectedFolderId]);
 
   const defaultContent = "Content goes here...";
   useEffect(() => {
     if (addNoteModel) {
+      setFolderSelected(selectedFolderId);
       const titleInput = document.getElementById("title");
       if (titleInput) {
         titleInput.focus();
@@ -28,6 +40,8 @@ export const NoteCreationModal = ({ setAddNoteModel, addNoteModel }) => {
       user.email
     );
     if (response.success) {
+      setSelectedNoteId(response.note._id);
+      setSidebarOpen(false);
       const updatedUserFolders = user.folders.map((folder) => {
         if (folder._id === data.folder) {
           return {
@@ -44,6 +58,7 @@ export const NoteCreationModal = ({ setAddNoteModel, addNoteModel }) => {
     setAddNoteModel(false);
     reset();
   };
+
   const handleKeyDown = (event) => {
     if (event.key === "Escape") {
       reset();
@@ -89,15 +104,22 @@ export const NoteCreationModal = ({ setAddNoteModel, addNoteModel }) => {
                   id="folder"
                   className="text-black w-full font-medium rounded-lg px-1 py-1 focus:ring-2 focus:outline-none focus:ring-blue-600"
                 >
-                  {user?.folders.map((folder) => (
-                    <option
-                      key={folder._id}
-                      value={folder._id}
-                      className="text-black font-medium"
-                    >
-                      {folder.name === "unorganized" ? "None" : folder.name}
-                    </option>
-                  ))}
+                  {user?.folders.map((folder) => {
+                    return (
+                      <option
+                        key={folder._id}
+                        value={folder._id}
+                        selected={
+                          folderSelected
+                            ? folder._id === folderSelected
+                            : folder.name === "unorganized"
+                        }
+                        className="text-black font-medium"
+                      >
+                        {folder.name === "unorganized" ? "None" : folder.name}
+                      </option>
+                    );
+                  })}
                 </select>
               </div>
               {loading ? (

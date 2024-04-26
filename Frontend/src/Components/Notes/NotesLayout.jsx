@@ -60,6 +60,10 @@ export const NotesLayout = () => {
     setAddFolderModal(true);
   };
 
+  useEffect(() => {
+    console.log("Selected folder is: ", selectedFolderId);
+  }, [selectedFolderId]);
+
   return (
     <div className="h-full flex-1">
       <CloseSidebarOverlay />
@@ -71,6 +75,9 @@ export const NotesLayout = () => {
         selectedFolderId={selectedFolderId}
       />
       <NoteCreationModal
+        selectedFolderId={selectedFolderId}
+        setSidebarOpen={setSidebarOpen}
+        setSelectedNoteId={setSelectedNoteId}
         setAddNoteModel={setAddNoteModel}
         addNoteModel={addNoteModel}
       />
@@ -151,7 +158,7 @@ export const NotesLayout = () => {
                   onNoteSelect={handleNoteSelect}
                   selectedNoteId={selectedNoteId}
                   setDeleteFolderModal={setDeleteFolderModal}
-                  setSelectedFolerId={setSelectedFolerId}
+                  setSelectedFolderId={setSelectedFolerId}
                 />
               </div>
             ))}

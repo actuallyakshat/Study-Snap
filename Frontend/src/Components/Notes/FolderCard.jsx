@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NoteCard } from "./NoteCard";
 import { FaTrash } from "react-icons/fa";
 
@@ -8,7 +8,7 @@ export const FolderCard = ({
   onSelect,
   onNoteSelect,
   selectedNoteId,
-  setSelectedFolerId,
+  setSelectedFolderId,
   setDeleteFolderModal,
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -25,6 +25,11 @@ export const FolderCard = ({
         }`}
         onClick={() => {
           onSelect();
+          {
+            !isExpanded
+              ? setSelectedFolderId(folder._id)
+              : setSelectedFolderId(null);
+          }
           handleToggleExpand();
         }}
       >
@@ -65,7 +70,7 @@ export const FolderCard = ({
             key={note._id}
             note={note}
             isSelected={selectedNoteId === note._id}
-            onSelect={() => onNoteSelect(note._id)} // Pass note's _id
+            onSelect={() => onNoteSelect(note._id)}
           />
         ))}
       </div>

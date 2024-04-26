@@ -53,6 +53,22 @@ export const NoteEditor = ({ content, noteId, setSelectedNoteId, title }) => {
   useEffect(() => {
     if (editor) {
       editor.commands.setContent(content);
+      const handleKeyDown = (event) => {
+        if ((event.ctrlKey || event.metaKey) && event.key === "s") {
+          event.preventDefault();
+          handleSaveNote();
+        }
+      };
+      window.addEventListener("keydown", handleKeyDown);
+      return () => {
+        window.removeEventListener("keydown", handleKeyDown);
+      };
+    }
+  }, [content, editor]);
+
+  useEffect(() => {
+    if (editor) {
+      editor.commands.setContent(content);
     }
   }, [content, editor]);
 
