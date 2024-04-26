@@ -21,7 +21,7 @@ import { FaItalic } from "react-icons/fa";
 import { FaSave } from "react-icons/fa";
 import { FaTrash } from "react-icons/fa";
 import { FaUnderline } from "react-icons/fa";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { IoListOutline } from "react-icons/io5";
 import { LuHeading1 } from "react-icons/lu";
 import { LuHeading2 } from "react-icons/lu";
@@ -69,8 +69,15 @@ export const NoteEditor = ({ content, noteId, setSelectedNoteId, title }) => {
   useEffect(() => {
     if (editor) {
       editor.commands.setContent(content);
+      editor.commands.focus();
     }
   }, [content, editor]);
+
+  useEffect(() => {
+    if (editor) {
+      editor.commands.setContent(content);
+    }
+  }, [content, editor, noteId]);
 
   if (!editor) return null;
 
