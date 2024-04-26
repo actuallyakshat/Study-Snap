@@ -60,10 +60,6 @@ export const NotesLayout = () => {
     setAddFolderModal(true);
   };
 
-  useEffect(() => {
-    console.log("Selected folder is: ", selectedFolderId);
-  }, [selectedFolderId]);
-
   return (
     <div className="h-full flex-1">
       <CloseSidebarOverlay />

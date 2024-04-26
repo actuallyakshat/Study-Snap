@@ -16,10 +16,6 @@ export const NoteCreationModal = ({
   const { register, handleSubmit, reset } = useForm();
   const [loading, setLoading] = useState(false);
   const [folderSelected, setFolderSelected] = useState(selectedFolderId);
-  useEffect(() => {
-    console.log("selectedFolder: ", selectedFolderId);
-    console.log("All folders: ", user?.folders);
-  }, [selectedFolderId]);
 
   const defaultContent = "Content goes here...";
   useEffect(() => {

@@ -20,7 +20,6 @@ export const Dashboard = () => {
   useEffect(() => {
     if (loaded && !user) {
       navigate("/");
-      console.log("navigating you back");
     }
   }, []);
 

@@ -25,13 +25,8 @@ export const WhiteboardLayout = () => {
       // Update the savedFiles state with the new files
       setSavedFiles(files);
     },
-    2000
+    300
   ); // Debounce for 2 seconds (2000 milliseconds)
-
-  useEffect(() => {
-    console.log(JSON.parse(localStorage.getItem("excalidrawElements")) || []);
-    console.log(JSON.parse(localStorage.getItem("excalidrawFiles")) || []);
-  }, []);
 
   return (
     <div className="w-full h-full custom-styles">

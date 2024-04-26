@@ -56,7 +56,7 @@ export const FolderCard = ({
             onClick={(e) => {
               e.stopPropagation();
               setDeleteFolderModal(true);
-              setSelectedFolerId(folder._id);
+              setSelectedFolderId(folder._id);
             }}
             className="p-2 hover:bg-white/20 rounded-lg transition-colors hover:text-red-600"
           >
