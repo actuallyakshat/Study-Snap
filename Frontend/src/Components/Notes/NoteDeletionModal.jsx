@@ -2,7 +2,7 @@ import { deleteNote } from "../../HandleApi/NotesApiHandler";
 import { useAtom } from "jotai";
 import { clientUserAtom } from "../../Utils/Store";
 import { toast } from "react-hot-toast";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { LoadingSpinner } from "../Loading/LoadingSpinner";
 export const NoteDeletionModal = ({
   deleteNoteModal,
@@ -12,6 +12,13 @@ export const NoteDeletionModal = ({
 }) => {
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useAtom(clientUserAtom);
+  const deleteButtonRef = useRef(null);
+
+  useEffect(() => {
+    if (deleteNoteModal) {
+      deleteButtonRef?.current?.focus();
+    }
+  }, [deleteNoteModal]);
   const deleteNoteHandler = async () => {
     setLoading(true);
     const response = await deleteNote(noteId, user.email);
@@ -56,6 +63,7 @@ export const NoteDeletionModal = ({
                   Cancel
                 </button>
                 <button
+                  ref={deleteButtonRef}
                   onClick={deleteNoteHandler}
                   className="bg-red-600 hover:bg-red-700 transition-colors px-3 py-2 rounded-md text-sm"
                 >

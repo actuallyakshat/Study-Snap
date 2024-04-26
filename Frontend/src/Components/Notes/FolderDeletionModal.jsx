@@ -1,7 +1,7 @@
 import { useAtom } from "jotai";
 import { clientUserAtom } from "../../Utils/Store";
 import { deleteFolder } from "../../HandleApi/NotesApiHandler";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { LoadingSpinner } from "../Loading/LoadingSpinner";
 export const FolderDeletionModal = ({
   deleteFolderModal,
@@ -12,6 +12,14 @@ export const FolderDeletionModal = ({
 }) => {
   const [user, setUser] = useAtom(clientUserAtom);
   const [loading, setLoading] = useState(false);
+  const deleteButtonRef = useRef(null);
+
+  useEffect(() => {
+    if (deleteFolderModal) {
+      deleteButtonRef?.current?.focus();
+    }
+  }, [deleteFolderModal]);
+
   const deleteFolderHandler = async () => {
     setLoading(true);
     const response = await deleteFolder(selectedFolderId, user.email);
@@ -55,6 +63,7 @@ export const FolderDeletionModal = ({
                   Cancel
                 </button>
                 <button
+                  ref={deleteButtonRef}
                   onClick={deleteFolderHandler}
                   className="bg-red-600 hover:bg-red-700 transition-colors px-3 py-2 rounded-md text-sm"
                 >
