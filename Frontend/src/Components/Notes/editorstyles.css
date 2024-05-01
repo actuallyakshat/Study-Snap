@@ -54,12 +54,15 @@ ul[data-type="taskList"] p {
 }
 ul[data-type="taskList"] li > div {
   margin: 0;
+  padding: 0;
 }
 
 ul[data-type="taskList"] li {
   display: flex;
   gap: 0.5rem;
+  padding: 0;
   align-items: baseline;
+  justify-content: space-between;
 }
 ul[data-type="taskList"] li > label {
   display: inline-flex;
@@ -70,7 +73,8 @@ ul[data-type="taskList"] li > label {
 }
 ul[data-type="taskList"] li input {
   height: 1rem;
-  width: 1rem;
+  min-width: 25px;
+  width: 100%;
   margin: 0;
   outline: 0;
   border: 0;
@@ -80,7 +84,9 @@ ul[data-type="taskList"] li > div {
 }
 ul[data-type="taskList"] li ul li,
 ul[data-type="taskList"] li ol li {
-  display: list-item;
+  display: flex;
+  margin-right: 0.5rem;
+  justify-content: space-between;
 }
 ul[data-type="taskList"] li ul[data-type="taskList"] > li {
   display: flex;
