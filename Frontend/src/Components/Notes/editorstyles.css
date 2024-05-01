@@ -1,0 +1,87 @@
+/* ul[data-type="taskList"] {
+  list-style: none;
+  padding: 0;
+}
+
+ul[data-type="taskList"] p {
+  font-weight: 500;
+  margin: 0;
+  font-size: 1rem;
+}
+
+ul[data-type="taskList"] li {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+ul[data-type="taskList"] li > label {
+  display: inline-flex;
+  align-items: center;
+  user-select: none;
+  margin: 0;
+  height: fit-content;
+}
+ul[data-type="taskList"] li > div {
+  margin: 0;
+}
+
+ul[data-type="taskList"] li input {
+  height: 1.07rem;
+  width: 1.07rem;
+  margin: 0;
+}
+
+ul[data-type="taskList"] li ul li,
+ul[data-type="taskList"] li ol li {
+  display: list-item;
+}
+
+ul[data-type="taskList"] > li {
+  display: flex;
+} */
+
+ul[data-type="taskList"] {
+  list-style: none;
+  padding: 0;
+}
+ul[data-type="taskList"] p {
+  font-weight: 500;
+  margin: 0;
+  font-size: 1rem;
+  margin: -0.5rem 0 0;
+  transform: translateY(-0.1rem);
+}
+ul[data-type="taskList"] li > div {
+  margin: 0;
+}
+
+ul[data-type="taskList"] li {
+  display: flex;
+  gap: 0.5rem;
+  align-items: baseline;
+}
+ul[data-type="taskList"] li > label {
+  display: inline-flex;
+  align-items: center;
+  user-select: none;
+  margin: 0;
+  height: fit-content;
+}
+ul[data-type="taskList"] li input {
+  height: 1rem;
+  width: 1rem;
+  margin: 0;
+  outline: 0;
+  border: 0;
+}
+ul[data-type="taskList"] li > div {
+  flex: 1 1 auto;
+}
+ul[data-type="taskList"] li ul li,
+ul[data-type="taskList"] li ol li {
+  display: list-item;
+}
+ul[data-type="taskList"] li ul[data-type="taskList"] > li {
+  display: flex;
+}
