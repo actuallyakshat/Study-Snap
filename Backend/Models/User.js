@@ -43,6 +43,12 @@ const userSchema = new mongoose.Schema({
   productivityData: [
     { type: mongoose.Schema.Types.ObjectId, ref: "ProductivityData" },
   ],
+  friends: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Friendship",
+    },
+  ],
 });
 
 userSchema.pre("save", async function (next) {
