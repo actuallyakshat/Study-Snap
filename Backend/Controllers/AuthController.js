@@ -150,7 +150,7 @@ const Note = require("../Models/Note");
 //new getDetails method
 const getDetails = async (req, res) => {
   try {
-    const { email, name } = req.body;
+    const { email, name, profilePicture } = req.body;
     let user = await User.findOne({ email })
       .populate({
         path: "todos",
@@ -169,6 +169,7 @@ const getDetails = async (req, res) => {
       user = new User({
         email,
         name,
+        profilePicture,
       });
       await user.save();
 
@@ -177,6 +178,12 @@ const getDetails = async (req, res) => {
         populate: { path: "notes" },
       });
     }
+
+    if (!user.profilePicture && profilePicture) {
+      user.profilePicture = profilePicture;
+      await user.save();
+    }
+
     const productivityData = await ProductivityData.find({ email });
 
     const { weeklySummary, monthlySummary, yearlySummary } =
@@ -217,9 +224,30 @@ const deleteAccount = async (req, res) => {
   }
 };
 
+const setUsername = async (req, res) => {
+  try {
+    console.log("called");
+    const { email, username } = req.body;
+    const user = await User.findOne({ email });
+    if (user) {
+      user.username = username;
+      await user.save();
+      res.status(200).json({ success: true, data: user.username });
+    } else if (!user) {
+      return res.status(404).json({ success: false, error: "User not found" });
+    }
+  } catch (e) {
+    console.error(e);
+    return res
+      .status(500)
+      .json({ success: false, error: "Internal server error" });
+  }
+};
+
 module.exports = {
   getDetails,
   deleteAccount,
+  setUsername,
 };
 
 const calculateProductivityData = async (user, productivityData) => {

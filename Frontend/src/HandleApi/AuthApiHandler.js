@@ -8,25 +8,36 @@ const checkIfAuthenticated = async () => {
   if (response) return response.data.user;
 };
 
-const logoutUser = async () => {
-  await axios.post(`${baseUrl}/logout`, null, { withCredentials: true });
-};
-
 const getUserDetails = async (user) => {
   try {
     if (!user) {
       console.error("Null User Error");
       return;
     }
-    const { email, name } = user;
 
-    const response = await axios.post(`${baseUrl}/getDetails`, {
+    const { email, name, profilePicture } = user;
+
+    const response = await axios.post(`${baseUrl}/get-details`, {
       email,
       name,
+      profilePicture,
     });
     return response.data.user;
   } catch (error) {
     console.error("Error while getting user details:", error);
+    throw new Error(error);
+  }
+};
+
+const setProfileUsername = async (email, username) => {
+  try {
+    const response = await axios.put(`${baseUrl}/set-username`, {
+      email,
+      username,
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error while setting username:", error);
     throw new Error(error);
   }
 };
@@ -50,4 +61,9 @@ const deleteUserAccount = async (user) => {
   }
 };
 
-export { logoutUser, checkIfAuthenticated, getUserDetails, deleteUserAccount };
+export {
+  checkIfAuthenticated,
+  getUserDetails,
+  deleteUserAccount,
+  setProfileUsername,
+};

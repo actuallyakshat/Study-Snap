@@ -68,7 +68,7 @@ function DropdownMenu() {
               to="/dashboard/todos"
               className="text-gray-700 hover:bg-gray-200 rounded-md border-t font-medium block px-4 py-2 text-sm"
               role="menuitem"
-              id="menu-item-0"
+              id="menu-item-1"
               onClick={toggleMenu}
             >
               To-Do List
@@ -77,7 +77,7 @@ function DropdownMenu() {
               to="/dashboard/notes"
               className="text-gray-700 hover:bg-gray-200 rounded-md border-t font-medium block px-4 py-2 text-sm"
               role="menuitem"
-              id="menu-item-0"
+              id="menu-item-2"
               onClick={toggleMenu}
             >
               Notes
@@ -86,7 +86,7 @@ function DropdownMenu() {
               to="/dashboard/whiteboard"
               className="text-gray-700 hover:bg-gray-200 rounded-md border-t font-medium block px-4 py-2 text-sm"
               role="menuitem"
-              id="menu-item-0"
+              id="menu-item-3"
               onClick={toggleMenu}
             >
               Whiteboard
@@ -95,16 +95,25 @@ function DropdownMenu() {
               to="/dashboard/timer"
               className="text-gray-700 hover:bg-gray-200 rounded-md border-t font-medium block px-4 py-2 text-sm"
               role="menuitem"
-              id="menu-item-0"
+              id="menu-item-4"
               onClick={toggleMenu}
             >
               Pomodoro Timer
             </Link>
             <Link
+              to="/dashboard/friends"
+              className="text-gray-700 hover:bg-gray-200 rounded-md border-t font-medium block px-4 py-2 text-sm"
+              role="menuitem"
+              id="menu-item-5"
+              onClick={toggleMenu}
+            >
+              Friends
+            </Link>
+            <Link
               to="/dashboard/edit-profile"
               className="text-gray-700 hover:bg-gray-200 rounded-md border-t font-medium block px-4 py-2 text-sm"
               role="menuitem"
-              id="menu-item-0"
+              id="menu-item-6"
               onClick={toggleMenu}
             >
               Settings

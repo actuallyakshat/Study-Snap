@@ -24,11 +24,13 @@ function App() {
     if (!loaded) return;
     else if (loaded && !user) return;
     else {
+      console.log(user);
       setLoading(true);
       const getDetails = async () => {
         const tempUser = {
           email: user?.primaryEmailAddress?.emailAddress,
           name: user?.fullName,
+          profilePicture: user?.imageUrl,
         };
         const response = await getUserDetails(tempUser);
         return response;
