@@ -43,13 +43,13 @@ export const SetStudyTarget = ({ cardStyle, user, setUser }) => {
   };
   return (
     <div className={cardStyle}>
-      <div className="w-full text-center mt-8">
-        <h1 className="font-semibold text-3xl">Set Target 🎯</h1>
-        <p className="text-center max-w-[35ch] my-1 mx-auto text-white/80">
+      <div className="mt-8 w-full text-center">
+        <h1 className="text-3xl font-semibold">Set Target 🎯</h1>
+        <p className="mx-auto my-1 max-w-[35ch] text-center text-white/80">
           What is your desired daily study goal for this week?
         </p>
       </div>
-      <div className="flex items-center justify-center absolute top-1/2 text-4xl left-1/2 -translate-x-1/2 ">
+      <div className="absolute left-1/2 top-1/2 flex -translate-x-1/2 items-center justify-center text-4xl ">
         {loading ? (
           <div className="pt-4">
             <LoadingSpinner />
@@ -71,7 +71,7 @@ export const SetStudyTarget = ({ cardStyle, user, setUser }) => {
                   : ""
               }`}
               ref={targetInput}
-              className="studyhours max-w-[220px] text-3xl bg-transparent focus:outline-none font-bold"
+              className="studyhours max-w-[220px] bg-transparent text-3xl font-bold focus:outline-none"
             />
             <button onClick={handleIncrement}>+</button>
           </>
@@ -81,7 +81,7 @@ export const SetStudyTarget = ({ cardStyle, user, setUser }) => {
       {user?.studyTarget != newTarget && (
         <div className="absolute bottom-3 right-5">
           <button
-            className="hover:bg-white/10 p-1 rounded-md"
+            className="rounded-md p-1 hover:bg-white/10"
             onClick={() => {
               setNewTarget(0);
               setNewTarget(
@@ -93,14 +93,14 @@ export const SetStudyTarget = ({ cardStyle, user, setUser }) => {
                           : `${user.studyTarget}`
                       }`
                     : ""
-                }`
+                }`,
               );
             }}
           >
             <IoClose className="text-2xl" />
           </button>
           <button
-            className="hover:bg-white/10 p-1 rounded-md"
+            className="rounded-md p-1 hover:bg-white/10"
             onClick={setTargetHandler}
           >
             <IoCheckmark className="text-2xl" />

@@ -33,7 +33,7 @@ export const NoteCreationModal = ({
       data.title,
       defaultContent,
       data.folder,
-      user.email
+      user.email,
     );
     if (response.success) {
       setSelectedNoteId(response.note._id);
@@ -67,18 +67,18 @@ export const NoteCreationModal = ({
         <div
           onClick={() => setAddNoteModel(false)}
           onKeyDown={handleKeyDown}
-          className="popup-overlay w-full h-full z-[11] top-0 backdrop-blur-sm absolute"
+          className="popup-overlay absolute top-0 z-[11] h-full w-full backdrop-blur-sm"
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className="popup-content w-[90%] max-w-[30rem] md:w-full px-4 py-10 rounded-lg border border-gray-500/40 absolute bg-[#0d1117] shadow-lg shadow-gray-800/20 z-[11] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+            className="popup-content absolute left-1/2 top-1/2 z-[11] w-[90%] max-w-[30rem] -translate-x-1/2 -translate-y-1/2 rounded-lg border border-gray-500/40 bg-[#0d1117] px-4 py-10 shadow-lg shadow-gray-800/20 md:w-full"
           >
-            <h1 className="text-3xl mb-4 font-bold text-center">
+            <h1 className="mb-4 text-center text-3xl font-bold">
               Add New Note
             </h1>
             <form
               onSubmit={handleSubmit(onSubmit)}
-              className="mx-auto space-y-3 max-w-[80%]"
+              className="mx-auto max-w-[80%] space-y-3"
             >
               <div className="space-y-1">
                 <label htmlFor="title" className="block font-medium">
@@ -88,7 +88,7 @@ export const NoteCreationModal = ({
                   id="title"
                   type="text"
                   {...register("title")}
-                  className="w-full rounded-lg py-1 text-black px-2 font-medium focus:ring-2 focus:outline-none focus:ring-blue-600"
+                  className="w-full rounded-lg px-2 py-1 font-medium text-black focus:outline-none focus:ring-2 focus:ring-blue-600"
                 />
               </div>
               <div className="space-y-1">
@@ -98,7 +98,7 @@ export const NoteCreationModal = ({
                 <select
                   {...register("folder")}
                   id="folder"
-                  className="text-black w-full font-medium rounded-lg px-1 py-1 focus:ring-2 focus:outline-none focus:ring-blue-600"
+                  className="w-full rounded-lg px-1 py-1 font-medium text-black focus:outline-none focus:ring-2 focus:ring-blue-600"
                 >
                   {user?.folders.map((folder) => {
                     return (
@@ -110,7 +110,7 @@ export const NoteCreationModal = ({
                             ? folder._id === folderSelected
                             : folder.name === "unorganized"
                         }
-                        className="text-black font-medium"
+                        className="font-medium text-black"
                       >
                         {folder.name === "unorganized" ? "None" : folder.name}
                       </option>
@@ -119,24 +119,24 @@ export const NoteCreationModal = ({
                 </select>
               </div>
               {loading ? (
-                <div className="w-full flex items-center justify-center pt-3">
+                <div className="flex w-full items-center justify-center pt-3">
                   <LoadingSpinner />
                 </div>
               ) : (
-                <div className="gap-2 pt-2 flex justify-end">
+                <div className="flex justify-end gap-2 pt-2">
                   <button
                     type="button"
                     onClick={() => {
                       setAddNoteModel(false);
                       reset();
                     }}
-                    className="bg-red-600 hover:bg-red-700 transition-colors px-3 py-2 rounded-md text-sm"
+                    className="rounded-md bg-red-600 px-3 py-2 text-sm transition-colors hover:bg-red-700"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
-                    className="bg-primaryPurple hover:bg-primaryPurple/80 transition-colors px-3 py-2 rounded-md text-sm"
+                    className="bg-primaryPurple hover:bg-primaryPurple/80 rounded-md px-3 py-2 text-sm transition-colors"
                   >
                     Add Note
                   </button>

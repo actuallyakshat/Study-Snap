@@ -27,15 +27,15 @@ export const Features = ({ scrollRef }) => {
   return (
     <div
       ref={scrollRef}
-      className="min-h-screen h-full w-full py-8 features text-center"
+      className="features h-full min-h-screen w-full py-8 text-center"
     >
-      <div ref={ref} className="max-w-[80rem] px-6 w-full h-full mx-auto">
+      <div ref={ref} className="mx-auto h-full w-full max-w-[80rem] px-6">
         <motion.h1
           variants={animationVariants}
           initial="hidden"
           animate={mainControls}
           transition={{ ...animationTransition, delay: 0.1 }}
-          className="font-semibold text-4xl lg:text-5xl text-center pt-12"
+          className="pt-12 text-center text-4xl font-semibold lg:text-5xl"
         >
           Packed With All the Productivity Essentials
         </motion.h1>
@@ -45,13 +45,13 @@ export const Features = ({ scrollRef }) => {
           initial="hidden"
           animate={mainControls}
           transition={{ ...animationTransition, delay: 0.4 }}
-          className="text-md text-gray-300 mx-auto max-w-[100ch]"
+          className="text-md mx-auto max-w-[100ch] text-gray-300"
         >
           Unlock peak productivity with our all-in-one powerhouse: a dynamic
           productivity tracking app boasting a to-do list, Pomodoro timer, notes
           tool, and daily study logging tools.
         </motion.p>
-        <div className="mt-8 justify-center flex flex-wrap gap-3">
+        <div className="mt-8 flex flex-wrap justify-center gap-3">
           <motion.div
             ref={ref}
             variants={animationVariants}

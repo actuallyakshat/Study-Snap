@@ -16,13 +16,13 @@ export const Note = ({ note, setSelectedNoteId }) => {
 
   return (
     <div>
-      <div className="mx-auto pt-20 pb-10 px-6 md:max-w-[75%]">
+      <div className="mx-auto px-6 pb-10 pt-20 md:max-w-[75%]">
         <input
           type="text"
           placeholder="Heading"
           value={title}
           onChange={handleTitleChange}
-          className="bg-transparent w-full max-w-[15ch] focus:outline-none text-5xl font-bold sm:max-w-full sm:break-all"
+          className="w-full max-w-[15ch] bg-transparent text-5xl font-bold focus:outline-none sm:max-w-full sm:break-all"
         />
         <div className="mt-6 w-full">
           <NoteEditor

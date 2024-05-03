@@ -65,14 +65,14 @@ export const Testimonials = () => {
   const animationTransition = { duration: 1 };
 
   return (
-    <div className="w-full h-full flex flex-col items-center justify-center testimonial px-4 py-12">
+    <div className="testimonial flex h-full w-full flex-col items-center justify-center px-4 py-12">
       <motion.h1
         ref={ref}
         variants={animationVariants}
         initial="hidden"
         animate={mainControls}
         transition={{ ...animationTransition, delay: 0.4 }}
-        className="text-center text-3xl font-light pb-8"
+        className="pb-8 text-center text-3xl font-light"
       >
         Discover What Our Community Has to Say
       </motion.h1>
@@ -82,29 +82,29 @@ export const Testimonials = () => {
         initial="hidden"
         animate={mainControls}
         transition={{ ...animationTransition, delay: 0.6 }}
-        className="max-w-[70rem] w-full border-2 p-3 border-gray-600/70 rounded-xl h-full bg-black/50 relative overflow-hidden"
+        className="relative h-full w-full max-w-[70rem] overflow-hidden rounded-xl border-2 border-gray-600/70 bg-black/50 p-3"
       >
-        <div className="flex flex-col bg-primaryPurple/20 overflow-hidden rounded-b-xl w-full h-full items-center rounded-t-xl">
-          <div className="flex justify-between bg-spaceBlack/80 w-full py-7 rounded-t-xl px-8">
+        <div className="bg-primaryPurple/20 flex h-full w-full flex-col items-center overflow-hidden rounded-b-xl rounded-t-xl">
+          <div className="bg-spaceBlack/80 flex w-full justify-between rounded-t-xl px-8 py-7">
             <div className="flex items-center gap-3">
-              <div className="size-4 bg-red-600 rounded-full"></div>
-              <div className="size-4 bg-yellow-600 rounded-full"></div>
-              <div className="size-4 bg-green-600 rounded-full"></div>
+              <div className="size-4 rounded-full bg-red-600"></div>
+              <div className="size-4 rounded-full bg-yellow-600"></div>
+              <div className="size-4 rounded-full bg-green-600"></div>
             </div>
-            <h1 className="text-lg text-medium">Testimonials</h1>
+            <h1 className="text-medium text-lg">Testimonials</h1>
           </div>
-          <div className="flex-1 relative w-full flex flex-col pt-8 items-center">
+          <div className="relative flex w-full flex-1 flex-col items-center pt-8">
             <button
               onClick={() => swipeToImage(-1)}
-              className="absolute hidden md:block z-[10] top-1/2 -translate-y-1/2 left-5"
+              className="absolute left-5 top-1/2 z-[10] hidden -translate-y-1/2 md:block"
             >
-              <IoIosArrowDropleftCircle className="size-7 text-gray-100/90 hover:text-gray-300/80 transition-colors" />
+              <IoIosArrowDropleftCircle className="size-7 text-gray-100/90 transition-colors hover:text-gray-300/80" />
             </button>
             <button
               onClick={() => swipeToImage(1)}
-              className="absolute hidden md:block z-[10] top-1/2 -translate-y-1/2 right-5"
+              className="absolute right-5 top-1/2 z-[10] hidden -translate-y-1/2 md:block"
             >
-              <IoIosArrowDroprightCircle className="size-7 text-gray-100/90 hover:text-gray-300/80 transition-colors" />
+              <IoIosArrowDroprightCircle className="size-7 text-gray-100/90 transition-colors hover:text-gray-300/80" />
             </button>
             <AnimatePresence custom={direction}>
               <motion.div
@@ -124,7 +124,7 @@ export const Testimonials = () => {
                   src={data[testimonialIndex]?.image}
                   alt="profile pic"
                   loading="lazy"
-                  className="rounded-full object-cover object-center my-4 size-40"
+                  className="my-4 size-40 rounded-full object-cover object-center"
                 />
                 <h1 className="text-lg font-semibold">
                   {data[testimonialIndex].name}
@@ -132,7 +132,7 @@ export const Testimonials = () => {
                 <h4 className="text-sm font-medium text-gray-300">
                   {data[testimonialIndex].course}
                 </h4>
-                <div className="max-w-[90%] mt-6 mb-8 h-full flex justify-center items-center">
+                <div className="mb-8 mt-6 flex h-full max-w-[90%] items-center justify-center">
                   <p className="text-center font-light text-gray-200">
                     {data[testimonialIndex].review}
                   </p>

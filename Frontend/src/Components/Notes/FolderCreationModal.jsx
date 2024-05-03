@@ -43,18 +43,18 @@ export const FolderCreationModal = ({ addFolderModal, setAddFolderModal }) => {
         <div
           onClick={() => setAddFolderModal(false)}
           onKeyDown={handleKeyDown}
-          className="popup-overlay w-full h-full z-[11] top-0 backdrop-blur-sm absolute"
+          className="popup-overlay absolute top-0 z-[11] h-full w-full backdrop-blur-sm"
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className="popup-content w-[90%] max-w-[30em] md:w-full px-4 py-10 rounded-lg border border-gray-500/40 absolute bg-[#0d1117] shadow-lg shadow-gray-800/20 z-[11] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+            className="popup-content absolute left-1/2 top-1/2 z-[11] w-[90%] max-w-[30em] -translate-x-1/2 -translate-y-1/2 rounded-lg border border-gray-500/40 bg-[#0d1117] px-4 py-10 shadow-lg shadow-gray-800/20 md:w-full"
           >
-            <h1 className="text-3xl mb-4 font-bold text-center">
+            <h1 className="mb-4 text-center text-3xl font-bold">
               Add New Folder
             </h1>
             <form
               onSubmit={handleSubmit(onSubmit)}
-              className="mx-auto space-y-3 max-w-[80%]"
+              className="mx-auto max-w-[80%] space-y-3"
             >
               <div className="space-y-1">
                 <label htmlFor="title" className="block font-medium">
@@ -64,28 +64,28 @@ export const FolderCreationModal = ({ addFolderModal, setAddFolderModal }) => {
                   id="title"
                   type="text"
                   {...register("title")}
-                  className="w-full rounded-lg py-1 text-black px-2 font-medium focus:ring-2 focus:outline-none focus:ring-blue-600"
+                  className="w-full rounded-lg px-2 py-1 font-medium text-black focus:outline-none focus:ring-2 focus:ring-blue-600"
                 />
               </div>
               {loading ? (
-                <div className="w-full flex items-center justify-center pt-3">
+                <div className="flex w-full items-center justify-center pt-3">
                   <LoadingSpinner />
                 </div>
               ) : (
-                <div className="max-w-[80%] w-fit ml-auto gap-2 mt-6 flex items-center">
+                <div className="ml-auto mt-6 flex w-fit max-w-[80%] items-center gap-2">
                   <button
                     type="button"
                     onClick={() => {
                       setAddFolderModal(false);
                       reset();
                     }}
-                    className="bg-red-600 hover:bg-red-600/80 transition-colors px-3 py-2 rounded-md text-sm"
+                    className="rounded-md bg-red-600 px-3 py-2 text-sm transition-colors hover:bg-red-600/80"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
-                    className="bg-blue-900/80  hover:bg-blue-900/60 transition-colors px-3 py-2 rounded-md text-sm"
+                    className="rounded-md  bg-blue-900/80 px-3 py-2 text-sm transition-colors hover:bg-blue-900/60"
                   >
                     Add Folder
                   </button>

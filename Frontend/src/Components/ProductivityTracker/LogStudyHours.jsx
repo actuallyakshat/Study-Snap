@@ -17,7 +17,7 @@ export const LogStudyHours = ({ cardStyle }) => {
     if (user) {
       const today = new Date().toLocaleString("en-IN", { weekday: "long" });
       const todaySchedule = user.productivityData.Weekly.find(
-        (item) => item.day === today
+        (item) => item.day === today,
       );
       // Get the hours value
       setStudiedUptoNow(todaySchedule.hours);
@@ -111,19 +111,19 @@ export const LogStudyHours = ({ cardStyle }) => {
 
   return (
     <div className={cardStyle}>
-      <div className="w-full text-center mt-8">
-        <h1 className="font-semibold text-3xl">Log Hours ⏲</h1>
-        <p className="text-center max-w-[30ch] my-1 mx-auto text-white/80">
+      <div className="mt-8 w-full text-center">
+        <h1 className="text-3xl font-semibold">Log Hours ⏲</h1>
+        <p className="mx-auto my-1 max-w-[30ch] text-center text-white/80">
           How many hours did you study for today?
         </p>
       </div>
       {loading ? (
-        <div className="flex-1 flex items-center pb-12">
+        <div className="flex flex-1 items-center pb-12">
           <LoadingSpinner />
         </div>
       ) : (
         <>
-          <div className="flex items-center absolute top-1/2 text-4xl left-1/2 -translate-x-1/2">
+          <div className="absolute left-1/2 top-1/2 flex -translate-x-1/2 items-center text-4xl">
             <button onClick={handleDecrement}>-</button>
             <input
               type="text"
@@ -136,14 +136,14 @@ export const LogStudyHours = ({ cardStyle }) => {
                   : "0 Hours"
               }`}
               placeholder="Enter Hours"
-              className="studyhours max-w-[200px] text-3xl bg-transparent focus:outline-none font-bold"
+              className="studyhours max-w-[200px] bg-transparent text-3xl font-bold focus:outline-none"
             />
             <button onClick={handleIncrement}>+</button>
           </div>
           {studiedUptoNow != hoursStudied && (
             <div className="absolute bottom-3 right-5">
               <button
-                className="hover:bg-white/10 p-1 rounded-md"
+                className="rounded-md p-1 hover:bg-white/10"
                 onClick={() => {
                   setHoursStudied(studiedUptoNow);
                 }}
@@ -151,7 +151,7 @@ export const LogStudyHours = ({ cardStyle }) => {
                 <IoClose className="text-2xl" />
               </button>
               <button
-                className="hover:bg-white/10 p-1 rounded-md"
+                className="rounded-md p-1 hover:bg-white/10"
                 onClick={setStudiedHoursHandler}
               >
                 <IoCheckmark className="text-2xl" />

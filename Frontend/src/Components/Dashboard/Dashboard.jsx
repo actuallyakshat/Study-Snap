@@ -29,7 +29,7 @@ export const Dashboard = () => {
       {!clientUser ? (
         <Loading />
       ) : (
-        <div className="w-full flex-1 flex">
+        <div className="flex w-full flex-1">
           <Routes>
             <Route path="/" index element={<ProductivityTrackerLayout />} />
             <Route path="/todos" element={<TodoLayout />} />

@@ -12,9 +12,9 @@ export const MiniTimer = () => {
     return `${paddedMinutes}:${paddedSeconds}`;
   };
   return (
-    <div className="text-center my-4">
+    <div className="my-4 text-center">
       {isPlaying && (
-        <p className="tracking-wider font-medium text-xl">{`Your Timer: ${formatTime()}`}</p>
+        <p className="text-xl font-medium tracking-wider">{`Your Timer: ${formatTime()}`}</p>
       )}
     </div>
   );

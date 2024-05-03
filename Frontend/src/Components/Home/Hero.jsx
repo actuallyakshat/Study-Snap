@@ -19,16 +19,16 @@ export const Hero = ({ scrollToFeatures }) => {
 
   const animationTransition = { duration: 0.5 };
   return (
-    <div className="h-full min-h-[calc(100vh-64px)] flex items-center herobg w-full">
-      <div className="h-full mx-auto flex items-center justify-center px-8 w-full lg:max-w-[75%]">
-        <div className="w-full flex flex-col justify-center items-center">
+    <div className="herobg flex h-full min-h-[calc(100vh-64px)] w-full items-center">
+      <div className="mx-auto flex h-full w-full items-center justify-center px-8 lg:max-w-[75%]">
+        <div className="flex w-full flex-col items-center justify-center">
           <motion.h1
             ref={ref}
             variants={animationVariants}
             initial="hidden"
             animate={mainControls}
             transition={{ ...animationTransition, delay: 0.25 }}
-            className="font-bold text-4xl mx-auto lg:text-6xl max-w-[25ch] text-center"
+            className="mx-auto max-w-[25ch] text-center text-4xl font-bold lg:text-6xl"
           >
             A No Bullsh*t Productivity Tracking Website for Students
           </motion.h1>
@@ -38,7 +38,7 @@ export const Hero = ({ scrollToFeatures }) => {
             initial="hidden"
             animate={mainControls}
             transition={{ ...animationTransition, delay: 0.4 }}
-            className="font-medium mx-auto my-2 text-gray-300/90 text-md lg:text-xl text-center max-w-[70ch]"
+            className="text-md mx-auto my-2 max-w-[70ch] text-center font-medium text-gray-300/90 lg:text-xl"
           >
             Track your study hours, set goals, and boost your productivity with
             our straightforward student-focused platform. No fluff, just
@@ -50,11 +50,11 @@ export const Hero = ({ scrollToFeatures }) => {
             initial="hidden"
             animate={mainControls}
             transition={{ ...animationTransition, delay: 0.5 }}
-            className="flex px-4 space-x-4 mt-10"
+            className="mt-10 flex space-x-4 px-4"
           >
             <button
               onClick={scrollToFeatures}
-              className="px-6 bg-primaryPurple hover:bg-primaryPurple/80 transition-colors font-medium rounded-lg text-sm py-3"
+              className="bg-primaryPurple hover:bg-primaryPurple/80 rounded-lg px-6 py-3 text-sm font-medium transition-colors"
             >
               Features
             </button>
@@ -62,7 +62,7 @@ export const Hero = ({ scrollToFeatures }) => {
             <a
               href="https://github.com/actuallyakshat/Study-Snap"
               target="_blank"
-              className="px-6 flex py-3 items-center hover:text-black gap-3 border text-sm hover:bg-white transition-colors duration-300 font-medium border-gray-600 rounded-lg cursor-pointer"
+              className="flex cursor-pointer items-center gap-3 rounded-lg border border-gray-600 px-6 py-3 text-sm font-medium transition-colors duration-300 hover:bg-white hover:text-black"
             >
               <p>Github</p>
               <FaGithub className="text-xl" />

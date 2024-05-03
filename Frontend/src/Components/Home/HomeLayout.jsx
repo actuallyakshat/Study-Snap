@@ -12,7 +12,7 @@ export const HomeLayout = () => {
   };
 
   return (
-    <div className="w-full h-full flex flex-col items-center justify-center">
+    <div className="flex h-full w-full flex-col items-center justify-center">
       <Hero scrollToFeatures={scrollToFeatures} />
       <Features scrollRef={featuresRef} />
       <Testimonials />

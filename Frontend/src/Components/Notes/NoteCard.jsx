@@ -56,9 +56,9 @@ export const NoteCard = ({ note, isSelected, onSelect }) => {
       onClick={selectionHandler}
       className={`${
         isSelected ? "bg-white/40" : "bg-white/5 hover:bg-black/40"
-      } w-full min-h-[5rem] space-y-1 cursor-pointer transition-colors rounded-lg p-3 flex flex-col justify-center`}
+      } flex min-h-[5rem] w-full cursor-pointer flex-col justify-center space-y-1 rounded-lg p-3 transition-colors`}
     >
-      <div className="w-full flex justify-between">
+      <div className="flex w-full justify-between">
         <h1 className="font-semibold">{note.title}</h1>
         <p>{formattedDate}</p>
       </div>

@@ -14,23 +14,23 @@ export const TimerHistory = () => {
   }, [user]);
 
   return (
-    <div className="flex-[3] h-full px-4 xl:px-2 w-full">
-      <div className="mx-auto w-full h-full py-8">
-        <h1 className="font-bold text-center text-3xl pt-10">
+    <div className="h-full w-full flex-[3] px-4 xl:px-2">
+      <div className="mx-auto h-full w-full py-8">
+        <h1 className="pt-10 text-center text-3xl font-bold">
           Completed Sessions Log
         </h1>
-        <p className="text-center mx-auto text-white/80 my-2 max-w-[60ch]">
+        <p className="mx-auto my-2 max-w-[60ch] text-center text-white/80">
           Work along with the timer for{" "}
-          <span className="text-white font-bold">at least twenty minutes</span>{" "}
+          <span className="font-bold text-white">at least twenty minutes</span>{" "}
           and we will keep a record of it for better productivity tracking!
         </p>
-        <div className="space-y-2 my-10">
+        <div className="my-10 space-y-2">
           {completedTimers &&
             completedTimers.map((item) => (
               <HistoryCard key={item._id} item={item} />
             ))}
           {completedTimers.length == 0 && (
-            <p className="font-semibold text-lg text-center">
+            <p className="text-center text-lg font-semibold">
               You have no completed sessions...
             </p>
           )}

@@ -12,16 +12,16 @@ export const WhiteboardLayout = () => {
       setElements(excalidrawElements);
       localStorage.setItem(
         "excalidrawElements",
-        JSON.stringify(excalidrawElements)
+        JSON.stringify(excalidrawElements),
       );
       localStorage.setItem("excalidrawFiles", JSON.stringify(files));
       setSavedFiles(files);
     },
-    100
+    100,
   );
 
   return (
-    <div className="w-full h-full custom-styles">
+    <div className="custom-styles h-full w-full">
       <style>
         {`
           .excalidraw-text {

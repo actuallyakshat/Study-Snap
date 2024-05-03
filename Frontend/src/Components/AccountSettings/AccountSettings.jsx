@@ -12,8 +12,8 @@ export const AccountSettings = () => {
   };
 
   return (
-    <div className="w-full editProfile bg-center px-4 h-full flex items-center justify-center ">
-      <div className="flex bg-spaceBlack/80 border-2 border-gray-600/80 py-12 rounded-lg top-0 flex-col items-center justify-center w-full max-w-[35rem] px-7">
+    <div className="editProfile flex h-full w-full items-center justify-center bg-center px-4 ">
+      <div className="bg-spaceBlack/80 top-0 flex w-full max-w-[35rem] flex-col items-center justify-center rounded-lg border-2 border-gray-600/80 px-7 py-12">
         <DeleteAccountModal
           user={user}
           setUser={setUser}
@@ -21,25 +21,25 @@ export const AccountSettings = () => {
           setShowModal={setShowModal}
         />
         <div className="w-full">
-          <h1 className="font-bold text-3xl md:text-4xl text-center">
+          <h1 className="text-center text-3xl font-bold md:text-4xl">
             Details
           </h1>
-          <div className="flex flex-wrap items-center mt-4">
-            <p className="font-light text-md md:text-lg mr-3">Name: </p>
-            <p className="font-medium text-md md:text-lg">{user?.name}</p>
+          <div className="mt-4 flex flex-wrap items-center">
+            <p className="text-md mr-3 font-light md:text-lg">Name: </p>
+            <p className="text-md font-medium md:text-lg">{user?.name}</p>
           </div>
           <div className="flex flex-wrap items-center">
-            <p className="font-light text-md md:text-lg mr-3">Email: </p>
-            <p className="font-medium text-md md:text-lg">{user?.email}</p>
+            <p className="text-md mr-3 font-light md:text-lg">Email: </p>
+            <p className="text-md font-medium md:text-lg">{user?.email}</p>
           </div>
-          <div className="max-w-[60%] h-[1px] my-4 mx-auto bg-white/40"></div>
-          <h1 className="text-3xl font-bold mx-auto text-center w-fit">
+          <div className="mx-auto my-4 h-[1px] max-w-[60%] bg-white/40"></div>
+          <h1 className="mx-auto w-fit text-center text-3xl font-bold">
             Danger Zone
           </h1>
-          <div className="w-full flex items-center pt-4 justify-center">
+          <div className="flex w-full items-center justify-center pt-4">
             <button
               onClick={deleteAccountHandler}
-              className="mx- w-fit px-4 py-3 rounded-lg text-sm font-medium hover:bg-red-700 transition-colors bg-red-600"
+              className="mx- w-fit rounded-lg bg-red-600 px-4 py-3 text-sm font-medium transition-colors hover:bg-red-700"
             >
               Delete Account
             </button>

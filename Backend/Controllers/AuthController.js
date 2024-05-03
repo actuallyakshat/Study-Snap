@@ -163,6 +163,13 @@ const getDetails = async (req, res) => {
       .populate({
         path: "folders",
         populate: { path: "notes" },
+      })
+      .populate({
+        path: "friends",
+        populate: {
+          path: "sender receiver", // Assuming 'sender' and 'receiver' are fields in the Friendship schema
+          populate: { path: "friends" },
+        },
       });
 
     if (!user) {
@@ -180,6 +187,11 @@ const getDetails = async (req, res) => {
     }
 
     if (!user.profilePicture && profilePicture) {
+      user.profilePicture = profilePicture;
+      await user.save();
+    }
+
+    if (user.profilePicture && user.profilePicture != profilePicture) {
       user.profilePicture = profilePicture;
       await user.save();
     }

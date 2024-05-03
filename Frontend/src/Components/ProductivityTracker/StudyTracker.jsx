@@ -46,10 +46,10 @@ export const StudyTracker = () => {
 
   return (
     <div className="mb-4">
-      <div className="w-full px-4 my-4 flex justify-between items-center">
+      <div className="my-4 flex w-full items-center justify-between px-4">
         <div className="space-x-2">
           <button
-            className={`px-3 py-2 border rounded-2xl border-gray-400/50 transition-colors text-gray-200 text-sm ${
+            className={`rounded-2xl border border-gray-400/50 px-3 py-2 text-sm text-gray-200 transition-colors ${
               selectedTab === "Weekly" ? "bg-gray-700/80" : ""
             }`}
             onClick={() => setSelectedTab("Weekly")}
@@ -57,7 +57,7 @@ export const StudyTracker = () => {
             Weekly
           </button>
           <button
-            className={`px-3 py-2 border rounded-2xl border-gray-400/50 transition-colors text-gray-200 text-sm ${
+            className={`rounded-2xl border border-gray-400/50 px-3 py-2 text-sm text-gray-200 transition-colors ${
               selectedTab === "Monthly" ? "bg-gray-700/80" : ""
             }`}
             onClick={() => setSelectedTab("Monthly")}
@@ -65,7 +65,7 @@ export const StudyTracker = () => {
             Monthly
           </button>
           <button
-            className={`px-3 py-2 border rounded-2xl border-gray-400/50 transition-colors text-gray-200 text-sm ${
+            className={`rounded-2xl border border-gray-400/50 px-3 py-2 text-sm text-gray-200 transition-colors ${
               selectedTab === "Yearly" ? "bg-gray-700/80" : ""
             }`}
             onClick={() => setSelectedTab("Yearly")}
@@ -74,8 +74,8 @@ export const StudyTracker = () => {
           </button>
         </div>
       </div>
-      <div className="w-full h-fit rounded-2xl px-2 md:px-4 py-5 max-h-[35rem] border bg-gray-800/30 border-gray-500/20">
-        <h1 className="font-semibold text-gray-100 text-2xl py-3 text-center">
+      <div className="h-fit max-h-[35rem] w-full rounded-2xl border border-gray-500/20 bg-gray-800/30 px-2 py-5 md:px-4">
+        <h1 className="py-3 text-center text-2xl font-semibold text-gray-100">
           {selectedTab} Study Progress
         </h1>
         <ResponsiveContainer width="100%" height={400}>

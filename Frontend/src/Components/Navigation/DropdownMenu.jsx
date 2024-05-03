@@ -1,14 +1,14 @@
-import { useEffect, useState } from "react";
-import { LogoutModal } from "../Auth/LogoutModal";
+import { useState } from "react";
+// import { LogoutModal } from "../Auth/LogoutModal";
 import { Link } from "react-router-dom";
-import { clientUserAtom } from "../../Utils/Store";
-import { useAtomValue } from "jotai";
+// import { clientUserAtom } from "../../Utils/Store";
+// import { useAtomValue } from "jotai";
 import { LoadingSpinner } from "../Loading/LoadingSpinner";
 import { useUser } from "@clerk/clerk-react";
 
 function DropdownMenu() {
   const [isOpen, setIsOpen] = useState(false);
-  const [logoutModal, setLogoutModal] = useState(false);
+  // const [logoutModal, setLogoutModal] = useState(false);
   const { user } = useUser();
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -23,7 +23,7 @@ function DropdownMenu() {
           <button
             type="button"
             onClick={toggleMenu}
-            className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold transition-colors text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-300"
+            className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 transition-colors hover:bg-gray-300"
             id="menu-button"
             aria-expanded={isOpen ? "true" : "false"}
             aria-haspopup="true"
@@ -52,12 +52,12 @@ function DropdownMenu() {
         >
           <div
             onClick={toggleMenu}
-            className="fixed left-0 top-0 z-[-10] w-full h-full"
+            className="fixed left-0 top-0 z-[-10] h-full w-full"
           />
-          <div className="bg-white rounded-md">
+          <div className="rounded-md bg-white">
             <Link
               to="/dashboard/"
-              className="text-gray-700 hover:bg-gray-200 rounded-md h-full font-medium block px-4 py-2 text-sm"
+              className="block h-full rounded-md px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200"
               role="menuitem"
               id="menu-item-0"
               onClick={toggleMenu}
@@ -66,7 +66,7 @@ function DropdownMenu() {
             </Link>
             <Link
               to="/dashboard/todos"
-              className="text-gray-700 hover:bg-gray-200 rounded-md border-t font-medium block px-4 py-2 text-sm"
+              className="block rounded-md border-t px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200"
               role="menuitem"
               id="menu-item-1"
               onClick={toggleMenu}
@@ -75,7 +75,7 @@ function DropdownMenu() {
             </Link>
             <Link
               to="/dashboard/notes"
-              className="text-gray-700 hover:bg-gray-200 rounded-md border-t font-medium block px-4 py-2 text-sm"
+              className="block rounded-md border-t px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200"
               role="menuitem"
               id="menu-item-2"
               onClick={toggleMenu}
@@ -84,7 +84,7 @@ function DropdownMenu() {
             </Link>
             <Link
               to="/dashboard/whiteboard"
-              className="text-gray-700 hover:bg-gray-200 rounded-md border-t font-medium block px-4 py-2 text-sm"
+              className="block rounded-md border-t px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200"
               role="menuitem"
               id="menu-item-3"
               onClick={toggleMenu}
@@ -93,7 +93,7 @@ function DropdownMenu() {
             </Link>
             <Link
               to="/dashboard/timer"
-              className="text-gray-700 hover:bg-gray-200 rounded-md border-t font-medium block px-4 py-2 text-sm"
+              className="block rounded-md border-t px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200"
               role="menuitem"
               id="menu-item-4"
               onClick={toggleMenu}
@@ -102,7 +102,7 @@ function DropdownMenu() {
             </Link>
             <Link
               to="/dashboard/friends"
-              className="text-gray-700 hover:bg-gray-200 rounded-md border-t font-medium block px-4 py-2 text-sm"
+              className="block rounded-md border-t px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200"
               role="menuitem"
               id="menu-item-5"
               onClick={toggleMenu}
@@ -111,24 +111,13 @@ function DropdownMenu() {
             </Link>
             <Link
               to="/dashboard/edit-profile"
-              className="text-gray-700 hover:bg-gray-200 rounded-md border-t font-medium block px-4 py-2 text-sm"
+              className="block rounded-md border-t px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200"
               role="menuitem"
               id="menu-item-6"
               onClick={toggleMenu}
             >
-              Settings
+              Profile
             </Link>
-
-            <button
-              onClick={() => setLogoutModal(true)}
-              className="text-gray-700 hover:bg-gray-200 rounded-md font-medium w-full text-left border-t block px-4 py-2 text-sm"
-            >
-              Logout
-            </button>
-            <LogoutModal
-              showModal={logoutModal}
-              setShowModal={setLogoutModal}
-            />
           </div>
         </div>
       )}

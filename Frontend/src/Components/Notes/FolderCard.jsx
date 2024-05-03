@@ -20,7 +20,7 @@ export const FolderCard = ({
   return (
     <div>
       <div
-        className={`flex rounded-lg items-center px-4 py-2 cursor-pointer ${
+        className={`flex cursor-pointer items-center rounded-lg px-4 py-2 ${
           isExpanded ? "underline" : ""
         }`}
         onClick={() => {
@@ -40,8 +40,8 @@ export const FolderCard = ({
           stroke="currentColor"
           style={{ transition: "transform 0.3s ease" }}
           className={`${
-            isExpanded ? "transform rotate-90 -translate-y-1" : ""
-          } h-6 w-6 mr-2`}
+            isExpanded ? "-translate-y-1 rotate-90 transform" : ""
+          } mr-2 h-6 w-6`}
         >
           <path
             strokeLinecap="round"
@@ -50,21 +50,21 @@ export const FolderCard = ({
             d={isExpanded ? "M13 5l7 7-7 7" : "M9 5l7 7-7 7"}
           />
         </svg>
-        <div className="flex justify-between items-center w-full">
-          <p className="text-white font-semibold">{folder.name}</p>
+        <div className="flex w-full items-center justify-between">
+          <p className="font-semibold text-white">{folder.name}</p>
           <div
             onClick={(e) => {
               e.stopPropagation();
               setDeleteFolderModal(true);
               setSelectedFolderId(folder._id);
             }}
-            className="p-2 hover:bg-white/20 rounded-lg transition-colors hover:text-red-600"
+            className="rounded-lg p-2 transition-colors hover:bg-white/20 hover:text-red-600"
           >
             <FaTrash className="size-4" />
           </div>
         </div>
       </div>
-      <div className={`pl-8 mt-1 space-y-2 ${isExpanded ? "block" : "hidden"}`}>
+      <div className={`mt-1 space-y-2 pl-8 ${isExpanded ? "block" : "hidden"}`}>
         {folder?.notes?.map((note) => (
           <NoteCard
             key={note._id}

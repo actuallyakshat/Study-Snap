@@ -20,5 +20,5 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         </ClerkProvider>
       </TimerProvider>
     </BrowserRouter>
-  </React.StrictMode>
+  </React.StrictMode>,
 );

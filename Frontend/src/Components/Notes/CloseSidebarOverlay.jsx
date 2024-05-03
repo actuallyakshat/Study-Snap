@@ -8,7 +8,7 @@ export const CloseSidebarOverlay = () => {
       {sidebarOpen && (
         <div
           onClick={() => setSidebarOpen(false)}
-          className="absolute z-[9] top-0 w-full h-full"
+          className="absolute top-0 z-[9] h-full w-full"
         ></div>
       )}
     </div>

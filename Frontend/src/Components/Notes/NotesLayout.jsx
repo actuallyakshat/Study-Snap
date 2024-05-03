@@ -31,7 +31,7 @@ export const NotesLayout = () => {
     if (user) {
       // Exclude the unorganised folder from folders list
       const filteredFolders = user.folders.filter(
-        (folder) => folder.name !== "unorganized"
+        (folder) => folder.name !== "unorganized",
       );
       setFolders(filteredFolders);
     }
@@ -41,7 +41,7 @@ export const NotesLayout = () => {
     if (searchQuery) {
       const filteredNotesArray = user?.folders?.reduce((acc, folder) => {
         const filteredFolderNotes = folder.notes.filter((note) =>
-          note.title.toLowerCase().includes(searchQuery.toLowerCase())
+          note.title.toLowerCase().includes(searchQuery.toLowerCase()),
         );
         return acc.concat(filteredFolderNotes);
       }, []);
@@ -84,18 +84,18 @@ export const NotesLayout = () => {
       <div
         className={`${
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
-        }  sm:border-r absolute left-0 top-0 pt-[3.5em] border-gray-400/50 bg-spaceBlack overflow-y-auto h-full py-6 z-[10] flex-1 sm:w-full sm:max-w-[25em] w-screen px-4 space-y-2 transition-transform duration-300`}
+        }  bg-spaceBlack absolute left-0 top-0 z-[10] h-full w-screen flex-1 space-y-2 overflow-y-auto border-gray-400/50 px-4 py-6 pt-[3.5em] transition-transform duration-300 sm:w-full sm:max-w-[25em] sm:border-r`}
       >
         <IoMdClose
           onClick={() => setSidebarOpen(false)}
-          className="size-7 cursor-pointer absolute right-4 top-4"
+          className="absolute right-4 top-4 size-7 cursor-pointer"
         />
-        <div className="w-full gap-4 flex items-center justify-between mb-6">
-          <div className="flex-1 relative">
+        <div className="mb-6 flex w-full items-center justify-between gap-4">
+          <div className="relative flex-1">
             {searchQuery && (
               <IoMdClose
                 onClick={() => setSearchQuery("")}
-                className="absolute cursor-pointer text-black right-3 top-1/2 -translate-y-1/2"
+                className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-black"
               />
             )}
             <input
@@ -103,27 +103,27 @@ export const NotesLayout = () => {
               placeholder="Search Notes"
               value={searchQuery}
               onChange={handleSearchChange}
-              className="p-2 w-full flex-1 rounded-lg focus:ring-blue-600/80 focus:ring-2 focus:outline-none bg-gray-50 text-gray-900"
+              className="w-full flex-1 rounded-lg bg-gray-50 p-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-600/80"
             />
           </div>
 
-          <div className="flex gap-1 items-center justify-center cursor-pointer">
+          <div className="flex cursor-pointer items-center justify-center gap-1">
             <i
               onClick={handleAddFolder}
-              className="hover:bg-white/20 transition-colors rounded-lg py-1 px-1 hover:text-gray-300"
+              className="rounded-lg px-1 py-1 transition-colors hover:bg-white/20 hover:text-gray-300"
             >
               <AiOutlineFolderAdd className="size-7" />
             </i>
             <i
               onClick={handleAddNote}
-              className="hover:bg-white/20 transition-colors rounded-lg py-1 px-1 cursor-pointer hover:text-gray-300"
+              className="cursor-pointer rounded-lg px-1 py-1 transition-colors hover:bg-white/20 hover:text-gray-300"
             >
               <AiOutlineFileAdd className="size-7" />
             </i>
           </div>
         </div>
         {searchQuery && !filteredNotes?.length && (
-          <div className="text-center pt-6 font-medium">
+          <div className="pt-6 text-center font-medium">
             No search results...
           </div>
         )}
@@ -175,8 +175,8 @@ export const NotesLayout = () => {
       </div>
       <div className="h-full">
         {!selectedNoteId && (
-          <div className="w-full h-full font-bold text-4xl flex items-center justify-center">
-            <div className="p-8 w-full h-full max-w-[90%] max-h-[90%] flex items-center justify-center border border-dashed rounded-lg">
+          <div className="flex h-full w-full items-center justify-center text-4xl font-bold">
+            <div className="flex h-full max-h-[90%] w-full max-w-[90%] items-center justify-center rounded-lg border border-dashed p-8">
               <h1>Select or Create a Note to Get Started.</h1>
             </div>
           </div>

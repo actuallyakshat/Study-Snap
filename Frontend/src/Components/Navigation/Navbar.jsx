@@ -15,25 +15,25 @@ export const Navbar = ({ user }) => {
   const location = useLocation();
 
   return (
-    <div className="h-[64px] relative w-full px-4 border-b border-white/25">
+    <div className="relative h-[64px] w-full border-b border-white/25 px-4">
       {location.pathname === "/dashboard/notes" && (
         <GiHamburgerMenu
           onClick={() => setSidebarOpen(true)}
-          className="absolute top-1/2 left-8 -translate-y-1/2 cursor-pointer size-5"
+          className="absolute left-8 top-1/2 size-5 -translate-y-1/2 cursor-pointer"
         />
       )}
-      <div className="flex h-full items-center mx-auto justify-between md:w-[75%]">
+      <div className="mx-auto flex h-full items-center justify-between md:w-[75%]">
         {location.pathname !== "/dashboard/notes" && (
-          <Link to="/" className="font-semibold text-xl">
+          <Link to="/" className="text-xl font-semibold">
             StudySnap
           </Link>
         )}
 
-        <div className="flex ml-auto items-center justify-end space-x-4">
+        <div className="ml-auto flex items-center justify-end space-x-4">
           {!user ? (
             <button
               onClick={() => openSignIn()}
-              className="transition-colors border border-gray-500 font-semibold hover:text-black hover:bg-white py-2 px-4 text-sm rounded-lg"
+              className="rounded-lg border border-gray-500 px-4 py-2 text-sm font-semibold transition-colors hover:bg-white hover:text-black"
             >
               Login
             </button>

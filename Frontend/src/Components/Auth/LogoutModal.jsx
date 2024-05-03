@@ -20,18 +20,18 @@ export const LogoutModal = ({ showModal, setShowModal }) => {
         <div
           id="popup-modal"
           tabIndex="-1"
-          className="overflow-y-auto popup-overlay overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-full max-h-full"
+          className="popup-overlay fixed left-0 right-0 top-0 z-50 h-full max-h-full w-full items-center justify-center overflow-y-auto overflow-x-hidden md:inset-0"
         >
-          <div className="relative w-[90%] max-w-[30em] md:w-full popup-content top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-4 max-h-full animate-fadeIn animate-slideIn">
-            <div className="relative bg-white rounded-lg shadow">
+          <div className="popup-content animate-fadeIn animate-slideIn relative left-1/2 top-1/2 max-h-full w-[90%] max-w-[30em] -translate-x-1/2 -translate-y-1/2 p-4 md:w-full">
+            <div className="relative rounded-lg bg-white shadow">
               <button
                 type="button"
-                className="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
+                className="absolute end-2.5 top-3 ms-auto inline-flex h-8 w-8 items-center justify-center rounded-lg bg-transparent text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900"
                 data-modal-hide="popup-modal"
                 onClick={() => setShowModal(false)}
               >
                 <svg
-                  className="w-3 h-3"
+                  className="h-3 w-3"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -47,9 +47,9 @@ export const LogoutModal = ({ showModal, setShowModal }) => {
                 </svg>
                 <span className="sr-only">Close modal</span>
               </button>
-              <div className="p-4 md:p-5 text-center">
+              <div className="p-4 text-center md:p-5">
                 <svg
-                  className="mx-auto mb-4 text-gray-400 w-12 h-12"
+                  className="mx-auto mb-4 h-12 w-12 text-gray-400"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -63,7 +63,7 @@ export const LogoutModal = ({ showModal, setShowModal }) => {
                     d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
                   />
                 </svg>
-                <h3 className="mb-5 text-md font-normal text-gray-500">
+                <h3 className="text-md mb-5 font-normal text-gray-500">
                   Are you sure you wish to logout?
                 </h3>
                 <div className="space-x-3">
@@ -71,7 +71,7 @@ export const LogoutModal = ({ showModal, setShowModal }) => {
                     data-modal-hide="popup-modal"
                     type="button"
                     onClick={() => setShowModal(false)}
-                    className="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primaryPurple"
+                    className="hover:text-primaryPurple ms-3 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-100 focus:outline-none"
                   >
                     Cancel
                   </button>
@@ -79,7 +79,7 @@ export const LogoutModal = ({ showModal, setShowModal }) => {
                     data-modal-hide="popup-modal"
                     type="button"
                     onClick={logoutHandler}
-                    className="text-white bg-red-600 hover:bg-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center"
+                    className="inline-flex items-center rounded-lg bg-red-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-red-800"
                   >
                     Logout
                   </button>

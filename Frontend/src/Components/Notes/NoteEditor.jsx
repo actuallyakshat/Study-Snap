@@ -118,8 +118,8 @@ export const NoteEditor = ({ content, noteId, setSelectedNoteId, title }) => {
         noteId={noteId}
         setSelectedNoteId={setSelectedNoteId}
       />
-      <div className="w-full flex flex-col xl:flex-row gap-3 justify-between">
-        <div className="bg-white/20 px-3 w-fit flex-wrap rounded-md flex gap-2 items-center">
+      <div className="flex w-full flex-col justify-between gap-3 xl:flex-row">
+        <div className="flex w-fit flex-wrap items-center gap-2 rounded-md bg-white/20 px-3">
           <button
             onClick={() => editor.chain().focus().toggleBold().run()}
             disabled={!editor.can().chain().focus().toggleBold().run()}
@@ -127,7 +127,7 @@ export const NoteEditor = ({ content, noteId, setSelectedNoteId, title }) => {
               editor.isActive("bold")
                 ? "bg-gray-300/30"
                 : "hover:bg-gray-200/10"
-            } p-2 rounded-md transition-colors`}
+            } rounded-md p-2 transition-colors`}
           >
             <FaBold />
           </button>
@@ -138,7 +138,7 @@ export const NoteEditor = ({ content, noteId, setSelectedNoteId, title }) => {
               editor.isActive("italic")
                 ? "bg-gray-300/30"
                 : "hover:bg-gray-200/10"
-            } p-2 rounded-md transition-colors`}
+            } rounded-md p-2 transition-colors`}
           >
             <FaItalic />
           </button>
@@ -148,7 +148,7 @@ export const NoteEditor = ({ content, noteId, setSelectedNoteId, title }) => {
               editor.isActive("underline")
                 ? "bg-gray-300/30"
                 : "hover:bg-gray-200/10"
-            } p-2 rounded-md transition-colors`}
+            } rounded-md p-2 transition-colors`}
           >
             <FaUnderline />
           </button>
@@ -159,7 +159,7 @@ export const NoteEditor = ({ content, noteId, setSelectedNoteId, title }) => {
               editor.isActive("strike")
                 ? "bg-gray-300/30"
                 : "hover:bg-gray-200/10"
-            } p-2 rounded-md transition-colors`}
+            } rounded-md p-2 transition-colors`}
           >
             <FaStrikethrough />
           </button>
@@ -169,7 +169,7 @@ export const NoteEditor = ({ content, noteId, setSelectedNoteId, title }) => {
               editor.isActive("orderedList")
                 ? "bg-gray-300/30"
                 : "hover:bg-gray-200/10"
-            } p-2 rounded-md transition-colors`}
+            } rounded-md p-2 transition-colors`}
           >
             <FaListOl />
           </button>
@@ -179,7 +179,7 @@ export const NoteEditor = ({ content, noteId, setSelectedNoteId, title }) => {
               editor.isActive("bulletList")
                 ? "bg-gray-300/30"
                 : "hover:bg-gray-200/10"
-            } p-2 rounded-md transition-colors`}
+            } rounded-md p-2 transition-colors`}
           >
             <IoListOutline className="size-5" />
           </button>
@@ -189,7 +189,7 @@ export const NoteEditor = ({ content, noteId, setSelectedNoteId, title }) => {
               editor.isActive("taskList")
                 ? "bg-gray-300/30"
                 : "hover:bg-gray-200/10"
-            } p-2 rounded-md transition-colors`}
+            } rounded-md p-2 transition-colors`}
           >
             <RiTaskFill />
           </button>
@@ -201,7 +201,7 @@ export const NoteEditor = ({ content, noteId, setSelectedNoteId, title }) => {
               editor.isActive("heading", { level: 1 })
                 ? "bg-gray-300/30"
                 : "hover:bg-gray-200/10"
-            } p-2 rounded-md transition-colors`}
+            } rounded-md p-2 transition-colors`}
           >
             <LuHeading1 className="size-5" />
           </button>
@@ -213,7 +213,7 @@ export const NoteEditor = ({ content, noteId, setSelectedNoteId, title }) => {
               editor.isActive("heading", { level: 2 })
                 ? "bg-gray-300/30"
                 : "hover:bg-gray-200/10"
-            } p-2 rounded-md transition-colors`}
+            } rounded-md p-2 transition-colors`}
           >
             <LuHeading2 className="size-5" />
           </button>
@@ -225,7 +225,7 @@ export const NoteEditor = ({ content, noteId, setSelectedNoteId, title }) => {
               editor.isActive("heading", { level: 3 })
                 ? "bg-gray-300/30"
                 : "hover:bg-gray-200/10"
-            } p-2 rounded-md transition-colors`}
+            } rounded-md p-2 transition-colors`}
           >
             <LuHeading3 className="size-5" />
           </button>
@@ -237,7 +237,7 @@ export const NoteEditor = ({ content, noteId, setSelectedNoteId, title }) => {
               editor.isActive("heading", { level: 4 })
                 ? "bg-gray-300/30"
                 : "hover:bg-gray-200/10"
-            } p-2 rounded-md transition-colors`}
+            } rounded-md p-2 transition-colors`}
           >
             <LuHeading4 className="size-5" />
           </button>
@@ -249,18 +249,18 @@ export const NoteEditor = ({ content, noteId, setSelectedNoteId, title }) => {
         ) : (
           <div className="flex items-stretch gap-3 ">
             <button
-              className="flex items-center bg-white/20 px-4 hover:bg-green-500/20 transition-colors rounded-md py-2 text-sm gap-3"
+              className="flex items-center gap-3 rounded-md bg-white/20 px-4 py-2 text-sm transition-colors hover:bg-green-500/20"
               onClick={handleSaveNote}
             >
               <p>Save</p>
-              <FaSave className="size-5 hover:text-gray-300 transition-colors" />
+              <FaSave className="size-5 transition-colors hover:text-gray-300" />
             </button>
             <button
               onClick={() => setDeleteNoteModal(true)}
-              className="flex items-center bg-white/20 hover:bg-red-500/40 transition-colors rounded-md py-2 text-sm gap-3 px-4"
+              className="flex items-center gap-3 rounded-md bg-white/20 px-4 py-2 text-sm transition-colors hover:bg-red-500/40"
             >
               <p>Delete</p>
-              <FaTrash className="size-5 hover:text-gray-300  transition-colors" />
+              <FaTrash className="size-5 transition-colors  hover:text-gray-300" />
             </button>
           </div>
         )}

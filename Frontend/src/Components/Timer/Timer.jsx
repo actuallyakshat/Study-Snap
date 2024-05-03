@@ -52,9 +52,9 @@ const Timer = () => {
   };
 
   return (
-    <div className="font-Inter w-full px-4 md:px-6 py-6 flex-[4] h-full justify-center flex flex-col items-center">
+    <div className="font-Inter flex h-full w-full flex-[4] flex-col items-center justify-center px-4 py-6 md:px-6">
       <div
-        className={`xl:w-[50%] w-full flex justify-start items-center ${
+        className={`flex w-full items-center justify-start xl:w-[50%] ${
           settingsOpen ? "justify-center" : "justify-end"
         } mb-6 gap-3`}
       >
@@ -64,10 +64,10 @@ const Timer = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1, animationDelay: 1 }}
               exit={{ opacity: 0 }}
-              className="py-3 flex justify-center items-center gap-2 md:gap-4"
+              className="flex items-center justify-center gap-2 py-3 md:gap-4"
             >
               <input
-                className="focus:outline text-black outline-gray-100 rounded-md py-2 px-3"
+                className="rounded-md px-3 py-2 text-black outline-gray-100 focus:outline"
                 type="number"
                 max={60}
                 ref={timerInputRef}
@@ -83,14 +83,14 @@ const Timer = () => {
                 <button
                   type="button"
                   onClick={handleSetTimer}
-                  className="px-5 py-3 flex items-center w-fit justify-center bg-green-400/20 hover:bg-green-700/20 transition-colors rounded-md text-sm"
+                  className="flex w-fit items-center justify-center rounded-md bg-green-400/20 px-5 py-3 text-sm transition-colors hover:bg-green-700/20"
                 >
                   Set
                 </button>
                 <button
                   type="button"
                   onClick={() => setSettingsOpen(false)}
-                  className="px-5 py-3  flex tems-center w-fit justify-center bg-red-600/40 hover:bg-red-700/30 transition-colors rounded-md text-sm"
+                  className="tems-center flex  w-fit justify-center rounded-md bg-red-600/40 px-5 py-3 text-sm transition-colors hover:bg-red-700/30"
                 >
                   Cancel
                 </button>
@@ -99,7 +99,7 @@ const Timer = () => {
           </AnimatePresence>
         ) : (
           <button
-            className="text-sm px-4 py-3 hover:bg-white/10 h-fit flex items-center gap-3 transition-colors bg-white/20 rounded-lg"
+            className="flex h-fit items-center gap-3 rounded-lg bg-white/20 px-4 py-3 text-sm transition-colors hover:bg-white/10"
             onClick={() => {
               setSettingsOpen(!settingsOpen);
             }}
@@ -123,11 +123,11 @@ const Timer = () => {
         })}
         className="max-w-[30rem]"
       />
-      <div className="w-full flex mt-8 gap-2 justify-center items-center">
+      <div className="mt-8 flex w-full items-center justify-center gap-2">
         {!playing ? (
           <button
             onClick={handleStartStop}
-            className="flex items-center gap-2 px-3 py-2 bg-green-500/50 hover:bg-green-500/40 transition-colors rounded-md"
+            className="flex items-center gap-2 rounded-md bg-green-500/50 px-3 py-2 transition-colors hover:bg-green-500/40"
           >
             Play
             <FaPlay />
@@ -136,7 +136,7 @@ const Timer = () => {
           <div className="flex gap-2">
             <button
               onClick={handleStartStop}
-              className="flex items-center gap-2 px-3 py-2 bg-yellow-400/60 hover:bg-yellow-400/50 transition-colors rounded-md"
+              className="flex items-center gap-2 rounded-md bg-yellow-400/60 px-3 py-2 transition-colors hover:bg-yellow-400/50"
             >
               Pause
               <FaPause />
@@ -148,7 +148,7 @@ const Timer = () => {
             setTimer(totalTime);
             setPlaying(false);
           }}
-          className="flex items-center gap-2 px-3 py-2 bg-red-500/50 hover:bg-red-500/40 transition-colors rounded-md"
+          className="flex items-center gap-2 rounded-md bg-red-500/50 px-3 py-2 transition-colors hover:bg-red-500/40"
         >
           Reset
           <FaStop />

@@ -3,9 +3,9 @@ import { TimerHistory } from "./TimerHistory";
 
 export const TimerLayout = () => {
   return (
-    <div className="w-full h-full flex items-center xl:flex-row flex-col">
+    <div className="flex h-full w-full flex-col items-center xl:flex-row">
       <Timer />
-      <div className="xl:h-full w-full h-[1px] bg-white/40 xl:w-[1px]"></div>
+      <div className="h-[1px] w-full bg-white/40 xl:h-full xl:w-[1px]"></div>
       <TimerHistory />
     </div>
   );

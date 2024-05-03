@@ -64,10 +64,10 @@ export const TodoLayout = () => {
   };
 
   return (
-    <div className="h-full todobg flex-1 flex justify-center">
-      <div className="min-w-[90%] mx-4 h-[90%] flex flex-col my-6 md:my-16 items-center">
-        <div className="flex flex-col w-full md:max-w-[70%] xl:max-w-[50%]">
-          <h1 className="text-center mt-3 text-5xl md:text-6xl font-Inter font-black">
+    <div className="todobg flex h-full flex-1 justify-center">
+      <div className="mx-4 my-6 flex h-[90%] min-w-[90%] flex-col items-center md:my-16">
+        <div className="flex w-full flex-col md:max-w-[70%] xl:max-w-[50%]">
+          <h1 className="font-Inter mt-3 text-center text-5xl font-black md:text-6xl">
             To-Do List
           </h1>
           <InspirationalQuote />
@@ -90,7 +90,7 @@ export const TodoLayout = () => {
                 values={items}
                 onReorder={handleReorder}
               >
-                <div className="space-y-3 mx-auto w-full">
+                <div className="mx-auto w-full space-y-3">
                   {items.map((item) => (
                     <Todo
                       key={item._id}

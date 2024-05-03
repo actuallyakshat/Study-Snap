@@ -24,7 +24,6 @@ function App() {
     if (!loaded) return;
     else if (loaded && !user) return;
     else {
-      console.log(user);
       setLoading(true);
       const getDetails = async () => {
         const tempUser = {
@@ -44,13 +43,13 @@ function App() {
 
   return (
     <>
-      <div className="font-Poppins flex flex-col items-center min-h-screen h-full w-full bg-spaceBlack text-white">
+      <div className="font-Poppins bg-spaceBlack flex h-full min-h-screen w-full flex-col items-center text-white">
         <Toaster />
         <ClerkLoading>
           <Loading />
         </ClerkLoading>
         <ClerkLoaded>
-          <div className="flex flex-col items-stretch w-full flex-1 h-full">
+          <div className="flex h-full w-full flex-1 flex-col items-stretch">
             <Navbar user={user} />
             <Routes user={user} />
           </div>

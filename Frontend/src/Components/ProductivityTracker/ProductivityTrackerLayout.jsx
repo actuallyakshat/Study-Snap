@@ -11,13 +11,13 @@ export const ProductivityTrackerLayout = () => {
     "max-w-[350px] border border-gray-400/20 relative px-4 w-full flex-col bg-gray-800/30 h-[300px] rounded-2xl flex items-center";
   const [user, setUser] = useAtom(clientUserAtom);
   return (
-    <div className="w-full h-full flex-1 py-8">
-      <div className="mx-auto h-full px-3 md:max-w-[80%] w-full">
-        <h1 className="font-bold p-4 text-3xl md:text-5xl">
+    <div className="h-full w-full flex-1 py-8">
+      <div className="mx-auto h-full w-full px-3 md:max-w-[80%]">
+        <h1 className="p-4 text-3xl font-bold md:text-5xl">
           Hey {user?.name.split(" ")[0]}, Let&apos;s Keep Going!
         </h1>
         <StudyTracker />
-        <div className="w-full justify-center flex flex-wrap md:flex-row gap-3">
+        <div className="flex w-full flex-wrap justify-center gap-3 md:flex-row">
           <LogStudyHours cardStyle={cardStyle} />
           <StreakRecord cardStyle={cardStyle} />
           <SetStudyTarget cardStyle={cardStyle} user={user} setUser={setUser} />

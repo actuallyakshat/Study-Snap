@@ -29,7 +29,6 @@ function WizardPage() {
     } else if (containsSpecialChars) {
       toast.error("Username cannot contain special characters.");
     } else {
-      console.log(cleanedUsername);
       const response = await setProfileUsername(user.email, cleanedUsername);
       if (response.success) {
         setUser((prevUser) => ({
@@ -45,9 +44,9 @@ function WizardPage() {
   };
 
   return (
-    <div className="w-full flex items-center justify-center">
+    <div className="flex w-full items-center justify-center">
       <div>
-        <h1 className="font-bold text-3xl text-center">
+        <h1 className="text-center text-3xl font-bold">
           Complete your profile
         </h1>
         <h4 className="text-gray-300">
@@ -61,14 +60,14 @@ function WizardPage() {
             }
           }}
           onChange={(e) => handleInput(e)}
-          className="px-3 mt-5 py-2 h-10 w-full flex-1 bg-slate-800 rounded-lg text-white focus:outline-none"
+          className="mt-5 h-10 w-full flex-1 rounded-lg bg-slate-800 px-3 py-2 text-white focus:outline-none"
           placeholder="Some cool username"
         />
-        <div className="w-full flex justify-end">
+        <div className="flex w-full justify-end">
           <button
             disabled={loading}
             onClick={handleFinish}
-            className="bg-white px-4 py-1.5 rounded-lg mt-4 text-black text-sm font-medium hover:opacity-90 transition-all duration-200"
+            className="mt-4 rounded-lg bg-white px-4 py-1.5 text-sm font-medium text-black transition-all duration-200 hover:opacity-90"
           >
             Finish
           </button>

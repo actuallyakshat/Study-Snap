@@ -5,13 +5,13 @@ export const StreakRecord = ({ cardStyle }) => {
   const [user, setUser] = useAtom(clientUserAtom);
   return (
     <div className={cardStyle}>
-      <div className="w-full text-center mt-8">
-        <h1 className="font-semibold text-3xl">Streak 🔥</h1>
-        <p className="text-center my-1 max-w-[30ch] mx-auto text-white/80">
+      <div className="mt-8 w-full text-center">
+        <h1 className="text-3xl font-semibold">Streak 🔥</h1>
+        <p className="mx-auto my-1 max-w-[30ch] text-center text-white/80">
           You have been continuously logging your studying data for:
         </p>
       </div>
-      <h3 className="font-bold text-3xl absolute top-1/2">
+      <h3 className="absolute top-1/2 text-3xl font-bold">
         {user?.streak == 1 ? `${user?.streak} Day` : `${user?.streak} Days`}
       </h3>
     </div>

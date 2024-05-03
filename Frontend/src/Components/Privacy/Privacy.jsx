@@ -1,6 +1,6 @@
 export const Privacy = () => {
   return (
-    <div className="w-[75%] mx-auto py-8 space-y-4">
+    <div className="mx-auto w-[75%] space-y-4 py-8">
       <h1 className="text-4xl font-bold">Privacy Policy</h1>
       <p>Last updated: March 20, 2024</p>
       <p className="my-3">

@@ -51,8 +51,8 @@ export const Todo = ({
       dragListener={false}
       dragControls={controls}
     >
-      <div className="select-none border border-gray-600/30 flex items-center transition-colors text-md min-h-10 px-3 rounded-lg bg-slate-800/80 text-white hover:bg-slate-800 active:bg-slate-800/70">
-        <div className="gap-1 h-full flex-1 flex items-center">
+      <div className="text-md flex min-h-10 select-none items-center rounded-lg border border-gray-600/30 bg-slate-800/80 px-3 text-white transition-colors hover:bg-slate-800 active:bg-slate-800/70">
+        <div className="flex h-full flex-1 items-center gap-1">
           <div
             style={{ touchAction: "none" }}
             onPointerDown={(e) => controls.start(e)}
@@ -62,32 +62,32 @@ export const Todo = ({
               <MdDragIndicator className="size-5" />
             </i>
           </div>
-          <div className="flex justify-between h-full cursor-pointer w-full items-center">
+          <div className="flex h-full w-full cursor-pointer items-center justify-between">
             <div
               onClick={handleCheckboxChange}
-              className="space-x-2 pr-1 ml-0 flex flex-1 h-full items-center"
+              className="ml-0 flex h-full flex-1 items-center space-x-2 pr-1"
             >
               <input
                 type="checkbox"
                 readOnly
                 checked={completed}
-                className="max-w-[25px] size-4 w-full bg-transparent rounded-lg bg-primaryPurple accent-primaryPurple"
+                className="bg-primaryPurple accent-primaryPurple size-4 w-full max-w-[25px] rounded-lg bg-transparent"
               />
               <span className={`${completed ? "line-through" : ""} py-3`}>
                 {item.task}
               </span>
             </div>
 
-            <div className="flex justify-self-end h-full items-center gap-2">
+            <div className="flex h-full items-center gap-2 justify-self-end">
               <button
                 onClick={() => handleUpdateClick(item.task, item._id)}
-                className="text-xl cursor-pointer hover:text-red-600 transition-colors rounded-lg p-1"
+                className="cursor-pointer rounded-lg p-1 text-xl transition-colors hover:text-red-600"
               >
                 <MdEdit />
               </button>
               <button
                 onClick={deleteTodoHandler}
-                className="text-xl cursor-pointer hover:text-red-600 transition-colors rounded-lg p-1"
+                className="cursor-pointer rounded-lg p-1 text-xl transition-colors hover:text-red-600"
               >
                 <MdDelete />
               </button>

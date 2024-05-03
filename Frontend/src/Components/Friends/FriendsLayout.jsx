@@ -1,15 +1,24 @@
 import { useAtomValue } from "jotai";
 import { clientUserAtom } from "../../Utils/Store";
 import WizardPage from "./WizardPage";
+import FloatingNavigation from "./FloatingNavigation";
+import { useState } from "react";
+import AddFriendsComponent from "./AddFriendsComponent";
+import FriendsComponent from "./FriendsComponent";
+import IncomingRequestsComponent from "./IncomingRequestsComponent";
 
 function FriendsLayout() {
   const user = useAtomValue(clientUserAtom);
-  console.log(user);
+  const [page, setPage] = useState("friends");
   if (!user?.username) return <WizardPage user={user} />;
   return (
-    <div className="flex w-full">
-      <div className="flex-[3]">Your friends</div>
-      <div className="flex-[2]">New friends</div>
+    <div className="w-full px-8">
+      <FloatingNavigation setPage={setPage} page={page} />
+      <div className="mx-auto mt-12 max-w-7xl">
+        {page === "friends" && <FriendsComponent />}
+        {page === "incoming-requests" && <IncomingRequestsComponent />}
+        {page === "add-friends" && <AddFriendsComponent />}
+      </div>
     </div>
   );
 }

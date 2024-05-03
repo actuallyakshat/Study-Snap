@@ -39,33 +39,33 @@ export const NoteDeletionModal = ({
       {deleteNoteModal && (
         <div
           onClick={() => setDeleteNoteModal(false)}
-          className="absolute inset-0 flex items-center justify-center z-[11] popup-overlay"
+          className="popup-overlay absolute inset-0 z-[11] flex items-center justify-center"
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className="popup-content w-[90%] max-w-[30em] md:w-full px-8 py-10 rounded-lg border border-gray-500/40 absolute bg-[#0d1117] shadow-lg shadow-gray-800/20 z-[11] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+            className="popup-content absolute left-1/2 top-1/2 z-[11] w-[90%] max-w-[30em] -translate-x-1/2 -translate-y-1/2 rounded-lg border border-gray-500/40 bg-[#0d1117] px-8 py-10 shadow-lg shadow-gray-800/20 md:w-full"
           >
-            <h1 className="font-bold text-2xl text-center">Delete Note</h1>
-            <p className="text-sm mx-auto font-medium text-gray-100/90 mt-2 text-center">
+            <h1 className="text-center text-2xl font-bold">Delete Note</h1>
+            <p className="mx-auto mt-2 text-center text-sm font-medium text-gray-100/90">
               Are you sure you want to delete this note? This action cannot be
               undone.
             </p>
             {loading ? (
-              <div className="w-full flex items-center justify-center mt-4">
+              <div className="mt-4 flex w-full items-center justify-center">
                 <LoadingSpinner />
               </div>
             ) : (
-              <div className="w-full flex justify-center gap-3 mt-4">
+              <div className="mt-4 flex w-full justify-center gap-3">
                 <button
                   onClick={() => setDeleteNoteModal(false)}
-                  className="border hover:bg-red-700 border-red-600 px-3 py-2 transition-colors rounded-md text-sm"
+                  className="rounded-md border border-red-600 px-3 py-2 text-sm transition-colors hover:bg-red-700"
                 >
                   Cancel
                 </button>
                 <button
                   ref={deleteButtonRef}
                   onClick={deleteNoteHandler}
-                  className="bg-red-600 hover:bg-red-700 transition-colors px-3 py-2 rounded-md text-sm"
+                  className="rounded-md bg-red-600 px-3 py-2 text-sm transition-colors hover:bg-red-700"
                 >
                   Delete Note
                 </button>

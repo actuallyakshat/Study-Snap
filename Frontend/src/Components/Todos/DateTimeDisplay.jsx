@@ -40,10 +40,10 @@ const DateTimeDisplay = () => {
       dayOfMonth === 1 || dayOfMonth === 21 || dayOfMonth === 31
         ? "st"
         : dayOfMonth === 2 || dayOfMonth === 22
-        ? "nd"
-        : dayOfMonth === 3 || dayOfMonth === 23
-        ? "rd"
-        : "th";
+          ? "nd"
+          : dayOfMonth === 3 || dayOfMonth === 23
+            ? "rd"
+            : "th";
     const formattedDay = dayOfMonth + daySuffix;
     const month = months[currentDateTime.getMonth()];
     return `${dayOfWeek}, ${formattedDay} ${month}. `;
@@ -60,9 +60,9 @@ const DateTimeDisplay = () => {
   }, [currentDateTime]);
 
   return (
-    <div className="w-full flex items-center justify-between text-white">
-      <h3 className="font-medium text-xl">{formattedDate}</h3>
-      <h3 className="font-medium text-xl">{formattedTime}</h3>
+    <div className="flex w-full items-center justify-between text-white">
+      <h3 className="text-xl font-medium">{formattedDate}</h3>
+      <h3 className="text-xl font-medium">{formattedTime}</h3>
     </div>
   );
 };

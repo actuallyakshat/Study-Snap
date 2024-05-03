@@ -11,7 +11,7 @@ import { Privacy } from "./Components/Privacy/Privacy";
 
 export const Routes = () => {
   return (
-    <div className="flex flex-1 h-full w-full">
+    <div className="flex h-full w-full flex-1">
       <AppRoutes>
         <Route path="/" element={<HomeLayout />} />
         <Route path="/dashboard/*" element={<Dashboard />} />
