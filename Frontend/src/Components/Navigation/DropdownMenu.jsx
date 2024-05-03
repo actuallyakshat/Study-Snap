@@ -5,11 +5,14 @@ import { Link } from "react-router-dom";
 // import { useAtomValue } from "jotai";
 import { LoadingSpinner } from "../Loading/LoadingSpinner";
 import { useUser } from "@clerk/clerk-react";
+import { useAtomValue } from "jotai";
+import { clientUserAtom } from "../../Utils/Store";
 
 function DropdownMenu() {
   const [isOpen, setIsOpen] = useState(false);
   // const [logoutModal, setLogoutModal] = useState(false);
   const { user } = useUser();
+  const clientUser = useAtomValue(clientUserAtom);
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
@@ -110,13 +113,22 @@ function DropdownMenu() {
               Friends
             </Link>
             <Link
-              to="/dashboard/edit-profile"
+              to={`/dashboard/profile/${clientUser.username}`}
               className="block rounded-md border-t px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200"
               role="menuitem"
               id="menu-item-6"
               onClick={toggleMenu}
             >
               Profile
+            </Link>
+            <Link
+              to="/dashboard/edit-profile"
+              className="block rounded-md border-t px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200"
+              role="menuitem"
+              id="menu-item-7"
+              onClick={toggleMenu}
+            >
+              Settings
             </Link>
           </div>
         </div>

@@ -3,6 +3,7 @@ const CompletedTimer = require("./CompletedTimers");
 const Todo = require("./Todo");
 const Folder = require("./Folder");
 const ProductivityData = require("./ProductivityData");
+const { Agent } = require("http");
 
 const userSchema = new mongoose.Schema({
   email: {
@@ -30,6 +31,14 @@ const userSchema = new mongoose.Schema({
   streak: {
     type: Number,
     default: 0,
+  },
+  age:{
+    type: Number,
+    default: null,
+  },
+  bio:{
+    type: String,
+    default: null,
   },
   todos: [
     {

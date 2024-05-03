@@ -1,23 +1,59 @@
 import React, { useEffect, useState } from "react";
 import { useAtomValue } from "jotai";
 import { clientUserAtom } from "../../Utils/Store";
-import RequestsComponentCard from "./RequestsComponentCard";
+import RequestsComponentCard from "./FriendCard";
+import Leaderboard from "./Leaderboard";
+
 export default function FriendsComponent() {
   const [showSentRequests, setShowSentRequests] = useState(false);
   const user = useAtomValue(clientUserAtom);
   const [outgoingRequests, setOutgoingRequests] = useState([]);
+  const [allFriends, setAllFriends] = useState([]);
+  const [filteredFriends, setFilteredFriends] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     if (!user) return;
     const outgoingreqs = user.friends.filter((friend) => {
       return (
         friend.status === "pending" &&
-        friend.sender._id.toString() === user._id.toString()
+        friend.sender._id?.toString() === user._id.toString()
       );
     });
 
     setOutgoingRequests(outgoingreqs);
+    setAllFriends(
+      user.friends?.filter((friend) => friend.status === "accepted"),
+    );
   }, [user]);
+
+  useEffect(() => {
+    if (searchQuery) {
+      const filteredFriendsArray = allFriends?.filter((friend) => {
+        const isCurrentUserSender =
+          friend.sender._id.toString() === user._id.toString();
+        const friendName = isCurrentUserSender
+          ? friend.receiver.name
+          : friend.sender.name;
+        const includes = friendName
+          .toLowerCase()
+          .includes(searchQuery.toLowerCase());
+        console.log(
+          `Friend name: ${friendName}, Includes search query: ${includes}`,
+        );
+        return includes;
+      });
+      console.log("Filtered friends:", filteredFriendsArray);
+      setFilteredFriends(filteredFriendsArray);
+    } else {
+      console.log("No search query, showing all friends:", allFriends);
+      setFilteredFriends(allFriends);
+    }
+  }, [allFriends, searchQuery, user]);
+
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
 
   if (showSentRequests)
     return (
@@ -26,7 +62,7 @@ export default function FriendsComponent() {
           <h1 className="text-3xl font-bold">Requests Sent</h1>
           <button
             onClick={() => setShowSentRequests(false)}
-            className="rounded-lg px-4 py-2 text-sm font-medium transition-colors hover:bg-white hover:text-black"
+            className="rounded-lg bg-white px-4 py-2 text-sm font-medium text-black transition-colors hover:bg-gray-200"
           >
             Go back
           </button>
@@ -51,20 +87,53 @@ export default function FriendsComponent() {
 
   return (
     <div>
-      <div className="flex w-full items-center justify-between gap-4">
-        <div>
-          <h1 className="text-3xl font-bold">Your Friends</h1>
-          <h4 className="text-gray-300">
-            List of all you friends. You can compare your performance with your
-            friends!
-          </h4>
+      <Leaderboard />
+      <div>
+        <div className="flex w-full items-center justify-between gap-4">
+          <div>
+            <h1 className="text-3xl font-bold">Your Friends</h1>
+            <h4 className="text-gray-300">
+              List of all your friends. You can compare your performance with
+              your friends!
+            </h4>
+          </div>
+          <button
+            onClick={() => setShowSentRequests(true)}
+            className="rounded-lg bg-white px-4 py-2 text-sm font-medium text-black transition-colors hover:bg-gray-200"
+          >
+            Sent Requests
+          </button>
         </div>
-        <button
-          onClick={() => setShowSentRequests(true)}
-          className="rounded-lg px-4 py-2 text-sm font-medium transition-colors hover:bg-white hover:text-black"
-        >
-          Sent Requests
-        </button>
+        <div>
+          <div className="my-5">
+            <input
+              onChange={handleSearchChange}
+              value={searchQuery}
+              type="text"
+              placeholder="Search"
+              className="h-10 w-full max-w-[270px] flex-1 rounded-lg bg-slate-800 px-3 py-2 text-white focus:outline-none"
+            />
+          </div>
+          {allFriends.length == 0 && (
+            <h1 className="text-xl font-bold text-gray-400">
+              You current don&apos; have any friends
+            </h1>
+          )}
+          <div className="my-4 flex flex-wrap justify-around gap-4 sm:justify-start">
+            {allFriends.length > 0 &&
+              (filteredFriends.length > 0 ? (
+                filteredFriends.map((friend) => (
+                  <RequestsComponentCard
+                    key={friend._id}
+                    request={friend}
+                    type={friend.status}
+                  />
+                ))
+              ) : (
+                <h1 className="text-xl font-bold text-gray-400">No matches</h1>
+              ))}
+          </div>
+        </div>
       </div>
     </div>
   );

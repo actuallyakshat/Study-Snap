@@ -19,7 +19,7 @@ export const Hero = ({ scrollToFeatures }) => {
 
   const animationTransition = { duration: 0.5 };
   return (
-    <div className="herobg flex h-full min-h-[calc(100vh-64px)] w-full items-center">
+    <div className="herobg relative flex h-full min-h-[calc(100vh-64px)] w-full items-center">
       <div className="mx-auto flex h-full w-full items-center justify-center px-8 lg:max-w-[75%]">
         <div className="flex w-full flex-col items-center justify-center">
           <motion.h1

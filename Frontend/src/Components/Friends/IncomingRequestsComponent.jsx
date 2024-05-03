@@ -1,7 +1,7 @@
 import { useAtom, useAtomValue } from "jotai";
 import { clientUserAtom } from "../../Utils/Store";
 import { useEffect, useState } from "react";
-import RequestsComponentCard from "./RequestsComponentCard";
+import RequestsComponentCard from "./FriendCard";
 import { getAllFriends } from "../../HandleApi/FriendsApiHandler";
 import { RiLoaderFill } from "react-icons/ri";
 

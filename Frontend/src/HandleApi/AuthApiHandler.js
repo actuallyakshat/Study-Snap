@@ -29,11 +29,13 @@ const getUserDetails = async (user) => {
   }
 };
 
-const setProfileUsername = async (email, username) => {
+const completeProfile = async (email, username, age, bio) => {
   try {
-    const response = await axios.put(`${baseUrl}/set-username`, {
+    const response = await axios.put(`${baseUrl}/complete-profile`, {
       email,
       username,
+      age,
+      bio,
     });
     return response.data;
   } catch (error) {
@@ -61,9 +63,27 @@ const deleteUserAccount = async (user) => {
   }
 };
 
+const getProfileDetails = async (username) => {
+  try {
+    if (!username) {
+      console.error("No Username Provided");
+      return;
+    }
+
+    const response = await axios.get(
+      `${baseUrl}/get-profile-details/${username}`,
+    );
+    return response.data.user;
+  } catch (error) {
+    console.error("Error while getting user details:", error);
+    throw new Error(error);
+  }
+};
+
 export {
   checkIfAuthenticated,
   getUserDetails,
   deleteUserAccount,
-  setProfileUsername,
+  completeProfile,
+  getProfileDetails,
 };

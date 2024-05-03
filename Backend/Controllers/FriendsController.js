@@ -96,7 +96,7 @@ async function cancelRequest(req, res) {
 }
 
 async function acceptRequest(req, res) {
-  const { requestId } = req.params;
+  const { requestId } = req.body;
 
   try {
     const request = await Friendship.findById(requestId);
@@ -121,7 +121,8 @@ async function acceptRequest(req, res) {
 }
 
 async function rejectRequest(req, res) {
-  const { requestId } = req.params;
+  const { requestId } = req.body;
+  
 
   try {
     const request = await Friendship.findById(requestId);

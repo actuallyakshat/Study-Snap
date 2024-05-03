@@ -43,7 +43,9 @@ const cancelRequest = async (requestId) => {
 // Function to accept a friendship request
 const acceptRequest = async (requestId) => {
   try {
-    const response = await axios.put(`${baseUrl}/accept-request/${requestId}`);
+    const response = await axios.put(`${baseUrl}/accept-request`, {
+      requestId: requestId,
+    });
     return response.data;
   } catch (error) {
     console.error("Error accepting friendship request:", error);
@@ -54,7 +56,9 @@ const acceptRequest = async (requestId) => {
 // Function to reject a friendship request
 const rejectRequest = async (requestId) => {
   try {
-    const response = await axios.put(`${baseUrl}/reject-request/${requestId}`);
+    const response = await axios.put(`${baseUrl}/reject-request`, {
+      requestId: requestId,
+    });
     return response.data;
   } catch (error) {
     console.error("Error rejecting friendship request:", error);

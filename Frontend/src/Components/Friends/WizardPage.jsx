@@ -1,17 +1,17 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { setProfileUsername } from "../../HandleApi/AuthApiHandler";
+import { completeProfile } from "../../HandleApi/AuthApiHandler";
 import { useAtom } from "jotai";
 import { clientUserAtom } from "../../Utils/Store";
 
 function WizardPage() {
   const [user, setUser] = useAtom(clientUserAtom);
-  const [username, setUsername] = useState("");
+  const [username, setUsername] = useState(user?.username);
+  const [age, setAge] = useState(user?.age);
+  const [bio, setBio] = useState(user?.bio);
   const [loading, setLoading] = useState(false);
-  const handleInput = (e) => {
-    setUsername(e.target.value);
-  };
 
+  console.log(user);
   const handleFinish = async () => {
     setLoading(true);
     const cleanedUsername = username.trim();
@@ -29,11 +29,21 @@ function WizardPage() {
     } else if (containsSpecialChars) {
       toast.error("Username cannot contain special characters.");
     } else {
-      const response = await setProfileUsername(user.email, cleanedUsername);
+      if (!bio || !age) {
+        toast.error("Please fill all the fields");
+      }
+      const response = await completeProfile(
+        user.email,
+        cleanedUsername,
+        age,
+        bio,
+      );
       if (response.success) {
         setUser((prevUser) => ({
           ...prevUser,
-          username: response.data,
+          username: response.data.username,
+          age: response.data.age,
+          bio: response.data.bio,
         }));
         toast.success("Username set successfully");
       } else {
@@ -45,33 +55,43 @@ function WizardPage() {
 
   return (
     <div className="flex w-full items-center justify-center">
-      <div>
+      <div className="max-w-lg">
         <h1 className="text-center text-3xl font-bold">
           Complete your profile
         </h1>
-        <h4 className="text-gray-300">
-          Set a username so that your friends can find you
+        <h4 className="text-center font-medium text-gray-300">
+          Prepare your profile before heading out in the wild
         </h4>
-        <input
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              e.preventDefault();
-              handleFinish();
-            }
-          }}
-          onChange={(e) => handleInput(e)}
-          className="mt-5 h-10 w-full flex-1 rounded-lg bg-slate-800 px-3 py-2 text-white focus:outline-none"
-          placeholder="Some cool username"
-        />
-        <div className="flex w-full justify-end">
-          <button
-            disabled={loading}
-            onClick={handleFinish}
-            className="mt-4 rounded-lg bg-white px-4 py-1.5 text-sm font-medium text-black transition-all duration-200 hover:opacity-90"
-          >
-            Finish
-          </button>
-        </div>
+        <form onSubmit={(e) => e.preventDefault()}>
+          <input
+            defaultValue={username}
+            onChange={(e) => setUsername(e.target.value)}
+            className="mt-5 h-10 w-full flex-1 rounded-lg bg-slate-800 px-3 py-2 text-white focus:outline-none"
+            placeholder="Username"
+          />
+          <input
+            defaultValue={age}
+            type="number"
+            onChange={(e) => setAge(e.target.value)}
+            className="mt-5 h-10 w-full flex-1 rounded-lg bg-slate-800 px-3 py-2 text-white focus:outline-none"
+            placeholder="Age"
+          />
+          <input
+            defaultValue={bio}
+            onChange={(e) => setBio(e.target.value)}
+            className="mt-5 h-10 w-full flex-1 rounded-lg bg-slate-800 px-3 py-2 text-white focus:outline-none"
+            placeholder="Profile Bio"
+          />
+          <div className="flex w-full justify-end">
+            <button
+              disabled={loading}
+              onClick={handleFinish}
+              className="mt-4 rounded-lg bg-white px-4 py-1.5 text-sm font-medium text-black transition-all duration-200 hover:opacity-90"
+            >
+              Finish
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   );

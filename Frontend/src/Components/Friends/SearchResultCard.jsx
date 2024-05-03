@@ -7,6 +7,7 @@ import {
 } from "../../HandleApi/FriendsApiHandler";
 import { toast } from "react-hot-toast";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 export default function SearchResultCard({ user }) {
   const [currentUser, setCurrentUser] = useAtom(clientUserAtom);
   const [loading, setLoading] = useState(false);
@@ -81,9 +82,12 @@ export default function SearchResultCard({ user }) {
       </div>
       {alreadyExists &&
         (alreadyExists == "accepted" ? (
-          <button className="rounded-lg px-4 py-2 text-sm font-medium transition-colors hover:bg-white hover:text-black">
+          <Link
+            to={`/dashboard/profile/${user.username}`}
+            className="rounded-lg px-4 py-2 text-sm font-medium transition-colors hover:bg-white hover:text-black"
+          >
             View Profile
-          </button>
+          </Link>
         ) : alreadyExists == "incoming" ? (
           <div className="flex items-center gap-3">
             <button className="rounded-lg px-4 py-2 text-sm font-medium transition-colors hover:bg-white hover:text-black">

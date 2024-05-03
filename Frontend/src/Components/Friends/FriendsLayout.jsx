@@ -10,7 +10,8 @@ import IncomingRequestsComponent from "./IncomingRequestsComponent";
 function FriendsLayout() {
   const user = useAtomValue(clientUserAtom);
   const [page, setPage] = useState("friends");
-  if (!user?.username) return <WizardPage user={user} />;
+  if (!user?.username || !user?.bio || !user?.age)
+    return <WizardPage user={user} />;
   return (
     <div className="w-full px-8">
       <FloatingNavigation setPage={setPage} page={page} />

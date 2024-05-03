@@ -40,14 +40,13 @@ import {
 import { CustomTooltip } from "./CustomTooltip";
 import { clientUserAtom } from "../../Utils/Store";
 import { useAtom } from "jotai";
-export const StudyTracker = () => {
-  const [user, setUser] = useAtom(clientUserAtom);
+export const StudyTracker = ({ user }) => {
   const [selectedTab, setSelectedTab] = useState("Weekly");
 
   return (
     <div className="mb-4">
-      <div className="my-4 flex w-full items-center justify-between px-4">
-        <div className="space-x-2">
+      <div className="my-4 flex w-full items-center justify-between">
+        <div className="flex w-full items-center justify-center space-x-2 md:justify-start">
           <button
             className={`rounded-2xl border border-gray-400/50 px-3 py-2 text-sm text-gray-200 transition-colors ${
               selectedTab === "Weekly" ? "bg-gray-700/80" : ""

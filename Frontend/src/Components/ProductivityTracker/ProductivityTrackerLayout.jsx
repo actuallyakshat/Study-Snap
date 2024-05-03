@@ -16,7 +16,7 @@ export const ProductivityTrackerLayout = () => {
         <h1 className="p-4 text-3xl font-bold md:text-5xl">
           Hey {user?.name.split(" ")[0]}, Let&apos;s Keep Going!
         </h1>
-        <StudyTracker />
+        <StudyTracker user={user} setUser={setUser} />
         <div className="flex w-full flex-wrap justify-center gap-3 md:flex-row">
           <LogStudyHours cardStyle={cardStyle} />
           <StreakRecord cardStyle={cardStyle} />

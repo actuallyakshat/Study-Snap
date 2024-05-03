@@ -236,15 +236,19 @@ const deleteAccount = async (req, res) => {
   }
 };
 
-const setUsername = async (req, res) => {
+const completeProfile = async (req, res) => {
   try {
-    console.log("called");
-    const { email, username } = req.body;
+    const { email, username, age, bio } = req.body;
+    if(!email || !username || !age || !bio) {
+      return res.status(400).json({ success: false, error: "Missing fields" });
+    }
     const user = await User.findOne({ email });
     if (user) {
       user.username = username;
+      user.age = age;
+      user.bio = bio;
       await user.save();
-      res.status(200).json({ success: true, data: user.username });
+      res.status(200).json({ success: true, data: user });
     } else if (!user) {
       return res.status(404).json({ success: false, error: "User not found" });
     }
@@ -256,10 +260,62 @@ const setUsername = async (req, res) => {
   }
 };
 
+const getDetailsForProfile = async (req, res) => {
+  try {
+    const { username } = req.params;
+    let user = await User.findOne({ username })
+      .populate({
+        path: "todos",
+        options: { sort: { order: 1 } },
+      })
+      .populate({
+        path: "completedTimers",
+        options: { sort: { _id: -1 } },
+      })
+      .populate({
+        path: "folders",
+        populate: { path: "notes" },
+      })
+      .populate({
+        path: "friends",
+        populate: {
+          path: "sender receiver", // Assuming 'sender' and 'receiver' are fields in the Friendship schema
+          populate: { path: "friends" },
+        },
+      });
+
+    if (!user) {
+      return res.status(404).json({success:false, message: "User not found" });
+    }
+
+    const email = user.email
+
+    const productivityData = await ProductivityData.find({ email });
+
+    const { weeklySummary, monthlySummary, yearlySummary } =
+      await calculateProductivityData(user, productivityData);
+
+    res.status(200).json({
+      user: {
+        ...user.toObject(),
+        productivityData: {
+          Weekly: weeklySummary,
+          Monthly: monthlySummary,
+          Yearly: yearlySummary,
+        },
+      },
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: error.message });
+  }
+}
+
 module.exports = {
   getDetails,
   deleteAccount,
-  setUsername,
+  completeProfile,
+  getDetailsForProfile,
 };
 
 const calculateProductivityData = async (user, productivityData) => {
