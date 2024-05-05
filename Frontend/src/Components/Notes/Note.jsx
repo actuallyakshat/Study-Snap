@@ -16,7 +16,7 @@ export const Note = ({ note, setSelectedNoteId }) => {
 
   return (
     <div>
-      <div className="mx-auto px-6 pb-10 pt-20 md:max-w-[75%]">
+      <div className="mx-auto px-6 py-8 md:max-w-[75%] md:pb-10 md:pt-20">
         <input
           type="text"
           placeholder="Heading"

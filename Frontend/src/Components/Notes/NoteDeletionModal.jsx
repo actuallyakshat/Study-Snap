@@ -39,7 +39,7 @@ export const NoteDeletionModal = ({
       {deleteNoteModal && (
         <div
           onClick={() => setDeleteNoteModal(false)}
-          className="popup-overlay absolute inset-0 z-[11] flex items-center justify-center"
+          className="popup-overlay fixed inset-0 z-[11] flex items-center justify-center"
         >
           <div
             onClick={(e) => e.stopPropagation()}

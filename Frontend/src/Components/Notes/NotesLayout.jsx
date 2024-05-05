@@ -84,7 +84,7 @@ export const NotesLayout = () => {
       <div
         className={`${
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
-        }  bg-spaceBlack absolute left-0 top-0 z-[10] h-full w-screen flex-1 space-y-2 overflow-y-auto border-gray-400/50 px-4 py-6 pt-[3.5em] transition-transform duration-300 sm:w-full sm:max-w-[25em] sm:border-r`}
+        }  fixed left-0 top-0 z-[10] h-full w-screen flex-1 space-y-2 overflow-y-auto border-gray-400/50 bg-spaceBlack px-4 py-6 pt-[3.5em] transition-transform duration-300 sm:w-full sm:max-w-[25em] sm:border-r`}
       >
         <IoMdClose
           onClick={() => setSidebarOpen(false)}

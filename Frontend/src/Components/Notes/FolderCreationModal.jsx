@@ -43,7 +43,7 @@ export const FolderCreationModal = ({ addFolderModal, setAddFolderModal }) => {
         <div
           onClick={() => setAddFolderModal(false)}
           onKeyDown={handleKeyDown}
-          className="popup-overlay absolute top-0 z-[11] h-full w-full backdrop-blur-sm"
+          className="popup-overlay fixed top-0 z-[11] h-full w-full backdrop-blur-sm"
         >
           <div
             onClick={(e) => e.stopPropagation()}

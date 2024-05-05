@@ -67,7 +67,7 @@ export const NoteCreationModal = ({
         <div
           onClick={() => setAddNoteModel(false)}
           onKeyDown={handleKeyDown}
-          className="popup-overlay absolute top-0 z-[11] h-full w-full backdrop-blur-sm"
+          className="popup-overlay fixed top-0 z-[11] h-full w-full backdrop-blur-sm"
         >
           <div
             onClick={(e) => e.stopPropagation()}
@@ -136,7 +136,7 @@ export const NoteCreationModal = ({
                   </button>
                   <button
                     type="submit"
-                    className="bg-primaryPurple hover:bg-primaryPurple/80 rounded-md px-3 py-2 text-sm transition-colors"
+                    className="rounded-md bg-primaryPurple px-3 py-2 text-sm transition-colors hover:bg-primaryPurple/80"
                   >
                     Add Note
                   </button>
