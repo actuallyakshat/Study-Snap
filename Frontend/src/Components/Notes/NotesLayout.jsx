@@ -41,7 +41,7 @@ export const NotesLayout = () => {
     if (searchQuery) {
       const filteredNotesArray = user?.folders?.reduce((acc, folder) => {
         const filteredFolderNotes = folder.notes.filter((note) =>
-          note.title.toLowerCase().includes(searchQuery.toLowerCase()),
+          note?.title.toLowerCase().includes(searchQuery.toLowerCase()),
         );
         return acc.concat(filteredFolderNotes);
       }, []);

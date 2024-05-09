@@ -2,17 +2,20 @@ import { useEffect, useState } from "react";
 import { NoteEditor } from "./NoteEditor";
 
 export const Note = ({ note, setSelectedNoteId }) => {
-  const [title, setTitle] = useState(note.title);
-  const [content, setContent] = useState(note.content);
+  
+  const [title, setTitle] = useState(note?.title);
+  const [content, setContent] = useState(note?.content);
 
   useEffect(() => {
-    setTitle(note.title);
-    setContent(note.content);
+    setTitle(note?.title);
+    setContent(note?.content);
   }, [note]);
 
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
   };
+
+  if(!note) return;
 
   return (
     <div>

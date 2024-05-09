@@ -113,7 +113,7 @@ function DropdownMenu() {
               Friends
             </Link>
             <Link
-              to={`/dashboard/profile/${clientUser.username}`}
+              to={`/dashboard/profile/${clientUser?.username}`}
               className="block rounded-md border-t px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200"
               role="menuitem"
               id="menu-item-6"
