@@ -150,6 +150,7 @@ async function getAllFriends(req, res) {
       populate: {
         path: "sender receiver",
         populate: { path: "friends" },
+        populate: { path: "productivityData" },
       },
     });
 
