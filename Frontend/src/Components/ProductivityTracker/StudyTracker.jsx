@@ -48,7 +48,7 @@ export const StudyTracker = ({ user }) => {
       <div className="my-4 flex w-full items-center justify-between">
         <div className="flex w-full items-center justify-center space-x-2 md:justify-start">
           <button
-            className={`rounded-2xl border border-gray-400/50 px-3 py-2 text-sm text-gray-200 transition-colors ${
+            className={`rounded-2xl border border-gray-400/50 px-3 py-2 text-sm font-semibold text-gray-200 transition-colors ${
               selectedTab === "Weekly" ? "bg-gray-700/80" : ""
             }`}
             onClick={() => setSelectedTab("Weekly")}
@@ -56,7 +56,7 @@ export const StudyTracker = ({ user }) => {
             Weekly
           </button>
           <button
-            className={`rounded-2xl border border-gray-400/50 px-3 py-2 text-sm text-gray-200 transition-colors ${
+            className={`rounded-2xl border border-gray-400/50 px-3 py-2 text-sm font-semibold text-gray-200 transition-colors ${
               selectedTab === "Monthly" ? "bg-gray-700/80" : ""
             }`}
             onClick={() => setSelectedTab("Monthly")}
@@ -64,7 +64,7 @@ export const StudyTracker = ({ user }) => {
             Monthly
           </button>
           <button
-            className={`rounded-2xl border border-gray-400/50 px-3 py-2 text-sm text-gray-200 transition-colors ${
+            className={`rounded-2xl border border-gray-400/50 px-3 py-2 text-sm font-semibold text-gray-200 transition-colors ${
               selectedTab === "Yearly" ? "bg-gray-700/80" : ""
             }`}
             onClick={() => setSelectedTab("Yearly")}

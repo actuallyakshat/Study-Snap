@@ -36,6 +36,7 @@ function App() {
       };
       getDetails().then((response) => {
         setClientUser(response);
+        console.log(response);
       });
       setLoading(false);
     }
@@ -43,7 +44,7 @@ function App() {
 
   return (
     <>
-      <div className="font-Poppins bg-spaceBlack flex h-full min-h-screen w-full flex-col items-center text-white">
+      <div className="flex h-full min-h-screen w-full flex-col items-center bg-spaceBlack font-Poppins text-white">
         <Toaster />
         <ClerkLoading>
           <Loading />

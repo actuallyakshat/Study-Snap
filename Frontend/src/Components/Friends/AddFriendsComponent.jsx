@@ -41,7 +41,7 @@ export default function AddFriendsComponent() {
       <div className="mt-6 flex w-full items-center justify-center">
         <input
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="h-10 w-full max-w-xl flex-1 rounded-lg bg-slate-800 px-3 text-white placeholder:py-2 focus:outline-none"
+          className="h-10 w-full max-w-xl flex-1 rounded-lg bg-slate-800/50 px-3 text-white placeholder:py-2 focus:outline-dashed focus:outline-slate-600"
           placeholder="Search username"
         />
       </div>

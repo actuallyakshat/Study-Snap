@@ -1,7 +1,11 @@
 import { FaGithub } from "react-icons/fa6";
 import { useEffect, useRef } from "react";
+import { clientUserAtom } from "../../Utils/Store";
+import { useAtomValue } from "jotai";
 import { motion, useInView, useAnimation } from "framer-motion";
+import { Link } from "react-router-dom";
 export const Hero = ({ scrollToFeatures }) => {
+  const user = useAtomValue(clientUserAtom);
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
   const mainControls = useAnimation();
@@ -52,12 +56,21 @@ export const Hero = ({ scrollToFeatures }) => {
             transition={{ ...animationTransition, delay: 0.5 }}
             className="mt-10 flex space-x-4 px-4"
           >
-            <button
-              onClick={scrollToFeatures}
-              className="bg-primaryPurple hover:bg-primaryPurple/80 rounded-lg px-6 py-3 text-sm font-medium transition-colors"
-            >
-              Features
-            </button>
+            {user ? (
+              <Link
+                className="rounded-lg bg-primaryPurple px-6 py-3 text-sm font-medium transition-colors hover:bg-primaryPurple/80"
+                to="/dashboard"
+              >
+                Dashboard
+              </Link>
+            ) : (
+              <button
+                onClick={scrollToFeatures}
+                className="rounded-lg bg-primaryPurple px-6 py-3 text-sm font-medium transition-colors hover:bg-primaryPurple/80"
+              >
+                Features
+              </button>
+            )}
 
             <a
               href="https://github.com/actuallyakshat/Study-Snap"

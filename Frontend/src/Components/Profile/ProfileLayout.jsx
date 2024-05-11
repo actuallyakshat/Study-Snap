@@ -5,13 +5,18 @@ import { clientUserAtom } from "../../Utils/Store";
 import { getProfileDetails } from "../../HandleApi/AuthApiHandler";
 import { RiLoaderFill } from "react-icons/ri";
 import { StudyTracker } from "../ProductivityTracker/StudyTracker";
+import { FaFire } from "react-icons/fa";
+import { FaUserFriends } from "react-icons/fa";
+import ViewImageModal from "./ViewImageModal";
+import ProfileCard from "./ProfileCard";
+
 export default function ProfileLayout() {
   const { username } = useParams();
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useAtom(clientUserAtom);
   const [friends, setFriends] = useState([]);
   const [profileDetails, setProfileDetails] = useState(null);
-  console.log(username);
+  const [viewImageModal, setViewImageModal] = useState(false);
   useEffect(() => {
     async function getProfileDetailsHandler() {
       setLoading(true);
@@ -61,22 +66,68 @@ export default function ProfileLayout() {
     );
 
   return (
-    <div className="container mx-auto flex flex-col gap-10 px-3 py-14 md:flex-row">
-      <div className="w-fit">
-        <img
-          src={profileDetails.profilePicture}
-          alt="Profile"
-          className="aspect-square w-72 -translate-y-2 rounded-full object-cover"
-        />
+    <div className="container mx-auto flex flex-col gap-2 px-3 py-14 md:flex-row md:gap-10">
+      <div className="flex w-full items-center justify-center md:w-fit md:items-start">
+        <div>
+          <img
+            src={profileDetails.profilePicture}
+            alt="Profile"
+            onClick={() => setViewImageModal(true)}
+            className="mx-auto aspect-square w-72 -translate-y-2 cursor-pointer rounded-full object-cover"
+          />
+          {viewImageModal && (
+            <ViewImageModal
+              setViewImageModal={setViewImageModal}
+              imageUrl={profileDetails.profilePicture}
+            />
+          )}
+          <div className="mt-3 hidden flex-col gap-3 md:flex">
+            <ProfileCard
+              title={"Friends"}
+              icon={<FaUserFriends />}
+              value={friends?.length}
+            />
+            <ProfileCard
+              title={"Current Streak"}
+              icon={<FaFire />}
+              value={profileDetails?.streak}
+            />
+          </div>
+        </div>
       </div>
       <div className="w-full">
-        <div className="flex items-center gap-3">
-          <h1 className="text-3xl font-bold">{profileDetails.name}, </h1>
-          <h5 className="text-3xl font-bold text-gray-400">21</h5>
+        <div className="flex items-center justify-between">
+          <div>
+            <div className="flex items-center justify-center gap-3 md:justify-start">
+              <h1 className="text-3xl font-bold">{profileDetails.name}, </h1>
+              <h5 className="text-3xl font-bold text-gray-400">
+                {profileDetails?.age}
+              </h5>
+            </div>
+            <div className="flex flex-col items-center justify-center md:items-start">
+              <h3 className="-mt-1 font-semibold text-gray-300">{username}</h3>
+              <p className="mb-2 mt-3 font-sans font-medium">
+                {profileDetails?.bio}
+              </p>
+              {/* <div className="flex flex-col gap-3 md:mt-3 md:flex-row">
+            <ProfileCard
+              title={"Friends"}
+              icon={<FaUserFriends />}
+              value={friends?.length}
+            />
+            <ProfileCard
+              title={"Current Streak"}
+              icon={<FaFire />}
+              value={profileDetails?.streak}
+            />
+          </div> */}
+            </div>
+          </div>
+          <div>
+            <button className="px-4">Edit Profile</button>
+          </div>
         </div>
-        <h3 className="text-lg font-semibold text-gray-300">{username}</h3>
-        <p>Pursuing B.Tech at Bennett University</p>
-        <p>Friends: {friends?.length}</p>
+
         <div className="w-full">
           <StudyTracker user={profileDetails} />
         </div>

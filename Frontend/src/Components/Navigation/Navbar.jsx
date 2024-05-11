@@ -1,13 +1,11 @@
 import { useAtom } from "jotai";
-import { clientUserAtom, sidebarOpenAtom } from "../../Utils/Store";
+import { sidebarOpenAtom } from "../../Utils/Store";
 import DropdownMenu from "./DropdownMenu";
 import { Link } from "react-router-dom";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { useLocation } from "react-router-dom";
-import { FaGoogle } from "react-icons/fa";
-import { SignInButton, useClerk, UserButton } from "@clerk/clerk-react";
-import { useEffect } from "react";
-const loginUrl = import.meta.env.VITE_LOGINURL;
+
+import { useClerk, UserButton } from "@clerk/clerk-react";
 
 export const Navbar = ({ user }) => {
   const { openSignIn } = useClerk();
@@ -24,7 +22,10 @@ export const Navbar = ({ user }) => {
       )}
       <div className="mx-auto flex h-full items-center justify-between md:w-[75%]">
         {location.pathname !== "/dashboard/notes" && (
-          <Link to="/" className="text-xl font-semibold">
+          <Link
+            to={user ? "/dashboard" : "/"}
+            className="text-xl font-semibold"
+          >
             StudySnap
           </Link>
         )}
