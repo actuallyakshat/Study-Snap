@@ -239,7 +239,7 @@ const deleteAccount = async (req, res) => {
 const completeProfile = async (req, res) => {
   try {
     const { email, username, age, bio } = req.body;
-    if(!email || !username || !age || !bio) {
+    if (!email || !username || !age || !bio) {
       return res.status(400).json({ success: false, error: "Missing fields" });
     }
     const user = await User.findOne({ email });
@@ -285,10 +285,12 @@ const getDetailsForProfile = async (req, res) => {
       });
 
     if (!user) {
-      return res.status(404).json({success:false, message: "User not found" });
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found" });
     }
 
-    const email = user.email
+    const email = user.email;
 
     const productivityData = await ProductivityData.find({ email });
 
@@ -309,7 +311,7 @@ const getDetailsForProfile = async (req, res) => {
     console.error(error);
     res.status(500).json({ message: error.message });
   }
-}
+};
 
 module.exports = {
   getDetails,
@@ -335,22 +337,13 @@ const calculateProductivityData = async (user, productivityData) => {
   const previousProductivityData = productivityData.find(
     (entry) => entry.date === previousDateString
   );
+  console.log(previousProductivityData);
   const todaysProductivityData = productivityData.find(
     (entry) => entry.date === todayDateString
   );
+  console.log(todaysProductivityData);
 
   if (!previousProductivityData) {
-    if (!todaysProductivityData) {
-      user.streak = 0;
-      await user.save();
-    }
-  }
-
-  // Streak logic
-  if (todaysProductivityData && previousProductivityData) {
-    user.streak++;
-    await user.save();
-  } else if (!todaysProductivityData && previousProductivityData) {
     user.streak = 0;
     await user.save();
   }

@@ -9,6 +9,7 @@ import { FaFire } from "react-icons/fa";
 import { FaUserFriends } from "react-icons/fa";
 import ViewImageModal from "./ViewImageModal";
 import ProfileCard from "./ProfileCard";
+import EditProfileModal from "./EditProfileModal";
 
 export default function ProfileLayout() {
   const { username } = useParams();
@@ -17,6 +18,7 @@ export default function ProfileLayout() {
   const [friends, setFriends] = useState([]);
   const [profileDetails, setProfileDetails] = useState(null);
   const [viewImageModal, setViewImageModal] = useState(false);
+  const [editProfileModal, setEditProfileModal] = useState(false);
   useEffect(() => {
     async function getProfileDetailsHandler() {
       setLoading(true);
@@ -123,9 +125,14 @@ export default function ProfileLayout() {
           </div> */}
             </div>
           </div>
-          <div>
-            <button className="px-4">Edit Profile</button>
-          </div>
+          {user?.username == username && (
+            <div>
+              <buton onClick={() => setEditProfileModal(true)} className="px-4">
+                Edit Profile
+              </buton>
+              {editProfileModal && <EditProfileModal />}
+            </div>
+          )}
         </div>
 
         <div className="w-full">

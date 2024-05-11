@@ -62,7 +62,7 @@ export default function ToolsMenu({ isOpen, onClose }) {
         <input
           ref={inputRef}
           placeholder="Search"
-          className="bg-slate-800/ mt-4 h-10 w-full max-w-xl flex-1 rounded-lg bg-gray-100 px-3 font-bold text-zinc-700 placeholder:py-2 placeholder:font-medium focus:outline-dashed focus:outline-slate-600"
+          className="bg-slate-800/ mt-4 h-10 w-full max-w-xl flex-1 rounded-lg bg-gray-100 px-3 font-bold text-zinc-700 placeholder:py-2 placeholder:font-medium focus:outline-dashed"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           onKeyDown={(e) => handleKeyPress(e)}

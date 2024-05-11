@@ -67,7 +67,7 @@ export default function SearchResultCard({ user }) {
   };
 
   return (
-    <div className="flex w-full items-center justify-between rounded-lg border border-gray-500 bg-white/10 p-4">
+    <div className="flex w-full items-center justify-between rounded-lg border border-slate-800 bg-slate-700/40 p-4">
       <div className="flex items-center gap-4">
         <img
           src={user.profilePicture}
