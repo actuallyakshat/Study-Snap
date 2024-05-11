@@ -49,6 +49,7 @@ export default function ToolsMenu({ isOpen, onClose }) {
   };
 
   if (!isOpen) return null;
+  if (!user) return null;
 
   return (
     <div
