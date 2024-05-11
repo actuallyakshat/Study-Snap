@@ -127,10 +127,12 @@ export default function ProfileLayout() {
           </div>
           {user?.username == username && (
             <div>
-              <buton onClick={() => setEditProfileModal(true)} className="px-4">
+              <buton onClick={() => setEditProfileModal(true)} className="btn">
                 Edit Profile
               </buton>
-              {editProfileModal && <EditProfileModal />}
+              {editProfileModal && (
+                <EditProfileModal onClose={() => setEditProfileModal(false)} />
+              )}
             </div>
           )}
         </div>

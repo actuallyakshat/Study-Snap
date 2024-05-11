@@ -81,10 +81,7 @@ export default function ToolsMenu({ isOpen, onClose }) {
           ))}
         </div>
         <div className="mt-4 flex items-center justify-center">
-          <button
-            className="rounded-lg bg-white px-4 py-1.5 font-medium text-black"
-            onClick={onClose}
-          >
+          <button className="btn" onClick={onClose}>
             Close
           </button>
         </div>

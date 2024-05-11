@@ -60,10 +60,7 @@ export default function FriendsComponent() {
       <div>
         <div className="flex w-full items-center justify-between">
           <h1 className="text-3xl font-bold">Requests Sent</h1>
-          <button
-            onClick={() => setShowSentRequests(false)}
-            className="rounded-lg bg-white px-4 py-2 text-sm font-medium text-black transition-colors hover:bg-gray-200"
-          >
+          <button onClick={() => setShowSentRequests(false)} className="btn">
             Go back
           </button>
         </div>
@@ -97,10 +94,7 @@ export default function FriendsComponent() {
               your friends!
             </h4>
           </div>
-          <button
-            onClick={() => setShowSentRequests(true)}
-            className="rounded-lg bg-white px-4 py-2 text-sm font-medium text-black transition-colors hover:bg-gray-200"
-          >
+          <button onClick={() => setShowSentRequests(true)} className="btn">
             Sent Requests
           </button>
         </div>

@@ -139,3 +139,11 @@ input.studyhours::placeholder {
   background-color: #0d1117;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250' viewBox='0 0 20 20'%3E%3Cg %3E%3Cpolygon fill='%23151B25' points='20 10 10 0 0 0 20 20'/%3E%3Cpolygon fill='%23151B25' points='0 10 0 20 10 20'/%3E%3C/g%3E%3C/svg%3E");
 }
+
+.btn {
+  @apply cursor-pointer rounded-lg bg-white px-4 py-2 text-sm font-medium text-black transition-all duration-200 hover:opacity-90;
+}
+
+.btn-hover {
+  @apply rounded-lg px-4 py-2 text-sm font-medium transition-colors hover:bg-white hover:text-black;
+}

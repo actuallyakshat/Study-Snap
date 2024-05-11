@@ -87,6 +87,7 @@ export const Inputbar = ({
         <input
           ref={inputRef}
           type="text"
+          placeholder="Add a todo..."
           onKeyDown={(e) => {
             if (e.key === "Enter") {
               e.preventDefault();
@@ -94,7 +95,7 @@ export const Inputbar = ({
             }
           }}
           onChange={(e) => setTask(e.target.value)}
-          className="h-10 flex-1 rounded-lg bg-slate-800 px-3 py-2 text-white focus:outline-none"
+          className="h-10 flex-1 rounded-lg bg-slate-800 px-3 py-2 font-semibold text-white placeholder:font-medium focus:outline-none"
         />
         {loading ? (
           <LoadingSpinner />
@@ -103,7 +104,7 @@ export const Inputbar = ({
             <button
               onClick={submitHandler}
               type="button"
-              className="md:text-md bg-primaryPurple hover:bg-primaryPurple/80 rounded-md px-6 py-2 text-sm font-semibold text-white transition-colors"
+              className="md:text-md rounded-md bg-primaryPurple px-6 py-2 text-sm font-semibold text-white transition-colors hover:bg-primaryPurple/80"
             >
               {updating ? "Update" : "Add"}
             </button>

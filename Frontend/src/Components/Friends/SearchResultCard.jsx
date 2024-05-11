@@ -90,19 +90,15 @@ export default function SearchResultCard({ user }) {
           </Link>
         ) : alreadyExists == "incoming" ? (
           <div className="flex items-center gap-3">
-            <button className="rounded-lg px-4 py-2 text-sm font-medium transition-colors hover:bg-white hover:text-black">
-              Accept
-            </button>
-            <button className="rounded-lg px-4 py-2 text-sm font-medium transition-colors hover:bg-white hover:text-black">
-              Decline
-            </button>
+            <button className="btn-hover">Accept</button>
+            <button className="btn-hover">Decline</button>
           </div>
         ) : (
           alreadyExists == "outgoing" && (
             <button
               disabled={loading}
               onClick={cancelRequestHandler}
-              className="rounded-lg px-4 py-2 text-sm font-medium transition-colors hover:bg-white hover:text-black"
+              className="btn-hover"
             >
               Cancel Request
             </button>
@@ -113,7 +109,7 @@ export default function SearchResultCard({ user }) {
           <button
             disabled={loading}
             onClick={sendFriendRequest}
-            className="rounded-lg px-4 py-2 text-sm font-medium transition-colors hover:bg-white hover:text-black"
+            className="btn-hover"
           >
             Send Request
           </button>
