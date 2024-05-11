@@ -6,6 +6,7 @@ const {
   getAllFriends,
   acceptRequest,
   rejectRequest,
+  removeFriend,
 } = require("../Controllers/FriendsController");
 const router = express.Router();
 
@@ -15,5 +16,6 @@ router.delete("/cancel-request", cancelRequest);
 router.get("/get-all-friends", getAllFriends);
 router.put("/accept-request", acceptRequest);
 router.put("/reject-request", rejectRequest);
+router.put("/remove-friend", removeFriend);
 
 module.exports = router;

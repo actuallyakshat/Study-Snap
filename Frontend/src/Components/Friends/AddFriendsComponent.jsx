@@ -7,19 +7,23 @@ import SearchResultCard from "./SearchResultCard";
 export default function AddFriendsComponent() {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchSearchResults = async () => {
+      setLoading(true);
       try {
         if (!searchQuery) {
           setSearchResults([]);
           return;
         }
+
         const response = await searchFriends(searchQuery);
         setSearchResults(response.data);
       } catch (error) {
         console.error("Error searching friends:", error);
       }
+      setLoading(false);
     };
 
     const debouncedFetchSearchResults = debounce(fetchSearchResults, 300);
@@ -45,16 +49,14 @@ export default function AddFriendsComponent() {
           placeholder="Search username"
         />
       </div>
-      <div className="mx-auto my-8 max-w-2xl">
-        {searchQuery ? (
-          searchResults.length > 0 ? (
-            searchResults.map((result) => (
-              <SearchResultCard user={result} key={result._id} />
-            ))
-          ) : (
-            <h3>No users found!</h3>
-          )
-        ) : null}
+      <div className="mx-auto my-8 max-w-2xl space-y-2">
+        {searchQuery
+          ? searchResults.length > 0
+            ? searchResults.map((result) => (
+                <SearchResultCard user={result} key={result._id} />
+              ))
+            : !loading && <h3>No users found!</h3>
+          : null}
       </div>
     </div>
   );

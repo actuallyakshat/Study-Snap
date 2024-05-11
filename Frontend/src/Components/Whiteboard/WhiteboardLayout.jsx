@@ -37,6 +37,7 @@ export const WhiteboardLayout = () => {
             zenModeEnabled: false,
             viewBackgroundColor: "#0d1117",
             currentItemStrokeColor: "#fff",
+            zoom: 0.75,
           },
           elements:
             JSON.parse(localStorage.getItem("excalidrawElements")) || [],

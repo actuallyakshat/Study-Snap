@@ -144,7 +144,7 @@ input.studyhours::placeholder {
   @apply cursor-pointer rounded-lg bg-white px-4 py-2 text-sm font-medium text-black transition-all duration-200 hover:opacity-90;
 }
 
-.btn-hover {
+.btn {
   @apply rounded-lg px-4 py-2 text-sm font-medium transition-colors hover:bg-white hover:text-black;
 }
 

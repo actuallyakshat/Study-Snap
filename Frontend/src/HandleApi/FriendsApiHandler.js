@@ -66,6 +66,21 @@ const rejectRequest = async (requestId) => {
   }
 };
 
+//Remove a friend
+const removeFriend = async (friendshipId, user1, user2) => {
+  try {
+    const response = await axios.put(`${baseUrl}/remove-friend`, {
+      friendshipId: friendshipId,
+      user1: user1,
+      user2: user2,
+    });
+    return response.data;
+  } catch (e) {
+    console.error(e);
+    return { success: false, message: "Failed to remove friend" };
+  }
+};
+
 // Function to get all friends of a user
 const getAllFriends = async (userId) => {
   try {
@@ -87,4 +102,5 @@ export {
   rejectRequest,
   getAllFriends,
   searchFriends,
+  removeFriend,
 };

@@ -23,7 +23,7 @@ const LeaderboardGraph = ({ data }) => {
           <YAxis />
           <Tooltip cursor={false} content={<CustomTooltip />} />
           <Legend />
-          <Bar dataKey="hours" fill="#fff" />
+          <Bar dataKey="hours" fill="#fff" radius={[15, 15, 0, 0]} />
         </BarChart>
       </ResponsiveContainer>
     </div>

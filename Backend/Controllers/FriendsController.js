@@ -70,6 +70,13 @@ async function cancelRequest(req, res) {
         .json({ success: false, message: "Friendship request not found" });
     }
 
+    if (request.status !== "pending") {
+      return res.status(400).json({
+        success: false,
+        message: "Friendship request already accepted",
+      });
+    }
+
     const [sender, receiver] = await Promise.all([
       User.findById(request.sender._id),
       User.findById(request.receiver._id),
@@ -129,8 +136,17 @@ async function rejectRequest(req, res) {
         .json({ success: false, message: "Friendship request not found" });
     }
 
-    request.status = "rejected";
-    await request.save();
+    await Promise.all([
+      User.updateOne(
+        { _id: request.sender._id },
+        { $pull: { friends: requestId } }
+      ),
+      User.updateOne(
+        { _id: request.receiver._id },
+        { $pull: { friends: requestId } }
+      ),
+      request.deleteOne(),
+    ]);
 
     res.status(200).json({
       success: true,
@@ -142,6 +158,33 @@ async function rejectRequest(req, res) {
   }
 }
 
+async function removeFriend(req, res) {
+  const { friendshipId, user1, user2 } = req.body;
+
+  try {
+    const friendship = await Friendship.findOne({
+      _id: friendshipId,
+    });
+
+    if (!friendship) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Friendship not found" });
+    }
+    await Friendship.deleteOne({ _id: friendshipId });
+    await Promise.all([
+      User.updateOne({ _id: user1 }, { $pull: { friends: friendshipId } }),
+      User.updateOne({ _id: user2 }, { $pull: { friends: friendshipId } }),
+    ]);
+
+    res
+      .status(200)
+      .json({ success: true, message: "Friend removed successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: "Internal server error" });
+  }
+}
 async function getAllFriends(req, res) {
   const { userId } = req.query;
   try {
@@ -172,7 +215,13 @@ async function searchUsers(req, res) {
   try {
     // Search all users in the database
     const users = await User.find({
-      username: { $regex: `^${searchQuery}`, $options: "i" },
+      username: { $regex: searchQuery, $options: "i" },
+    }).populate({
+      path: "friends",
+      populate: {
+        path: "sender receiver", // Assuming 'sender' and 'receiver' are fields in the Friendship schema
+        populate: { path: "friends" },
+      },
     });
 
     res.status(200).json({ success: true, data: users });
@@ -181,6 +230,7 @@ async function searchUsers(req, res) {
     res.status(500).json({ success: false, message: "Internal server error" });
   }
 }
+
 module.exports = {
   sendRequest,
   cancelRequest,
@@ -188,4 +238,5 @@ module.exports = {
   rejectRequest,
   getAllFriends,
   searchUsers,
+  removeFriend,
 };

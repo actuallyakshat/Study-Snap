@@ -34,7 +34,7 @@ export default function EditProfileModal({ onClose }) {
             )}
 
             <button
-              disabled={!changesOccured}
+              // disabled={!changesOccured}
               onClick={handleSaveChanges}
               className="btn"
             >

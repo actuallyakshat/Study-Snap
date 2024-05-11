@@ -197,8 +197,11 @@ const calculateProductivityData = async (user, productivityData) => {
     (entry) => entry.date === todayDateString
   );
 
-  if (!previousProductivityData) {
+  if (!previousProductivityData && !todaysProductivityData) {
     user.streak = 0;
+    await user.save();
+  } else if (!previousProductivityData && todaysProductivityData) {
+    user.streak = 1;
     await user.save();
   }
 

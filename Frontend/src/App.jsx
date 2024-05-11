@@ -36,6 +36,7 @@ function App() {
         return response;
       };
       getDetails().then((response) => {
+        console.log(response);
         setClientUser(response);
       });
       setLoading(false);

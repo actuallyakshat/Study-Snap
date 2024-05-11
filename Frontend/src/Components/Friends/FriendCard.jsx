@@ -8,6 +8,7 @@ import {
   rejectRequest,
 } from "../../HandleApi/FriendsApiHandler";
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
 
 export default function FriendCard({ request, type }) {
   const [currentUser, setCurrentUser] = useAtom(clientUserAtom);
@@ -35,30 +36,51 @@ export default function FriendCard({ request, type }) {
   }, [currentUser, user]);
 
   const cancelRequestHandler = async () => {
-    setLoading(true);
-    const response = await cancelRequest(requestId);
-    if (response.success) {
-      const response = await getAllFriends(currentUser._id);
-      setCurrentUser((prev) => ({ ...prev, friends: response.friends }));
+    try {
+      setLoading(true);
+      toast.loading("Cancelling request", { id: "cancellingRequest" });
+      const response = await cancelRequest(requestId);
+      if (response.success) {
+        const response = await getAllFriends(currentUser._id);
+        setCurrentUser((prev) => ({ ...prev, friends: response.friends }));
+        toast.success("Request cancelled", { id: "cancellingRequest" });
+      }
+    } catch (err) {
+      console.error(err);
+      toast.error(err.message, { id: "cancellingRequest" });
     }
     setLoading(false);
   };
 
   const acceptRequestHandler = async () => {
-    setLoading(true);
-    const response = await acceptRequest(requestId);
-    if (response.success) {
-      const response = await getAllFriends(currentUser._id);
-      setCurrentUser((prev) => ({ ...prev, friends: response.friends }));
+    try {
+      setLoading(true);
+      toast.loading("Accepting request", { id: "acceptingRequest" });
+      const response = await acceptRequest(requestId);
+      if (response.success) {
+        const response = await getAllFriends(currentUser._id);
+        setCurrentUser((prev) => ({ ...prev, friends: response.friends }));
+        toast.success("Request accepted", { id: "acceptingRequest" });
+      }
+    } catch (err) {
+      console.error(err);
+      toast.error(err.message, { id: "acceptingRequest" });
     }
     setLoading(false);
   };
   const rejectRequestHandler = async () => {
-    setLoading(true);
-    const response = await rejectRequest(requestId);
-    if (response.success) {
-      const response = await getAllFriends(currentUser._id);
-      setCurrentUser((prev) => ({ ...prev, friends: response.friends }));
+    try {
+      setLoading(true);
+      toast.loading("Rejecting request", { id: "rejectingRequest" });
+      const response = await rejectRequest(requestId);
+      if (response.success) {
+        const response = await getAllFriends(currentUser._id);
+        setCurrentUser((prev) => ({ ...prev, friends: response.friends }));
+        toast.success("Request rejected", { id: "rejectingRequest" });
+      }
+    } catch (err) {
+      console.error(err);
+      toast.error(err.message, { id: "rejectingRequest" });
     }
     setLoading(false);
   };
@@ -72,18 +94,18 @@ export default function FriendCard({ request, type }) {
       <h1 className="mt-2 text-xl font-bold">{user.name}</h1>
       <h4 className="text-sm text-gray-300">{user.username}</h4>
       {type === "incoming" && (
-        <div className="mt-3 flex w-full items-center justify-evenly gap-3 ">
+        <div className="mt-5 flex w-full items-center justify-evenly gap-3 ">
           <button
             disabled={loading}
             onClick={rejectRequestHandler}
-            className="rounded-lg px-4 py-2 text-sm font-medium transition-colors hover:bg-white hover:text-black"
+            className="btn"
           >
             Decline
           </button>
           <button
             disabled={loading}
             onClick={acceptRequestHandler}
-            className="rounded-lg px-4 py-2 text-sm font-medium transition-colors hover:bg-white hover:text-black"
+            className="btn"
           >
             Accept
           </button>
@@ -93,16 +115,13 @@ export default function FriendCard({ request, type }) {
         <button
           disabled={loading}
           onClick={cancelRequestHandler}
-          className="mt-4 rounded-lg px-4 py-2 text-sm font-medium transition-colors hover:bg-white hover:text-black"
+          className="btn mt-4"
         >
           Cancel Request
         </button>
       )}
       {type === "accepted" && (
-        <Link
-          to={`/dashboard/profile/${user.username}`}
-          className="mt-4 rounded-lg bg-white px-4 py-2 text-sm font-medium text-black transition-colors hover:bg-gray-200"
-        >
+        <Link to={`/dashboard/profile/${user.username}`} className="btn mt-4">
           View Profile
         </Link>
       )}

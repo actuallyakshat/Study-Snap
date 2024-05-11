@@ -1,14 +1,18 @@
 import { useAtom } from "jotai";
 import { clientUserAtom } from "../../Utils/Store";
 import {
+  acceptRequest,
   cancelRequest,
   getAllFriends,
+  rejectRequest,
   sendRequest,
 } from "../../HandleApi/FriendsApiHandler";
 import { toast } from "react-hot-toast";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { findCommonFriendshipId } from "../../Utils/Functions";
 export default function SearchResultCard({ user }) {
+  const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useAtom(clientUserAtom);
   const [loading, setLoading] = useState(false);
   const [alreadyExists, setAlreadyExists] = useState(null);
@@ -41,27 +45,75 @@ export default function SearchResultCard({ user }) {
 
   const sendFriendRequest = async () => {
     setLoading(true);
+    toast.loading("Sending request", { id: "sendingRequest" });
     const response = await sendRequest(currentUser._id, user._id);
     if (response.success) {
       const response = await getAllFriends(currentUser._id);
       setCurrentUser((prev) => ({ ...prev, friends: response.friends }));
-      toast.success("Request sent");
+      toast.success("Request sent", { id: "sendingRequest" });
     } else {
       toast.error(response.message);
+      navigate(0);
     }
     setLoading(false);
   };
 
   const cancelRequestHandler = async () => {
     setLoading(true);
+    toast.loading("Cancelling request", { id: "cancellingRequest" });
     const response = await cancelRequest(requestId);
     if (response.success) {
       setAlreadyExists(null);
       const response = await getAllFriends(currentUser._id);
       setCurrentUser((prev) => ({ ...prev, friends: response.friends }));
-      toast.success("Request cancelled");
+      toast.success("Request cancelled", { id: "cancellingRequest" });
     } else {
       toast.error(response.message);
+      navigate(0);
+    }
+    setLoading(false);
+  };
+
+  const acceptHandler = async () => {
+    try {
+      setLoading(true);
+      console.log(user.friends, currentUser.friends);
+      toast.loading("Accepting request", { id: "acceptingRequest" });
+      const friendshipId = findCommonFriendshipId(
+        user.friends,
+        currentUser.friends,
+      );
+      console.log(friendshipId);
+      const response = await acceptRequest(friendshipId);
+      if (response.success) {
+        const response = await getAllFriends(currentUser._id);
+        setCurrentUser((prev) => ({ ...prev, friends: response.friends }));
+        toast.success("Request accepted", { id: "acceptingRequest" });
+      }
+    } catch (e) {
+      toast.error(e.message);
+      navigate(0);
+    }
+    setLoading(false);
+  };
+
+  const declineHandler = async () => {
+    try {
+      setLoading(true);
+      toast.loading("Declining request", { id: "decliningRequest" });
+      const friendshipId = findCommonFriendshipId(
+        user.friends,
+        currentUser.friends,
+      );
+      console.log(friendshipId);
+      const response = await rejectRequest(friendshipId);
+      if (response.success) {
+        setAlreadyExists(null);
+        toast.success("Request declined", { id: "decliningRequest" });
+      }
+    } catch (e) {
+      toast.error(e.message);
+      navigate(0);
     }
     setLoading(false);
   };
@@ -82,23 +134,24 @@ export default function SearchResultCard({ user }) {
       </div>
       {alreadyExists &&
         (alreadyExists == "accepted" ? (
-          <Link
-            to={`/dashboard/profile/${user.username}`}
-            className="rounded-lg px-4 py-2 text-sm font-medium transition-colors hover:bg-white hover:text-black"
-          >
+          <Link to={`/dashboard/profile/${user.username}`} className="btn">
             View Profile
           </Link>
         ) : alreadyExists == "incoming" ? (
           <div className="flex items-center gap-3">
-            <button className="btn-hover">Accept</button>
-            <button className="btn-hover">Decline</button>
+            <button className="btn" onClick={acceptHandler}>
+              Accept
+            </button>
+            <button className="btn" onClick={declineHandler}>
+              Decline
+            </button>
           </div>
         ) : (
           alreadyExists == "outgoing" && (
             <button
               disabled={loading}
               onClick={cancelRequestHandler}
-              className="btn-hover"
+              className="btn"
             >
               Cancel Request
             </button>
@@ -109,7 +162,7 @@ export default function SearchResultCard({ user }) {
           <button
             disabled={loading}
             onClick={sendFriendRequest}
-            className="btn-hover"
+            className="btn"
           >
             Send Request
           </button>
