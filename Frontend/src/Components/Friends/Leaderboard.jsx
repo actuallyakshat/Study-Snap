@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useAtom } from "jotai";
 import { clientUserAtom } from "../../Utils/Store";
+import {
+  getTotalHoursStudiedThisMonthByUser,
+  sumHours,
+} from "../../Utils/Functions";
+import LeaderboardGraph from "./LeaderboardGraph";
 
 export default function Leaderboard() {
   const [user, setUser] = useAtom(clientUserAtom);
   const [friends, setFriends] = useState([]);
+  const [leaderboardData, setLeaderBoardData] = useState([]);
 
   useEffect(() => {
     if (user) {
@@ -19,20 +25,28 @@ export default function Leaderboard() {
         return acc;
       }, []);
       setFriends(userFriends);
-      console.log(userFriends);
     }
   }, [user]);
+
+  useEffect(() => {
+    const usersMonthlyHoursStudied = sumHours(
+      user?.name,
+      user?.productivityData?.Monthly,
+    );
+    const result = getTotalHoursStudiedThisMonthByUser(friends);
+    result.push(usersMonthlyHoursStudied);
+    console.log("setting", result);
+    setLeaderBoardData(result);
+  }, [user, friends]);
 
   return (
     <div>
       <h1 className="text-3xl font-bold">Leaderboard</h1>
       <h4 className="text-gray-300">
-        Compete with your friends and top the studied hours leaderboard!
+        Compete with your friends and top the monthly hours studied leaderboard!
       </h4>
-      <div className="h-64">
-        {friends.map((friend) => (
-          <div key={friend._id}>{friend.name}</div>
-        ))}
+      <div>
+        <LeaderboardGraph data={leaderboardData} />
       </div>
     </div>
   );

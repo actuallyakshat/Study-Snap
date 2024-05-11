@@ -38,15 +38,10 @@ export default function FriendsComponent() {
         const includes = friendName
           .toLowerCase()
           .includes(searchQuery.toLowerCase());
-        console.log(
-          `Friend name: ${friendName}, Includes search query: ${includes}`,
-        );
         return includes;
       });
-      console.log("Filtered friends:", filteredFriendsArray);
       setFilteredFriends(filteredFriendsArray);
     } else {
-      console.log("No search query, showing all friends:", allFriends);
       setFilteredFriends(allFriends);
     }
   }, [allFriends, searchQuery, user]);
@@ -105,7 +100,7 @@ export default function FriendsComponent() {
               value={searchQuery}
               type="text"
               placeholder="Search"
-              className="h-10 w-full max-w-[270px] flex-1 rounded-lg bg-slate-800 px-3 py-2 text-white focus:outline-none"
+              className="h-10 w-full max-w-[270px] flex-1 rounded-lg bg-slate-800 px-3 py-2 font-semibold text-white placeholder:font-bold focus:outline-none"
             />
           </div>
           {allFriends.length == 0 && (

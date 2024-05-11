@@ -122,7 +122,6 @@ async function acceptRequest(req, res) {
 
 async function rejectRequest(req, res) {
   const { requestId } = req.body;
-  
 
   try {
     const request = await Friendship.findById(requestId);
@@ -148,7 +147,6 @@ async function rejectRequest(req, res) {
 
 async function getAllFriends(req, res) {
   const { userId } = req.query;
-  console.log("userid to get all friends", userId);
   try {
     const user = await User.findById(userId).populate({
       path: "friends",

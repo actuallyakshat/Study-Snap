@@ -21,8 +21,9 @@ const getDetails = async (req, res) => {
       .populate({
         path: "friends",
         populate: {
-          path: "sender receiver", // Assuming 'sender' and 'receiver' are fields in the Friendship schema
+          path: "sender receiver",
           populate: { path: "friends" },
+          populate: { path: "productivityData" },
         },
       });
 

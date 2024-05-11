@@ -147,3 +147,7 @@ input.studyhours::placeholder {
 .btn-hover {
   @apply rounded-lg px-4 py-2 text-sm font-medium transition-colors hover:bg-white hover:text-black;
 }
+
+.input {
+  @apply w-full;
+}
