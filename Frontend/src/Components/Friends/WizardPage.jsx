@@ -10,8 +10,6 @@ function WizardPage() {
   const [age, setAge] = useState(user?.age);
   const [bio, setBio] = useState(user?.bio);
   const [loading, setLoading] = useState(false);
-
-  console.log(user);
   const handleFinish = async () => {
     setLoading(true);
     const cleanedUsername = username.trim();

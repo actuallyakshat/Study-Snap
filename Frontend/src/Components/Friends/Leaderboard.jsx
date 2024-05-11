@@ -35,7 +35,6 @@ export default function Leaderboard() {
     );
     const result = getTotalHoursStudiedThisMonthByUser(friends);
     result.push(usersMonthlyHoursStudied);
-    console.log("setting", result);
     setLeaderBoardData(result);
   }, [user, friends]);
 

@@ -41,7 +41,6 @@ export default function ToolsMenu({ isOpen, onClose }) {
 
   const handleKeyPress = (e) => {
     if (e.key == "Enter" && filteredTools.length > 0) {
-      console.log("pressed");
       navigate(filteredTools[0].href);
       //   window.location.href = filteredTools[0].href;
       onClose();

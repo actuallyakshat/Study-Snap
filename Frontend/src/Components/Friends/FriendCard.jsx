@@ -49,7 +49,6 @@ export default function FriendCard({ request, type }) {
     const response = await acceptRequest(requestId);
     if (response.success) {
       const response = await getAllFriends(currentUser._id);
-      console.log(response);
       setCurrentUser((prev) => ({ ...prev, friends: response.friends }));
     }
     setLoading(false);

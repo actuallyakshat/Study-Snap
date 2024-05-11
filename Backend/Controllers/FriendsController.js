@@ -64,9 +64,6 @@ async function cancelRequest(req, res) {
 
   try {
     const request = await Friendship.findById(requestId);
-    console.log(requestId);
-    console.log(request);
-
     if (!request) {
       return res
         .status(404)

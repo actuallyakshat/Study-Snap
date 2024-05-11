@@ -27,7 +27,7 @@ export default function ProfileLayout() {
         setProfileDetails(response);
         setLoading(false);
       } catch (err) {
-        console.log(err);
+        console.error(err);
       } finally {
         setLoading(false);
       }
@@ -48,7 +48,6 @@ export default function ProfileLayout() {
         return acc;
       }, []);
       setFriends(userFriends);
-      console.log(userFriends);
     }
   }, [user]);
 
