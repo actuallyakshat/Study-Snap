@@ -41,7 +41,7 @@ function FriendsLayout() {
   if (!user?.username || !user?.bio || !user?.age)
     return <WizardPage user={user} />;
   return (
-    <div className="w-full px-8">
+    <div className="w-full px-8 pb-8 pt-3">
       <FloatingNavigation setPage={setPage} page={page} />
       <div className="mx-auto mt-12 max-w-7xl">
         {page === "friends" && <FriendsComponent />}
