@@ -10,11 +10,13 @@ import { CloseSidebarOverlay } from "./CloseSidebarOverlay";
 import { NoteCreationModal } from "./NoteCreationModal";
 import { FolderCreationModal } from "./FolderCreationModal";
 import { FolderDeletionModal } from "./FolderDeletionModal";
+import { AnimatePresence, Reorder } from "framer-motion";
+import { debounce } from "lodash";
 
 export const NotesLayout = () => {
-  const [user] = useAtom(clientUserAtom);
+  const [user, setUser] = useAtom(clientUserAtom);
   const [searchQuery, setSearchQuery] = useState("");
-  const [folders, setFolders] = useState(null);
+  const [folders, setFolders] = useState(user?.folders || []);
   const [selectedNoteId, setSelectedNoteId] = useState(null);
   const [selectedFolderId, setSelectedFolerId] = useState(null);
   const [filteredNotes, setFilteredNotes] = useState(null);
@@ -22,6 +24,43 @@ export const NotesLayout = () => {
   const [addFolderModal, setAddFolderModal] = useState(false);
   const [deleteFolderModal, setDeleteFolderModal] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useAtom(sidebarOpenAtom);
+  const [reorderFlag, setReorderFlag] = useState(false);
+  const debounceTime = 1000;
+
+  const handleReorder = (newOrder) => {
+    setReorderFlag(true);
+    setFolders(newOrder);
+    console.log(folders);
+    setUser((prevUser) => ({
+      ...prevUser,
+      folders: newOrder,
+    }));
+  };
+  const reorderHandler = async (folders) => {
+    // await reorderTodos(user, folders);
+    console.log("saving to database");
+  };
+
+  const updateOrderWithDebounce = debounce(() => {
+    if (reorderFlag) {
+      reorderHandler(folders);
+      setReorderFlag(false);
+    }
+  }, debounceTime);
+
+  useEffect(() => {
+    let timeoutId;
+    const timeoutFunction = () => {
+      timeoutId = setTimeout(() => {
+        updateOrderWithDebounce();
+      }, debounceTime);
+    };
+    timeoutFunction();
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, [folders, updateOrderWithDebounce]);
 
   const handleNoteSelect = (noteId) => {
     setSelectedNoteId(noteId);
@@ -129,7 +168,7 @@ export const NotesLayout = () => {
         )}
         {searchQuery && filteredNotes && (
           <div className="space-y-2 pt-4">
-            {filteredNotes.map((note) => {
+            {filteredNotes?.map((note) => {
               return (
                 <NoteCard
                   key={note._id}
@@ -143,7 +182,31 @@ export const NotesLayout = () => {
         )}
 
         {!searchQuery && (
-          <div className="space-y-2 pt-3">
+          <AnimatePresence>
+            <Reorder.Group
+              as="ul"
+              axis="y"
+              values={folders}
+              onReorder={handleReorder}
+            >
+              <div className="mx-auto w-full space-y-3">
+                {folders?.map((folder) => (
+                  <FolderCard
+                    key={folder._id}
+                    folder={folder}
+                    isSelected={false}
+                    // onSelect={() => {}}
+                    onNoteSelect={handleNoteSelect}
+                    selectedNoteId={selectedNoteId}
+                    setDeleteFolderModal={setDeleteFolderModal}
+                    setSelectedFolderId={setSelectedFolerId}
+                  />
+                ))}
+              </div>
+            </Reorder.Group>
+          </AnimatePresence>
+        )}
+        {/* <div className="space-y-2 pt-3">
             {folders?.map((folder) => (
               <div key={folder._id}>
                 <FolderCard
@@ -156,10 +219,10 @@ export const NotesLayout = () => {
                   setDeleteFolderModal={setDeleteFolderModal}
                   setSelectedFolderId={setSelectedFolerId}
                 />
-              </div>
-            ))}
-            {/* Render uncategorized notes */}
-            {user?.folders &&
+              </div> */}
+
+        {/* Render uncategorized notes */}
+        {/* {user?.folders &&
               user?.folders
                 .find((folder) => folder.name === "unorganized")
                 ?.notes?.map((note) => (
@@ -169,10 +232,9 @@ export const NotesLayout = () => {
                     isSelected={selectedNoteId === note._id}
                     onSelect={() => handleNoteSelect(note._id)}
                   />
-                ))}
-          </div>
-        )}
+                ))} */}
       </div>
+
       <div className="h-full">
         {!selectedNoteId && (
           <div className="flex h-full w-full items-center justify-center text-4xl font-bold">

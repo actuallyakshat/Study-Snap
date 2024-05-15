@@ -4,12 +4,17 @@ import { clientUserAtom } from "../../Utils/Store";
 import { addFolder } from "../../HandleApi/NotesApiHandler";
 import { useEffect, useState } from "react";
 import { LoadingSpinner } from "../Loading/LoadingSpinner";
+import toast from "react-hot-toast";
 export const FolderCreationModal = ({ addFolderModal, setAddFolderModal }) => {
   const [user, setUser] = useAtom(clientUserAtom);
   const [loading, setLoading] = useState(false);
   const { register, handleSubmit, reset } = useForm();
   const onSubmit = async (data) => {
     setLoading(true);
+    if (!data.title) {
+      toast.error("Please fill all the fields");
+      return;
+    }
     const response = await addFolder(data.title, user.email);
     if (response.success) {
       const updatedUser = {

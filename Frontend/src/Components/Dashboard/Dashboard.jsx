@@ -13,6 +13,7 @@ import Loading from "../Loading/Loading";
 import { WhiteboardLayout } from "../Whiteboard/WhiteboardLayout";
 import FriendsLayout from "../Friends/FriendsLayout";
 import ProfileLayout from "../Profile/ProfileLayout";
+import StudyRoomLayout from "../StudyRoom/StudyRoomLayout";
 
 export const Dashboard = () => {
   const { user } = useUser();
@@ -38,6 +39,8 @@ export const Dashboard = () => {
             <Route path="/timer" element={<TimerLayout />} />
             <Route path="/whiteboard" element={<WhiteboardLayout />} />
             <Route path="/friends" element={<FriendsLayout />} />
+            <Route path="/study-room" element={<StudyRoomLayout />} />
+            <Route path="/study-room/:roomCode" element={<StudyRoomLayout />} />
             <Route path="/edit-profile" element={<AccountSettings />} />
             <Route path="/profile/:username" element={<ProfileLayout />} />
             <Route path="/*" element={<Navigate to="/not-found" replace />} />

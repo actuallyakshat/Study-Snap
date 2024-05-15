@@ -25,6 +25,10 @@ const getDetails = async (req, res) => {
           populate: { path: "friends" },
           populate: { path: "productivityData" },
         },
+      })
+      .populate({
+        path: "studyRoom",
+        populate: { path: "members" },
       });
 
     if (!user) {

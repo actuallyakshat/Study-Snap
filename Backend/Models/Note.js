@@ -17,6 +17,10 @@ const noteSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Folder",
   },
+  order: {
+    type: Number,
+    // required: true,
+  },
 });
 
 const Note = mongoose.model("Note", noteSchema);

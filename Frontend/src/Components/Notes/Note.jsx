@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { NoteEditor } from "./NoteEditor";
 
 export const Note = ({ note, setSelectedNoteId }) => {
-  
   const [title, setTitle] = useState(note?.title);
   const [content, setContent] = useState(note?.content);
 
@@ -15,7 +14,7 @@ export const Note = ({ note, setSelectedNoteId }) => {
     setTitle(event.target.value);
   };
 
-  if(!note) return;
+  if (!note) return;
 
   return (
     <div>

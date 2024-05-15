@@ -4,6 +4,7 @@ import { clientUserAtom } from "../../Utils/Store";
 import { addNote } from "../../HandleApi/NotesApiHandler";
 import { useEffect, useState } from "react";
 import { LoadingSpinner } from "../Loading/LoadingSpinner";
+import toast from "react-hot-toast";
 
 export const NoteCreationModal = ({
   setSelectedNoteId,
@@ -28,6 +29,10 @@ export const NoteCreationModal = ({
     }
   }, [addNoteModel]);
   const onSubmit = async (data) => {
+    if (!data.title || !data.folder) {
+      toast.error("Please fill all the fields");
+      return;
+    }
     setLoading(true);
     const response = await addNote(
       data.title,

@@ -18,8 +18,9 @@ export default function ToolsMenu({ isOpen, onClose }) {
     { id: 4, title: "Whiteboard", href: "/dashboard/whiteboard" },
     { id: 5, title: "Pomodoro Timer", href: "/dashboard/timer" },
     { id: 6, title: "Friends", href: "/dashboard/friends" },
-    { id: 7, title: "Profile", href: "/dashboard/profile/" + user?.username },
-    { id: 8, title: "Settings", href: "/dashboard/edit-profile" },
+    { id: 7, title: "Study Room", href: "/dashboard/study-room" },
+    { id: 8, title: "Profile", href: "/dashboard/profile/" + user?.username },
+    { id: 9, title: "Settings", href: "/dashboard/edit-profile" },
   ];
 
   useEffect(() => {
@@ -42,7 +43,6 @@ export default function ToolsMenu({ isOpen, onClose }) {
   const handleKeyPress = (e) => {
     if (e.key == "Enter" && filteredTools.length > 0) {
       navigate(filteredTools[0].href);
-      //   window.location.href = filteredTools[0].href;
       onClose();
     }
   };
@@ -63,7 +63,7 @@ export default function ToolsMenu({ isOpen, onClose }) {
           ref={inputRef}
           placeholder="Search"
           className="bg-slate-800/ mt-4 h-10 w-full max-w-xl flex-1 rounded-lg bg-gray-100 px-3 font-bold text-zinc-700 placeholder:py-2 placeholder:font-medium focus:outline-dashed"
-          value={searchQuery}
+          defaultValue={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           onKeyDown={(e) => handleKeyPress(e)}
         />

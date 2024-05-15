@@ -64,7 +64,7 @@ export const Todo = ({
           <div className="flex h-full w-full cursor-pointer items-center justify-between">
             <div
               onClick={handleCheckboxChange}
-              className="ml-0 flex h-full flex-1 items-center space-x-2 pr-1"
+              className="ml-1 flex h-full flex-1 items-center space-x-2 pr-1"
             >
               <CustomCheckbox
                 checked={completed}

@@ -117,10 +117,28 @@ const deleteFolder = async (req, res) => {
   }
 };
 
+const reorderFolders = async (req, res) => {
+  try {
+    const newOrder = req.body.newOrder;
+    await Promise.all(
+      newOrder.map(async (folderId, index) => {
+        await Note.updateOne({ _id: folderId }, { $set: { order: index } });
+      })
+    );
+    res
+      .status(200)
+      .json({ success: true, message: "Folders reordered successfully" });
+  } catch (err) {
+    console.error("Error reordering folders:", err);
+    res.status(500).json({ success: false, message: "Internal server error" });
+  }
+};
+
 module.exports = {
   addNote,
   deleteNote,
   addFolder,
   deleteFolder,
   saveNoteContent,
+  reorderFolders,
 };

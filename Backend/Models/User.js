@@ -32,11 +32,11 @@ const userSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
-  age:{
+  age: {
     type: Number,
     default: null,
   },
-  bio:{
+  bio: {
     type: String,
     default: null,
   },
@@ -67,6 +67,10 @@ const userSchema = new mongoose.Schema({
       ref: "Friendship",
     },
   ],
+  studyRoom: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "StudyRoom",
+  },
 });
 
 userSchema.pre("save", async function (next) {

@@ -149,5 +149,9 @@ input.studyhours::placeholder {
 }
 
 .input {
-  @apply w-full;
+  @apply h-10 w-full max-w-xl flex-1 rounded-lg bg-slate-800/50 px-3 text-white placeholder:py-2 focus:outline-dashed focus:outline-slate-600;
+}
+
+.input-form {
+  @apply h-10 w-full max-w-xl flex-1 rounded-lg px-3 placeholder:py-2 focus:outline focus:outline-slate-600;
 }
