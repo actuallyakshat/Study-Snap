@@ -69,6 +69,7 @@ export const Todo = ({
               <CustomCheckbox
                 checked={completed}
                 onChange={handleCheckboxChange}
+                size={"lg"}
               />
               <span
                 className={`${completed ? "line-through" : ""} py-3 text-[17px] font-medium`}

@@ -1,10 +1,12 @@
-const CustomCheckbox = ({ checked, onChange }) => {
+const CustomCheckbox = ({ checked, onChange, size }) => {
+  const checkboxSize = size == "lg" ? "15px" : "12px";
+  const checkSize = size == "lg" ? "14px" : "12px";
   return (
     <div
       onClick={onChange}
       style={{
-        width: "15px",
-        height: "15px",
+        width: checkboxSize,
+        height: checkboxSize,
         borderRadius: "4px",
         backgroundColor: checked ? "#7f007f" : "#d8d8d8",
         cursor: "pointer",
@@ -17,8 +19,8 @@ const CustomCheckbox = ({ checked, onChange }) => {
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
-          width="14"
-          height="14"
+          width={checkSize}
+          height={checkSize}
           style={{ fill: "#fff" }}
         >
           <path d="M0 0h24v24H0V0z" fill="none" />
